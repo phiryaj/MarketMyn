@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Promotions | MakertMyn Seller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #888;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal</p>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span style="font-weight:700;margin-right:15px;" id="storeName">Seller</span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-promotions.html" class="nav-link active"><i class="fas fa-bullhorn"></i>
+                            Promotions</a>
+                        <a href="seller-messages.html" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                        <a href="seller-returns.html" class="nav-link"><i class="fas fa-undo"></i> Returns</a>
+                        <a href="seller-bulk.html" class="nav-link"><i class="fas fa-file-csv"></i> Bulk Tools</a>
+                        <a href="seller-staff.html" class="nav-link"><i class="fas fa-users-cog"></i> Staff</a>
+                        <a href="seller-analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-support.html" class="nav-link"><i class="fas fa-headset"></i> Support</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Settings</a>
+                    </nav>
+                </aside>
+                <main>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h2 style="margin:0;">Promotions & Coupons</h2>
+                        <button class="btn-sm"
+                            style="background:var(--primary-color); color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer;"
+                            onclick="openCreateModal()">+ Create Promotion</button>
+                    </div>
+                    <div class="panel">
+                        <table id="promosTable">
+                            <thead>
+                                <tr>
+                                    <th>Banner</th>
+                                    <th>Title</th>
+                                    <th>Discount</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" style="text-align:center; padding:30px; color:#999;">Loading
+                                        promotions...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Promotion Modal -->
+    <div id="promoModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:20px;">
+        <div
+            style="background:white; padding:25px; border-radius:12px; width:600px; max-width:100%; max-height:90vh; overflow-y:auto;">
+            <h3 style="margin-top:0;">Create New Promotion</h3>
+
+            <div style="display:grid; gap:15px;">
+                <div>
+                    <label style="font-weight:700; font-size:13px;">Campaign Title</label>
+                    <input type="text" id="pTitle" placeholder="e.g. Summer Sale"
+                        style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                </div>
+
+                <div>
+                    <label style="font-weight:700; font-size:13px;">Banner Image URL</label>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="pBanner" placeholder="Upload or paste URL"
+                            style="flex:1; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                        <input type="file" id="pBannerFile" style="display:none;" onchange="uploadBanner()">
+                        <button onclick="document.getElementById('pBannerFile').click()"
+                            style="padding:10px; border:1px solid #ddd; background:#f8f9fa; border-radius:6px; cursor:pointer;"><i
+                                class="fas fa-upload"></i></button>
+                    </div>
+                    <small>Recommended size: 800x200px (Feature Banner)</small>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div>
+                        <label style="font-weight:700; font-size:13px;">Discount Type</label>
+                        <select id="pType" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                            <option value="percentage">Percentage (%)</option>
+                            <option value="fixed">Fixed Amount (R)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-weight:700; font-size:13px;">Value</label>
+                        <input type="number" id="pValue" placeholder="20"
+                            style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div>
+                        <label style="font-weight:700; font-size:13px;">Start Date</label>
+                        <input type="date" id="pStart"
+                            style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                    </div>
+                    <div>
+                        <label style="font-weight:700; font-size:13px;">End Date</label>
+                        <input type="date" id="pEnd"
+                            style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                    </div>
+                </div>
+
+                <!-- Product Selection could go here, but keeping it simple for now (Store-wide or specific handled later) -->
+                <div>
+                    <p style="font-size:12px; color:#666;">* Currently applies to selected products. (Feature to select
+                        products coming in next update)</p>
+                </div>
+
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button onclick="closeModal()"
+                    style="padding:10px 20px; border:1px solid #ddd; background:white; border-radius:6px; cursor:pointer;">Cancel</button>
+                <button onclick="createPromotion()"
+                    style="padding:10px 20px; border:none; background:var(--primary-color); color:white; border-radius:6px; cursor:pointer;">Launch
+                    Campaign</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- AUTH ---
+        function getToken() { return localStorage.getItem('sellerToken'); }
+        if (!getToken()) window.location.href = 'seller-auth.html';
+        const session = JSON.parse(localStorage.getItem('sellerInfo'));
+        if (session && session.storeName) document.getElementById('storeName').textContent = session.storeName;
+        function logout() { localStorage.removeItem('sellerToken'); localStorage.removeItem('sellerInfo'); window.location.href = 'seller-auth.html'; }
+
+        // --- UPLOAD ---
+        async function uploadBanner() {
+            const fileInput = document.getElementById('pBannerFile');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const button = fileInput.nextElementSibling;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    document.getElementById('pBanner').value = data.imageUrl;
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                } else {
+                    alert('Upload failed');
+                    button.innerHTML = '<i class="fas fa-upload"></i>';
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        // --- CRUD ---
+        async function fetchPromotions() {
+            try {
+                const token = getToken();
+                const res = await fetch('/api/promotions/seller', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                renderPromotions(data);
+            } catch (err) { console.error(err); }
+        }
+
+        function renderPromotions(promos) {
+            const tbody = document.querySelector('#promosTable tbody');
+            if (promos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:#999;">No active promotions.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = promos.map(p => `
+                <tr>
+                    <td><img src="${p.bannerImage}" style="width:100px; height:40px; object-fit:cover; border-radius:4px;"></td>
+                    <td><div style="font-weight:600;">${p.title}</div></td>
+                    <td>${p.discountType === 'percentage' ? p.discountValue + '%' : 'R' + p.discountValue} Off</td>
+                    <td>${new Date(p.startDate).toLocaleDateString()} - ${new Date(p.endDate).toLocaleDateString()}</td>
+                    <td>
+                        <span class="badge ${new Date(p.endDate) > new Date() ? 'active' : 'expired'}">
+                            ${new Date(p.endDate) > new Date() ? 'Active' : 'Expired'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function createPromotion() {
+            const title = document.getElementById('pTitle').value;
+            const bannerImage = document.getElementById('pBanner').value;
+            const discountType = document.getElementById('pType').value;
+            const discountValue = document.getElementById('pValue').value;
+            const startDate = document.getElementById('pStart').value;
+            const endDate = document.getElementById('pEnd').value;
+
+            if (!title || !bannerImage || !discountValue || !startDate || !endDate) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const token = getToken();
+                const res = await fetch('/api/promotions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title, bannerImage, discountType, discountValue, startDate, endDate
+                    })
+                });
+
+                if (res.ok) {
+                    alert('Promotion Created!');
+                    closeModal();
+                    fetchPromotions();
+                } else {
+                    alert('Failed to create promotion');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function openCreateModal() { document.getElementById('promoModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('promoModal').style.display = 'none'; }
+
+        fetchPromotions();
+    </script>
+</body>
+
+</html>

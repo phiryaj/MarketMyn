@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Staff | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f4f6f8;
+            padding: 30px;
+            margin-left: 260px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #666;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .role-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-admin {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .role-super_admin {
+            background: #333;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 95%;
+        }
+    </style>
+<script src="/js/admin-auth.js"></script>
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <aside class="sidebar">
+            <div style="padding-bottom: 20px;">
+                <h2>MarketMyn Panel</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin-products.html" class="nav-item"><i class="fas fa-box"></i> Products</a>
+                <a href="admin-orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="admin-sellers.html" class="nav-item"><i class="fas fa-store"></i> Sellers</a>
+                <a href="admin-payouts.html" class="nav-item"><i class="fas fa-wallet"></i> Payouts</a>
+                <a href="admin-users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                <a href="admin-staff.html" class="nav-item active"><i class="fas fa-user-shield"></i> Staff</a>
+                <a href="admin-categories.html" class="nav-item"><i class="fas fa-tags"></i> Categories</a>
+                <a href="admin-settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <a href="#" onclick="logout()" class="nav-item" style="color:#ff6b6b;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 14px; color: #666;">
+                    <a href="admin-dashboard.html" style="text-decoration: none; color: #888;">Dashboard</a> &gt;
+                    <span>Staff</span>
+                </div>
+                <a href="admin-dashboard.html" class="btn-sm" style="text-decoration: none; background: #95a5a6;">Back
+                    to Dashboard</a>
+            </div>
+            <div class="header"
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h1 style="margin-top:0; margin-bottom:20px;">Manage Staff</h1>
+                <button class="btn-primary" style="padding:10px 20px; border-radius:8px; border:none; cursor:pointer;"
+                    onclick="openAddModal()">Add New Staff</button>
+            </div>
+
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTable">
+                        <tr>
+                            <td colspan="4" style="text-align:center;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Staff Modal -->
+    <div id="staffModal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                <h3 style="margin:0;" id="modalTitle">Add Staff Member</h3>
+                <span onclick="closeModal()" style="cursor:pointer; font-size:20px;">&times;</span>
+            </div>
+            <form id="staffForm" onsubmit="handleStaffSubmit(event)">
+                <input type="hidden" id="staffId">
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Name</label>
+                    <input type="text" id="staffName" required
+                        style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Email</label>
+                    <input type="email" id="staffEmail" required
+                        style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Password</label>
+                    <input type="text" id="staffPass" placeholder="Leave empty to keep current (Edit)"
+                        style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                    <small style="color:#666;">Default: 123456 (if new)</small>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Admin Role</label>
+                    <select id="staffRole" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        <option value="admin">Admin (Standard)</option>
+                        <option value="super_admin">Super Admin (Full Access)</option>
+                        <option value="support">Support (Read Only)</option>
+                        <option value="finance">Finance (Payouts)</option>
+                    </select>
+                </div>
+                <div style="text-align:right;">
+                    <button type="button" onclick="closeModal()" class="btn-sm" style="background:#eee;">Cancel</button>
+                    <button type="submit" class="btn-sm btn-primary">Save Staff</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        let allStaff = [];
+
+        // Auth Check
+        const token = localStorage.getItem('adminToken');
+        if (!token) window.location.href = 'admin-login.html';
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+
+        async function loadStaff() {
+            try {
+                // Assuming /api/staff or /api/admin/staff returns admin staff
+                const res = await fetch(`${API_URL}/admin/staff`, { // Use endpoint from User controller if separate
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.status === 401) { logout(); return; }
+
+                const staff = await res.json();
+                allStaff = staff || [];
+
+                renderTable();
+
+            } catch (err) {
+                console.error(err);
+                // Fallback catch
+                document.getElementById('staffTable').innerHTML = '<tr><td colspan="4" style="text-align:center; color:red;">Error loading staff</td></tr>';
+            }
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('staffTable');
+            if (allStaff.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No staff found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = allStaff.map(s => `
+                <tr>
+                    <td>${s.name}</td>
+                    <td>${s.email}</td>
+                    <td><span class="role-badge role-${s.adminRoles && s.adminRoles.length > 0 ? s.adminRoles[0] : 'admin'}">${s.adminRoles && s.adminRoles.length > 0 ? s.adminRoles.join(', ') : 'Admin'}</span></td>
+                    <td>
+                        <button class="btn-sm" style="background:#007bff; color:white;" onclick="openEditModal('${s._id}')">Edit</button>
+                        <button class="btn-sm btn-danger" onclick="deleteStaff('${s._id}')">Remove</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Add New Staff';
+            document.getElementById('staffId').value = '';
+            document.getElementById('staffForm').reset();
+            document.getElementById('staffModal').style.display = 'flex';
+        }
+
+        function openEditModal(id) {
+            const staff = allStaff.find(s => s._id === id);
+            if (!staff) return;
+
+            document.getElementById('modalTitle').textContent = 'Edit Staff Member';
+            document.getElementById('staffId').value = staff._id;
+            document.getElementById('staffName').value = staff.name;
+            document.getElementById('staffEmail').value = staff.email;
+            document.getElementById('staffRole').value = staff.adminRoles && staff.adminRoles.length > 0 ? staff.adminRoles[0] : 'admin';
+            document.getElementById('staffPass').value = '';
+
+            document.getElementById('staffModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('staffModal').style.display = 'none';
+        }
+
+        async function handleStaffSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('staffId').value;
+            const name = document.getElementById('staffName').value;
+            const email = document.getElementById('staffEmail').value;
+            const pass = document.getElementById('staffPass').value;
+            const role = document.getElementById('staffRole').value;
+
+            const payload = { name, email, adminRoles: [role] }; // Array for adminRoles
+            if (pass) payload.password = pass;
+
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `${API_URL}/admin/staff/${id}` : `${API_URL}/admin/staff`;
+
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    closeModal();
+                    loadStaff();
+                } else {
+                    const err = await res.json();
+                    alert('Error: ' + (err.message || 'Failed'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Server Error');
+            }
+        }
+
+        async function deleteStaff(id) {
+            if (!confirm('Are you sure you want to remove this staff member?')) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/staff/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    loadStaff();
+                } else {
+                    alert('Failed to delete');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Server Error');
+            }
+        }
+
+        loadStaff();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - MakertMyn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .wishlist-wrap {
+            padding: 40px 0;
+            background: #f5f5f5;
+            min-height: 70vh;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            color: #dc3545;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-sm {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Simplified Header (Reusing main header structure) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <a href="index.html" class="header-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="cart.html" class="header-link"><i class="fas fa-shopping-cart"></i> Cart</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="wishlist-wrap">
+        <div class="container">
+            <h2 style="margin-bottom: 25px;">My Wishlist</h2>
+            <div id="wishlistGrid" class="wishlist-grid">
+                <div class="empty-state">Loading...</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_URL = '/api';
+        const user = JSON.parse(localStorage.getItem('makertmyn_user_v1'));
+
+        if (!user || !user.token) {
+            window.location.href = 'login.html';
+        }
+
+        async function loadWishlist() {
+            try {
+                const res = await fetch(`${API_URL}/user/wishlist`, {
+                    headers: { 'Authorization': `Bearer ${user.token}` }
+                });
+                const items = await res.json();
+
+                const grid = document.getElementById('wishlistGrid');
+
+                if (items.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="far fa-heart" style="font-size:48px; color:#ccc; margin-bottom:15px;"></i>
+                            <p>Your wishlist is empty.</p>
+                            <a href="index.html" style="color:var(--primary-color); font-weight:700;">Start Shopping</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = items.map(p => `
+                    <div class="product-card">
+                        <button class="remove-btn" onclick="removeFromWishlist('${p._id}')" title="Remove">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <img src="${p.image || 'assets/placeholder.jpg'}" class="product-img" alt="${p.title}" onclick="location.href='product-detail.html?id=${p._id}'" style="cursor:pointer;">
+                        <div class="product-info">
+                            <div class="product-title">${p.title}</div>
+                            <div class="product-price">R${p.price}</div>
+                            <button class="btn-sm" onclick="addToCart('${p._id}', '${p.title}', ${p.price}, '${p.image}')">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('wishlistGrid').innerHTML = '<div class="empty-state">Error loading wishlist.</div>';
+            }
+        }
+
+        async function removeFromWishlist(id) {
+            if (!confirm('Remove this item?')) return;
+            try {
+                const res = await fetch(`${API_URL}/user/wishlist/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${user.token}` }
+                });
+                if (res.ok) {
+                    loadWishlist();
+                } else {
+                    alert('Failed to remove item');
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        // Cart Helper (Duplicated from other files - ideal to move to utils)
+        function addToCart(id, name, price, img) {
+            const CART_KEY = "makertmyn_cart_v1";
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            const existing = cart.find(i => i.id === id);
+
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, name, price, image: img, qty: 1 });
+            }
+
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            alert('Added to Cart');
+        }
+
+        loadWishlist();
+    </script>
+</body>
+
+</html>

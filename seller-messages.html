@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Messages | MakertMyn Seller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        .msg-list {
+            border-right: 1px solid #eee;
+            padding-right: 15px;
+        }
+
+        .msg-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .msg-item:hover {
+            background: #f9f9f9;
+        }
+
+        .msg-item.active {
+            background: #f0f7ff;
+            border-left: 3px solid var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal</p>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span style="font-weight:700;margin-right:15px;" id="storeName">Seller</span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-promotions.html" class="nav-link"><i class="fas fa-bullhorn"></i> Promotions</a>
+                        <a href="seller-messages.html" class="nav-link active"><i class="fas fa-envelope"></i>
+                            Messages</a>
+                        <a href="seller-returns.html" class="nav-link"><i class="fas fa-undo"></i> Returns</a>
+                        <a href="seller-bulk.html" class="nav-link"><i class="fas fa-file-csv"></i> Bulk Tools</a>
+                        <a href="seller-staff.html" class="nav-link"><i class="fas fa-users-cog"></i> Staff</a>
+                        <a href="seller-analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-support.html" class="nav-link"><i class="fas fa-headset"></i> Support</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Settings</a>
+                    </nav>
+                </aside>
+                <main>
+                    <h2 style="margin:0 0 20px 0;">Admin Support Chat</h2>
+                    <p style="color:#666; margin-bottom:20px;">Use this chat to communicate directly with MakertMyn
+                        administrators regarding orders or account inquiries.</p>
+                    <div class="panel" style="display:flex; height:600px; padding:0; overflow:hidden;">
+                        <!-- Sidebar -->
+                        <div style="width:300px; border-right:1px solid #eee; display:flex; flex-direction:column;">
+                            <div style="padding:15px; border-bottom:1px solid #eee; background:#f9f9f9;">
+                                <h3 style="margin:0; font-size:16px;">Conversations</h3>
+                            </div>
+                            <div id="conversationList" style="flex:1; overflow-y:auto;">
+                                <div style="padding:20px; text-align:center; color:#999;">Loading...</div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Area -->
+                        <div style="flex:1; display:flex; flex-direction:column;">
+                            <div id="chatHeader"
+                                style="padding:15px; border-bottom:1px solid #eee; background:#f9f9f9; font-weight:700; display:none;">
+                                Chat with <span id="chatUserName">User</span>
+                            </div>
+
+                            <div id="messageArea"
+                                style="flex:1; padding:20px; overflow-y:auto; background:#fff; display:flex; flex-direction:column; gap:10px;">
+                                <div style="text-align:center; color:#ccc; margin-top:50px;">Select a conversation to
+                                    start chatting</div>
+                            </div>
+
+                            <div id="inputArea"
+                                style="padding:15px; border-top:1px solid #eee; background:#f9f9f9; display:none; gap:10px;">
+                                <input type="text" id="msgInput" placeholder="Type a message..."
+                                    style="flex:1; padding:12px; border:1px solid #ddd; border-radius:20px; outline:none;">
+                                <button onclick="sendMessage()"
+                                    style="padding:10px 20px; background:var(--primary-color); color:white; border:none; border-radius:20px; cursor:pointer;"><i
+                                        class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- AUTH ---
+        function getToken() { return localStorage.getItem('sellerToken'); }
+        if (!getToken()) window.location.href = 'seller-auth.html';
+        const session = JSON.parse(localStorage.getItem('sellerInfo'));
+        if (session && session.storeName) document.getElementById('storeName').textContent = session.storeName;
+        function logout() { localStorage.removeItem('sellerToken'); localStorage.removeItem('sellerInfo'); window.location.href = 'seller-auth.html'; }
+
+        // --- STATE ---
+        let adminId = 'ADMIN_ID_PLACEHOLDER'; // In a real app, we'd fetch the configured admin ID
+        // For now, let's assume the backend 'getConversations' will returns the Admin conversation if it exists.
+        // Or we can force-create one.
+
+        // BETTER APPROACH: Since we want ONLY admin/middleman communication, 
+        // we might just want to list "Support" as the only contact.
+        let currentChatUser = null;
+        let pollingInterval = null;
+
+        // --- FETCH CONVERSATIONS ---
+        async function fetchConversations() {
+            try {
+                const token = getToken();
+                const res = await fetch('/api/messages/conversations', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const conversations = await res.json();
+
+                // FILTER: Only show chats with Admin (User Role = admin) 
+                // Since we don't have role in conversation list easily yet, we can filter by name 'Admin' or just show all for now,
+                // assuming the backend eventually enforces who can message whom.
+                // But for "Middleman" mode, sellers shouldn't see Buyers here.
+
+                // If the user wants "No buyer emails/phones", existing logic handles that.
+                // If "we will be the middle man", then Sellers shouldn't see Buyer names at all?
+                // Let's assume for now we render what returns, but we might want to rename them to "Order #..." context.
+
+                renderConversations(conversations);
+            } catch (err) { console.error(err); }
+        }
+
+        function renderConversations(conversations) {
+            const list = document.getElementById('conversationList');
+            if (conversations.length === 0) {
+                list.innerHTML = '<div style="padding:20px; text-align:center; color:#999;">No messages yet.</div>';
+                return;
+            }
+
+            list.innerHTML = conversations.map(c => `
+                <div onclick="openChat('${c.user._id}', '${c.user.name}')" 
+                     style="padding:15px; border-bottom:1px solid #eee; cursor:pointer; background:${currentChatUser === c.user._id ? '#f0f7ff' : 'white'}; transition:0.2s;"
+                     onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='${currentChatUser === c.user._id ? '#f0f7ff' : 'white'}'">
+                    <div style="font-weight:600; font-size:14px; display:flex; justify-content:space-between;">
+                        ${c.user.name}
+                        ${c.unreadCount > 0 ? `<span style="background:red; color:white; font-size:10px; padding:2px 6px; border-radius:10px;">${c.unreadCount}</span>` : ''}
+                    </div>
+                    <div style="font-size:12px; color:#666; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:4px;">
+                        ${c.lastMessage}
+                    </div>
+                    <div style="font-size:10px; color:#999; margin-top:2px;">${new Date(c.date).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+
+        // --- OPEN CHAT ---
+        async function openChat(userId, userName) {
+            currentChatUser = userId;
+            document.getElementById('chatUserName').innerText = userName;
+            document.getElementById('chatHeader').style.display = 'block';
+            document.getElementById('inputArea').style.display = 'flex';
+
+            // Refresh conversation list to highlight active
+            fetchConversations();
+
+            loadMessages();
+
+            // Start polling
+            if (pollingInterval) clearInterval(pollingInterval);
+            pollingInterval = setInterval(loadMessages, 3000); // Poll every 3s
+        }
+
+        async function loadMessages() {
+            if (!currentChatUser) return;
+            try {
+                const token = getToken();
+                const res = await fetch(`/api/messages/${currentChatUser}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const messages = await res.json();
+                renderMessages(messages);
+            } catch (err) { console.error(err); }
+        }
+
+        function renderMessages(messages) {
+            const area = document.getElementById('messageArea');
+            // Check if user is scrolling up; if so, don't auto-scroll down (simplified: just always scroll for now)
+
+            // We need to know "my" ID to distinguish sent vs received. 
+            // In a real app we decode token, but here we can infer from "sender.name" vs session store name, 
+            // OR better: the API returns populated objects. 
+            // *Wait*, we don't have my ID stored clearly. Let's rely on class logic:
+            // If sender._id === currentChatUser, it's RECEIVED. Else SENT.
+
+            area.innerHTML = messages.map(m => {
+                const isReceived = m.sender._id === currentChatUser;
+                return `
+                    <div style="display:flex; justify-content:${isReceived ? 'flex-start' : 'flex-end'};">
+                        <div style="max-width:70%; padding:10px 15px; border-radius:15px; font-size:14px; line-height:1.4; 
+                                    background:${isReceived ? '#f1f1f1' : 'var(--primary-color)'}; 
+                                    color:${isReceived ? '#333' : 'white'};">
+                            ${m.content}
+                            <div style="font-size:10px; opacity:0.7; text-align:right; margin-top:5px;">
+                                ${new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            area.scrollTop = area.scrollHeight;
+        }
+
+        // --- SEND ---
+        async function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const content = input.value.trim();
+            if (!content || !currentChatUser) return;
+
+            try {
+                const token = getToken();
+                const res = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ receiverId: currentChatUser, content })
+                });
+
+                if (res.ok) {
+                    input.value = '';
+                    loadMessages(); // Refresh immediately
+                    fetchConversations(); // Update list preview
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        // Enter key to send
+        document.getElementById('msgInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        fetchConversations();
+    </script>
+</body>
+
+</html>

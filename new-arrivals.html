@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Arrivals - Marketmyn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .mega-menu.active {
+            max-height: 900px !important;
+            overflow: hidden !important;
+            padding: 30px 0 !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .mega-menu.active .mega-menu-content {
+            max-height: 820px !important;
+            overflow-y: auto !important;
+            padding-right: 8px !important;
+        }
+
+        /* Removed conflicting hover rule */
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-truck"></i> Free Shipping on Orders Over R500 | <i class="fas fa-shield-alt"></i> 100%
+                Buyer Protection</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products, brands, and categories...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="header-actions">
+                    <a href="login.html" class="header-link"><i class="fas fa-user"></i> Sign In</a>
+                    <a href="wishlist.html" class="header-link"><i class="fas fa-heart"></i> Wishlist</a>
+                    <a href="cart.html" class="header-link cart-link">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <button class="categories-btn" id="allButton" style="background: #ff6b00; color: white;">
+                    <i class="fas fa-bars"></i> All Categories
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html#flashDeals">Today's Deals</a></li>
+                    <li><a href="index.html#bestSellers">Best Sellers</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="register.html?type=seller">Become a Seller</a></li>
+                    <li><a href="help.html">Customer Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="best-sellers" style="padding:50px 0;">
+        <div class="container">
+            <h2 class="section-title">New Arrivals</h2>
+            <p style="text-align:center; color:var(--text-light); margin-bottom:40px;">Discover the latest products
+                added to our marketplace</p>
+
+            <div class="product-grid" id="newArrivalsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Makert<span>Myn</span></h3>
+                    <p>Your one-stop marketplace for everything you need. Shop from thousands of trusted sellers across
+                        South
+                        Africa.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="help.html">Track Order</a></li>
+                        <li><a href="legal.html#returns">Returns & Refunds</a></li>
+                        <li><a href="help.html">Shipping Info</a></li>
+                        <li><a href="help.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press & Media</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Sell With Us</h4>
+                    <ul>
+                        <li><a href="sell-on-makertmyn.html">Become a Seller</a></li>
+                        <li><a href="#">Seller Dashboard</a></li>
+                        <li><a href="#">Seller Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#flashDeals">Today's Deals</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="legal.html">Privacy Policy</a></li>
+                        <li><a href="legal.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const CART_KEY = "makertmyn_cart_v1";
+        function read(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } }
+        function write(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+        function cartCount() { return read(CART_KEY).reduce((s, i) => s + (i.qty || 0), 0); }
+        function updateCartBadge() { const b = document.getElementById("cartBadge"); if (b) b.textContent = cartCount(); }
+
+        function addToCart(product) {
+            const cart = read(CART_KEY);
+            const found = cart.find(i => i.id === product.id);
+            if (found) found.qty += 1;
+            else cart.push({ id: product.id, name: product.title, price: product.price, image: product.images[0], vendor: product.vendor, qty: 1 });
+            write(CART_KEY, cart);
+            updateCartBadge();
+            updateCartBadge();
+            showCartModal(product);
+        }
+
+        function renderNewArrivals() {
+            if (typeof getNewArrivals === 'undefined') return;
+            const products = getNewArrivals(24);
+            const grid = document.getElementById("newArrivalsGrid");
+            grid.innerHTML = "";
+
+            products.forEach(p => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.setAttribute('data-id', p.id);
+                const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
+                const savings = p.originalPrice ? (p.originalPrice - p.price) : 0;
+
+                card.innerHTML = `
+          ${discount > 0 ? `<span class="product-badge">Save R${savings.toLocaleString()}</span>` : '<span class="product-badge bestseller">New</span>'}
+          <div class="product-image">
+            <a href="product-detail.html?id=${encodeURIComponent(p.id)}">
+              <img src="${p.images[0]}" alt="${p.title}">
+            </a>
+            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          </div>
+          <div class="product-info">
+            ${(p.vendor && p.vendor !== 'MakertMyn Official' && p.vendor !== 'MakertMyn Admin') ? `<a href="category.html?vendor=${encodeURIComponent(p.vendor)}" class="product-vendor">${p.vendor}</a>` : ''}
+            <a href="product-detail.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit;">
+              <h3>${p.title}</h3>
+            </a>
+            <div class="product-rating">
+                ${renderStars(p.rating || 0)} <span>(${p.reviews || 0})</span>
+            </div>
+            <div class="product-stock-label stock-in">
+                <i class="fas fa-check-circle"></i> In stock
+            </div>
+            <div class="delivery-note">
+                <i class="fas fa-truck"></i> Get it by Wed, 14 May
+            </div>
+            <div class="product-price">
+              <span class="current-price">R${p.price.toLocaleString("en-ZA")}</span>
+              ${p.originalPrice ? `<span class="original-price">R${p.originalPrice.toLocaleString("en-ZA")}</span>` : ''}
+            </div>
+            <button class="btn btn-cart"><i class="fas fa-plus"></i> Add to Cart</button>
+          </div>
+        `;
+                card.querySelector(".btn-cart").addEventListener("click", () => addToCart(p));
+                grid.appendChild(card);
+            });
+        }
+
+        updateCartBadge();
+        renderNewArrivals();
+
+        // Wishlist Logic
+        document.body.addEventListener('click', async (e) => {
+            if (e.target.closest('.wishlist-btn')) {
+                e.preventDefault();
+                const btn = e.target.closest('.wishlist-btn');
+                const card = btn.closest('.product-card');
+                const productId = card ? card.getAttribute('data-id') : null;
+
+                if (!productId) return;
+
+                const user = JSON.parse(localStorage.getItem('makertmyn_user_v1'));
+                if (!user || !user.token) {
+                    alert('Please login to use Wishlist');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const icon = btn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'fa-spin');
+
+                try {
+                    const res = await fetch(`/api/user/wishlist/${productId}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${user.token}` }
+                    });
+
+                    if (res.ok) {
+                        icon.classList.remove('fa-spin');
+                        icon.style.color = 'red';
+                        alert('Added to Wishlist!');
+                    } else {
+                        throw new Error('Failed');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    icon.classList.remove('fas', 'fa-spin');
+                    icon.classList.add('far');
+                    alert('Error adding to wishlist');
+                }
+            }
+        });
+    </script>
+    <script src="js/products-data.js"></script>
+    <!-- AMAZON STYLE MENU HTML -->
+    <!-- Dark Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Main Sidebar Menu -->
+    <div class="amazon-menu" id="amazonMenu">
+        <div
+            style="background: #ff6b00; padding: 15px 20px; color: white; font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-user-circle" style="font-size: 24px;"></i> Hello, Sign in
+            <button class="menu-close-btn" style="color: white; top: 12px;" onclick="closeMenu()">×</button>
+        </div>
+
+        <div style="padding: 10px 0;">
+            <div style="padding: 10px 20px; font-weight: 700; font-size: 16px; color: #111;">Shop By Category</div>
+
+            <!-- 1. Home Appliances -->
+            <div class="menu-category" data-submenu="submenu-home-appliances">
+                <i class="fas fa-blender"></i>
+                <span>Home Appliances</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 2. Electronics -->
+            <div class="menu-category" data-submenu="submenu-electronics">
+                <i class="fas fa-tv"></i>
+                <span>Electronics & Entertainment</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 3. Cellphones -->
+            <div class="menu-category" data-submenu="submenu-cellphones">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Cellphones</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 4. Home & Furniture -->
+            <div class="menu-category" data-submenu="submenu-furniture">
+                <i class="fas fa-couch"></i>
+                <span>Home & Furniture</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 5. Baby & Kids -->
+            <div class="menu-category" data-submenu="submenu-baby">
+                <i class="fas fa-baby-carriage"></i>
+                <span>Baby, Toddlers & Kids</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 6. Sports -->
+            <div class="menu-category" data-submenu="submenu-sports">
+                <i class="fas fa-running"></i>
+                <span>Sports, Outdoors & Healthy Living</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 7. Garden -->
+            <div class="menu-category" data-submenu="submenu-garden">
+                <i class="fas fa-seedling"></i>
+                <span>Garden, Patio & Pool</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 8. Household -->
+            <div class="menu-category" data-submenu="submenu-household">
+                <i class="fas fa-broom"></i>
+                <span>Household Essentials</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 9. Office -->
+            <div class="menu-category" data-submenu="submenu-office">
+                <i class="fas fa-book"></i>
+                <span>Office, Stationery & Books</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 10. DIY -->
+            <div class="menu-category" data-submenu="submenu-diy">
+                <i class="fas fa-tools"></i>
+                <span>DIY</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 11. Groceries (NEW) -->
+            <div class="menu-category" data-submenu="submenu-groceries">
+                <i class="fas fa-shopping-basket"></i>
+                <span>Groceries & Beverages</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 12. Automotive -->
+            <div class="menu-category" data-submenu="submenu-automotive">
+                <i class="fas fa-car"></i>
+                <span>Automotive</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 13. Health & Beauty -->
+            <div class="menu-category" data-submenu="submenu-health">
+                <i class="fas fa-spa"></i>
+                <span>Health, Beauty & Personal Care</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 14. Pets -->
+            <div class="menu-category" data-submenu="submenu-pets">
+                <i class="fas fa-paw"></i>
+                <span>Pets</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <!-- 15. Party -->
+            <div class="menu-category" data-submenu="submenu-party">
+                <i class="fas fa-gift"></i>
+                <span>Party & Occasions</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </div>
+
+            <div
+                style="padding: 10px 20px; border-top: 1px solid #ddd; margin-top: 10px; font-weight: 700; font-size: 16px; color: #111;">
+                Programs & Features</div>
+
+            <div class="menu-category" onclick="location.href='sell-on-makertmyn.html'">
+                <i class="fas fa-store"></i>
+                <span>Sell on MakertMyn</span>
+            </div>
+
+            <div class="menu-category" onclick="location.href='help.html'">
+                <i class="fas fa-question-circle"></i>
+                <span>Customer Service</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="menu.js"></script>
+</body>
+
+</html>

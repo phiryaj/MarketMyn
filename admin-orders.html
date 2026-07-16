@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Orders | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f4f6f8;
+            padding: 30px;
+            margin-left: 260px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #666;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-processing {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .status-shipped {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-partially-shipped {
+            background: #e8f5e9;
+            color: #2e7d32;
+            /* Greenish/Distinct */
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background: #3498db;
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 700px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+<script src="/js/admin-auth.js"></script>
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <aside class="sidebar">
+            <div style="padding-bottom: 20px;">
+                <h2>MarketMyn Panel</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin-products.html" class="nav-item"><i class="fas fa-box"></i> Products</a>
+                <a href="admin-orders.html" class="nav-item active"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="admin-sellers.html" class="nav-item"><i class="fas fa-store"></i> Sellers</a>
+                <a href="admin-payouts.html" class="nav-item"><i class="fas fa-wallet"></i> Payouts</a>
+                <a href="admin-users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                <a href="admin-staff.html" class="nav-item"><i class="fas fa-user-shield"></i> Staff</a>
+                <a href="admin-categories.html" class="nav-item"><i class="fas fa-tags"></i> Categories</a>
+                <a href="admin-settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <a href="#" onclick="logout()" class="nav-item" style="color:#ff6b6b;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 14px; color: #666;">
+                    <a href="admin-dashboard.html" style="text-decoration: none; color: #888;">Dashboard</a> &gt;
+                    <span>Orders</span>
+                </div>
+                <a href="admin-dashboard.html" class="btn-sm" style="text-decoration: none; background: #95a5a6;">Back
+                    to Dashboard</a>
+            </div>
+            <h1 style="margin-top:0; margin-bottom:20px;">All Orders</h1>
+
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTable">
+                        <tr>
+                            <td colspan="7" style="text-align:center;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+                <h2 style="margin:0;">Order Details</h2>
+                <button onclick="closeModal()"
+                    style="border:none; background:none; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+                <div>
+                    <h4 style="margin-top:0;">Customer Info</h4>
+                    <p id="modalCustomerName" style="margin:5px 0; font-weight:bold;">Name</p>
+                    <p id="modalCustomerEmail" style="margin:5px 0;">email</p>
+                    <p id="modalShippingAddress" style="margin:5px 0; color:#666; font-size:13px;">Address...</p>
+                </div>
+                <div>
+                    <h4 style="margin-top:0;">Order Info</h4>
+                    <p><b>ID:</b> <span id="modalOrderId">...</span></p>
+                    <p><b>Date:</b> <span id="modalOrderDate">...</span></p>
+                    <p><b>Payment:</b> <span id="modalPaymentMethod">...</span></p>
+                </div>
+            </div>
+
+            <h4 style="margin-bottom:10px;">Order Items</h4>
+            <table style="margin-bottom:20px;">
+                <tbody id="modalItemsTable"></tbody>
+            </table>
+
+            <div style="text-align:right; border-top:1px solid #eee; padding-top:15px;">
+                <h3>Total: <span id="modalOrderTotal">R 0.00</span></h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        let allOrders = [];
+
+        // Auth Check
+        const token = localStorage.getItem('adminToken');
+        if (!token) window.location.href = 'admin-login.html';
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_URL}/admin/orders`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.status === 401) { logout(); return; }
+
+                // The admin endpoint might be different or we use regular orders with admin rights
+                // Assuming /api/orders or /api/admin/orders returns all for admin
+                // Let's try /api/orders first as it usually handles role check
+                const orders = await res.json();
+                allOrders = orders;
+
+                renderTable(orders);
+
+            } catch (err) {
+                // If /admin/orders fails, try /orders
+                try {
+                    const res2 = await fetch(`${API_URL}/orders`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const orders2 = await res2.json();
+                    allOrders = orders2;
+                    renderTable(orders2);
+                } catch (e) {
+                    console.error(e);
+                    document.getElementById('orderTable').innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Error loading orders</td></tr>';
+                }
+            }
+        }
+
+        function renderTable(orders) {
+            const tbody = document.getElementById('orderTable');
+            if (!orders || orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No orders found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td><small>${o._id.substr(-6).toUpperCase()}</small></td>
+                    <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <b>${o.user?.name || 'Guest'}</b><br>
+                        <small>${o.user?.email || ''}</small>
+                    </td>
+                    <td>${o.orderItems.length} items</td>
+                    <td>R ${(o.totalPrice || 0).toFixed(2)}</td>
+                    <td><span class="status-badge status-${(o.status || 'processing').toLowerCase().replace(' ', '-')}">${o.status}</span></td>
+                    <td>
+                        <button class="btn-sm" onclick="openOrderModal('${o._id}')">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openOrderModal(id) {
+            const order = allOrders.find(o => o._id === id);
+            if (!order) return;
+
+            document.getElementById('modalOrderId').textContent = order._id.toUpperCase();
+            document.getElementById('modalOrderDate').textContent = new Date(order.createdAt).toLocaleString();
+            document.getElementById('modalCustomerName').textContent = order.user?.name || 'Guest';
+            document.getElementById('modalCustomerEmail').textContent = order.user?.email || 'N/A';
+
+            const addr = order.shippingAddress || {};
+            document.getElementById('modalShippingAddress').textContent =
+                `${addr.address}, ${addr.city}, ${addr.postalCode}, ${addr.country}`;
+
+            document.getElementById('modalPaymentMethod').textContent = order.paymentMethod;
+            document.getElementById('modalOrderTotal').textContent = 'R ' + (order.totalPrice || 0).toFixed(2);
+
+            const itemsHtml = order.orderItems.map(item => `
+                <tr>
+                    <td style="width:50px;"><img src="${item.image}" style="width:40px; height:40px; object-fit:cover;"></td>
+                    <td>
+                        <b>${item.name}</b><br>
+                        <small>Vendor: ${item.vendorName || 'Unknown'}</small>
+                    </td>
+                    <td>${item.qty} x R ${item.price}</td>
+                    <td style="text-align:right;">R ${(item.qty * item.price).toFixed(2)}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('modalItemsTable').innerHTML = itemsHtml;
+            document.getElementById('orderDetailsModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderDetailsModal').style.display = 'none';
+        }
+
+        loadOrders();
+    </script>
+</body>
+
+</html>

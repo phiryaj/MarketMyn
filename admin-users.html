@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Users | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f4f6f8;
+            padding: 30px;
+            margin-left: 260px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #666;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .role-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role-buyer {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .role-seller {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .role-admin {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .role-staff {
+            background: #e2e6ea;
+            color: #383d41;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-block {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-unblock {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+<script src="/js/admin-auth.js"></script>
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <aside class="sidebar">
+            <div style="padding-bottom: 20px;">
+                <h2>MarketMyn Panel</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin-products.html" class="nav-item"><i class="fas fa-box"></i> Products</a>
+                <a href="admin-orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="admin-sellers.html" class="nav-item"><i class="fas fa-store"></i> Sellers</a>
+                <a href="admin-payouts.html" class="nav-item"><i class="fas fa-wallet"></i> Payouts</a>
+                <a href="admin-users.html" class="nav-item active"><i class="fas fa-users"></i> Users</a>
+                <a href="admin-staff.html" class="nav-item"><i class="fas fa-user-shield"></i> Staff</a>
+                <a href="admin-categories.html" class="nav-item"><i class="fas fa-tags"></i> Categories</a>
+                <a href="admin-settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <a href="#" onclick="logout()" class="nav-item" style="color:#ff6b6b;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header"
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 14px; color: #666;">
+                        <a href="admin-dashboard.html" style="text-decoration: none; color: #888;">Dashboard</a> &gt;
+                        <span>Users</span>
+                    </div>
+                    <a href="admin-dashboard.html" class="btn-sm"
+                        style="text-decoration: none; background: #95a5a6;">Back to Dashboard</a>
+                </div>
+                <h1 style="margin-top:0; margin-bottom:20px;">Manage Users</h1>
+            </div>
+
+            <div class="card">
+                <div class="search-bar" style="margin-bottom: 20px;">
+                    <input type="text" id="searchInput" placeholder="Search users by name or email..."
+                        style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 6px;"
+                        onkeyup="renderTable()">
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTable">
+                        <tr>
+                            <td colspan="5" style="text-align:center;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        let allUsers = [];
+
+        // Auth Check
+        const token = localStorage.getItem('adminToken');
+        if (!token) window.location.href = 'admin-login.html';
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+
+        async function loadUsers() {
+            try {
+                const res = await fetch(`${API_URL}/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.status === 401) { logout(); return; }
+
+                const users = await res.json();
+                // Filter out current admin to prevent self-lockout if possible, although backend should handle it
+                allUsers = users || [];
+
+                renderTable();
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('userTable').innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Error loading users</td></tr>';
+            }
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('userTable');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = allUsers.filter(u => {
+                const matchesSearch = (u.name || '').toLowerCase().includes(search) ||
+                    (u.email || '').toLowerCase().includes(search);
+                // Optionally filter by role if we only want buyers here
+                // let's show all for now but maybe prioritize buyers
+                return matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No users found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(u => `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td><span class="role-badge role-${u.role}">${u.role}</span></td>
+                    <td>${u.status || 'Active'}</td>
+                    <td>
+                        ${u.role !== 'admin' ? `
+                            ${u.status === 'blocked' || u.status === 'banned' ?
+                        `<button class="btn-sm btn-unblock" onclick="updateStatus('${u._id}', 'active')">Unblock</button>` :
+                        `<button class="btn-sm btn-block" onclick="updateStatus('${u._id}', 'banned')">Block</button>`
+                    }
+                        ` : '<small>Admin</small>'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateStatus(id, status) {
+            if (!confirm(`Are you sure you want to ${status.toUpperCase()} this user?`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/users/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (res.ok) {
+                    loadUsers();
+                } else {
+                    alert('Failed to update status');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error updating status');
+            }
+        }
+
+        loadUsers();
+    </script>
+</body>
+
+</html>

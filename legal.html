@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal & Policies - Marketmyn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .mega-menu.active {
+            max-height: 900px !important;
+            overflow: hidden !important;
+            padding: 30px 0 !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .legal-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .legal-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .legal-nav {
+            background: #f5f5f5;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .legal-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legal-nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .legal-nav-links a:hover,
+        .legal-nav-links a.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .legal-content {
+            padding: 50px 0;
+        }
+
+        .legal-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .legal-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 32px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .legal-section h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: var(--text-dark);
+        }
+
+        .legal-section h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+
+        .legal-section p,
+        .legal-section li {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .legal-section ul,
+        .legal-section ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .legal-section strong {
+            color: var(--primary-color);
+        }
+
+        .last-updated {
+            background: var(--gray);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        @media(max-width:768px) {
+            .legal-nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-truck"></i> Free Shipping on Orders Over R500 | <i class="fas fa-shield-alt"></i> 100%
+                Buyer Protection</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products, brands, and categories...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="header-actions">
+                    <a href="login.html" class="header-link"><i class="fas fa-user"></i> <span>Sign In</span></a>
+                    <a href="#" class="header-link"><i class="fas fa-heart"></i> <span>Wishlist</span></a>
+                    <a href="cart.html" class="header-link cart-link">
+                        <i class="fas fa-shopping-cart"></i> <span>Cart</span>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <button class="categories-btn" id="categoriesBtn">
+                    <i class="fas fa-th"></i> All Categories
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html#flashDeals">Today's Deals</a></li>
+                    <li><a href="index.html#bestSellers">Best Sellers</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="get-it-fast.html">Get It Fast</a></li>
+                    <li><a href="help.html">Customer Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mega Menu -->
+    <div class="mega-menu" id="megaMenu">
+        <div class="container">
+            <div class="mega-menu-content">
+                <div class="mega-menu-column">
+                    <h3><i class="fas fa-laptop"></i> Electronics</h3>
+                    <ul>
+                        <li><a href="category.html?category=Electronics">All Electronics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legal Hero -->
+    <section class="legal-hero">
+        <div class="container">
+            <h1><i class="fas fa-balance-scale"></i> Legal & Policies</h1>
+            <p>Your rights and our commitments to you</p>
+        </div>
+    </section>
+
+    <!-- Legal Navigation -->
+    <nav class="legal-nav">
+        <div class="container">
+            <div class="legal-nav-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms & Conditions</a>
+                <a href="#cookies">Cookie Policy</a>
+                <a href="#returns">Returns & Refunds</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Legal Content -->
+    <section class="legal-content">
+        <div class="container">
+
+            <!-- Privacy Policy -->
+            <div class="legal-section" id="privacy">
+                <h2>Privacy Policy</h2>
+                <div class="last-updated"><i class="fas fa-calendar"></i> Last Updated: February 4, 2026</div>
+
+                <p>MakertMyn (Pty) Ltd ("we", "us", or "our") is committed to protecting your privacy and complying with
+                    the Protection of Personal Information Act (POPIA) of South Africa. This Privacy Policy explains how
+                    we collect, use, disclose, and safeguard your personal information.</p>
+
+                <h3>1. Information We Collect</h3>
+                <p>We collect the following types of personal information:</p>
+
+                <h4>1.1 Information You Provide</h4>
+                <ul>
+                    <li><strong>Account Information:</strong> Name, email address, phone number, password</li>
+                    <li><strong>Delivery Information:</strong> Physical address, delivery instructions</li>
+                    <li><strong>Payment Information:</strong> Credit/debit card details, billing address (processed
+                        securely through our payment partners)</li>
+                    <li><strong>Communication:</strong> Customer service inquiries, reviews, feedback</li>
+                </ul>
+
+                <h4>1.2 Information Collected Automatically</h4>
+                <ul>
+                    <li><strong>Device Information:</strong> IP address, browser type, operating system</li>
+                    <li><strong>Usage Data:</strong> Pages visited, products viewed, search queries</li>
+                    <li><strong>Cookies:</strong> See our Cookie Policy below for details</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>We use your personal information for the following purposes:</p>
+                <ul>
+                    <li>Processing and fulfilling your orders</li>
+                    <li>Communicating with you about your orders and account</li>
+                    <li>Providing customer support</li>
+                    <li>Improving our website and services</li>
+                    <li>Sending marketing communications (with your consent)</li>
+                    <li>Preventing fraud and ensuring security</li>
+                    <li>Complying with legal obligations</li>
+                </ul>
+
+                <h3>3. Legal Basis for Processing (POPIA Compliance)</h3>
+                <p>We process your personal information based on:</p>
+                <ul>
+                    <li><strong>Consent:</strong> When you provide explicit consent (e.g., marketing emails)</li>
+                    <li><strong>Contract Performance:</strong> To fulfill our contractual obligations to you</li>
+                    <li><strong>Legal Obligation:</strong> To comply with South African laws and regulations</li>
+                    <li><strong>Legitimate Interests:</strong> To improve our services and prevent fraud</li>
+                </ul>
+
+                <h3>4. Information Sharing and Disclosure</h3>
+                <p>We may share your information with:</p>
+                <ul>
+                    <li><strong>Sellers:</strong> To fulfill your orders</li>
+                    <li><strong>Service Providers:</strong> Payment processors, delivery companies, IT service providers
+                    </li>
+                    <li><strong>Legal Authorities:</strong> When required by law or to protect our rights</li>
+                </ul>
+                <p>We do not sell your personal information to third parties.</p>
+
+                <h3>5. Your Rights Under POPIA</h3>
+                <p>You have the following rights regarding your personal information:</p>
+                <ul>
+                    <li><strong>Access:</strong> Request a copy of your personal information</li>
+                    <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                    <li><strong>Deletion:</strong> Request deletion of your personal information (subject to legal
+                        requirements)</li>
+                    <li><strong>Objection:</strong> Object to processing of your personal information</li>
+                    <li><strong>Data Portability:</strong> Request transfer of your data to another service</li>
+                    <li><strong>Withdraw Consent:</strong> Withdraw consent for marketing communications at any time
+                    </li>
+                </ul>
+                <p>To exercise these rights, contact us at privacy@marketmyn.co.za</p>
+
+                <h3>6. Data Security</h3>
+                <p>We implement appropriate technical and organizational measures to protect your personal information,
+                    including:</p>
+                <ul>
+                    <li>SSL encryption for data transmission</li>
+                    <li>Secure payment processing through PCI-DSS compliant providers</li>
+                    <li>Regular security audits and updates</li>
+                    <li>Access controls and authentication</li>
+                </ul>
+
+                <h3>7. Data Retention</h3>
+                <p>We retain your personal information for as long as necessary to fulfill the purposes outlined in this
+                    policy, or as required by law. Account information is retained while your account is active and for
+                    7 years after closure for legal and accounting purposes.</p>
+
+                <h3>8. Children's Privacy</h3>
+                <p>Our services are not intended for children under 18. We do not knowingly collect personal information
+                    from children. If you believe we have collected information from a child, please contact us
+                    immediately.</p>
+
+                <h3>9. Contact Information</h3>
+                <p>For privacy-related inquiries or to exercise your rights:</p>
+                <p><strong>Information Officer:</strong> MakertMyn (Pty) Ltd<br>
+                    <strong>Email:</strong> privacy@marketmyn.co.za<br>
+                    <strong>Phone:</strong> 0800 123 456<br>
+                    <strong>Address:</strong> 123 Business Lane, Sandton, Johannesburg, 2196
+                </p>
+
+                <p>You also have the right to lodge a complaint with the Information Regulator of South Africa at <a
+                        href="https://www.justice.gov.za/inforeg/"
+                        style="color:var(--primary-color);">www.justice.gov.za/inforeg/</a></p>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="legal-section" id="terms">
+                <h2>Terms & Conditions</h2>
+                <div class="last-updated"><i class="fas fa-calendar"></i> Last Updated: February 4, 2026</div>
+
+                <p>These Terms and Conditions ("Terms") govern your use of the MakertMyn marketplace platform. By
+                    accessing or using our website, you agree to be bound by these Terms.</p>
+
+                <h3>1. Definitions</h3>
+                <ul>
+                    <li><strong>"Platform"</strong> refers to the MakertMyn website and mobile applications</li>
+                    <li><strong>"Seller"</strong> refers to third-party vendors selling products on the Platform</li>
+                    <li><strong>"Buyer"</strong> refers to customers purchasing products through the Platform</li>
+                    <li><strong>"We", "Us", "Our"</strong> refers to MakertMyn (Pty) Ltd</li>
+                </ul>
+
+                <h3>2. Use of the Platform</h3>
+                <h4>2.1 Eligibility</h4>
+                <p>You must be at least 18 years old to use our Platform. By using the Platform, you represent that you
+                    meet this requirement.</p>
+
+                <h4>2.2 Account Registration</h4>
+                <p>To make purchases, you must create an account. You are responsible for:</p>
+                <ul>
+                    <li>Providing accurate and complete information</li>
+                    <li>Maintaining the confidentiality of your password</li>
+                    <li>All activities that occur under your account</li>
+                </ul>
+
+                <h4>2.3 Prohibited Activities</h4>
+                <p>You may not:</p>
+                <ul>
+                    <li>Use the Platform for any illegal purpose</li>
+                    <li>Impersonate any person or entity</li>
+                    <li>Interfere with the Platform's operation</li>
+                    <li>Attempt to gain unauthorized access to any part of the Platform</li>
+                    <li>Upload viruses or malicious code</li>
+                </ul>
+
+                <h3>3. Marketplace Model</h3>
+                <p>MakertMyn operates as a marketplace platform connecting Buyers with Sellers. Important points:</p>
+                <ul>
+                    <li>Products are sold by independent Sellers, not by MakertMyn</li>
+                    <li>Sellers are responsible for product descriptions, pricing, and fulfillment</li>
+                    <li>MakertMyn facilitates transactions but is not a party to the sale contract</li>
+                    <li>We reserve the right to remove any product or seller from the Platform</li>
+                </ul>
+
+                <h3>4. Orders and Payments</h3>
+                <h4>4.1 Order Process</h4>
+                <p>When you place an order:</p>
+                <ul>
+                    <li>You make an offer to purchase the product from the Seller</li>
+                    <li>The Seller accepts your offer when they confirm the order</li>
+                    <li>A contract is formed between you and the Seller</li>
+                </ul>
+
+                <h4>4.2 Pricing</h4>
+                <p>All prices are in South African Rand (ZAR) and include VAT where applicable. Prices are subject to
+                    change without notice. The price at the time of order confirmation applies.</p>
+
+                <h4>4.3 Payment</h4>
+                <p>Payment is processed securely through our payment partners. We accept:</p>
+                <ul>
+                    <li>Credit and debit cards (Visa, Mastercard)</li>
+                    <li>PayFast, Ozow, MobiCred, Payflex</li>
+                    <li>Discovery Miles</li>
+                </ul>
+
+                <h3>5. Delivery</h3>
+                <p>Delivery times and costs vary by product and location. Estimated delivery times are provided at
+                    checkout but are not guaranteed. Risk of loss passes to you upon delivery.</p>
+
+                <h3>6. Returns and Refunds</h3>
+                <p>See our Returns & Refunds Policy below for detailed information on returns, exchanges, and refunds.
+                </p>
+
+                <h3>7. Intellectual Property</h3>
+                <p>All content on the Platform, including text, graphics, logos, and software, is owned by MakertMyn or
+                    our licensors and protected by South African and international intellectual property laws.</p>
+
+                <h3>8. Limitation of Liability</h3>
+                <p>To the fullest extent permitted by law:</p>
+                <ul>
+                    <li>MakertMyn is not liable for any indirect, incidental, or consequential damages</li>
+                    <li>Our total liability shall not exceed the amount you paid for the relevant transaction</li>
+                    <li>We do not guarantee uninterrupted or error-free operation of the Platform</li>
+                </ul>
+
+                <h3>9. Indemnification</h3>
+                <p>You agree to indemnify and hold MakertMyn harmless from any claims arising from your use of the
+                    Platform or violation of these Terms.</p>
+
+                <h3>10. Governing Law</h3>
+                <p>These Terms are governed by the laws of South Africa. Any disputes shall be subject to the exclusive
+                    jurisdiction of the South African courts.</p>
+
+                <h3>11. Changes to Terms</h3>
+                <p>We may update these Terms at any time. Continued use of the Platform after changes constitutes
+                    acceptance of the new Terms.</p>
+
+                <h3>12. Contact Information</h3>
+                <p><strong>MakertMyn (Pty) Ltd</strong><br>
+                    Email: legal@marketmyn.co.za<br>
+                    Phone: 0800 123 456<br>
+                    Address: 123 Business Lane, Sandton, Johannesburg, 2196</p>
+            </div>
+
+            <!-- Cookie Policy -->
+            <div class="legal-section" id="cookies">
+                <h2>Cookie Policy</h2>
+                <div class="last-updated"><i class="fas fa-calendar"></i> Last Updated: February 4, 2026</div>
+
+                <p>This Cookie Policy explains how MakertMyn uses cookies and similar technologies on our Platform.</p>
+
+                <h3>1. What Are Cookies?</h3>
+                <p>Cookies are small text files stored on your device when you visit a website. They help websites
+                    remember your preferences and improve your browsing experience.</p>
+
+                <h3>2. Types of Cookies We Use</h3>
+
+                <h4>2.1 Essential Cookies</h4>
+                <p>These cookies are necessary for the Platform to function properly. They enable core functionality
+                    such as:</p>
+                <ul>
+                    <li>Shopping cart functionality</li>
+                    <li>User authentication</li>
+                    <li>Security features</li>
+                </ul>
+                <p>You cannot opt out of essential cookies.</p>
+
+                <h4>2.2 Performance Cookies</h4>
+                <p>These cookies collect information about how you use our Platform, such as:</p>
+                <ul>
+                    <li>Pages visited</li>
+                    <li>Time spent on pages</li>
+                    <li>Error messages encountered</li>
+                </ul>
+                <p>This helps us improve the Platform's performance.</p>
+
+                <h4>2.3 Functional Cookies</h4>
+                <p>These cookies remember your preferences and choices, such as:</p>
+                <ul>
+                    <li>Language preferences</li>
+                    <li>Location settings</li>
+                    <li>Previously viewed products</li>
+                </ul>
+
+                <h4>2.4 Marketing Cookies</h4>
+                <p>These cookies track your browsing activity to deliver relevant advertisements. They may be set by us
+                    or third-party advertising partners.</p>
+
+                <h3>3. Third-Party Cookies</h3>
+                <p>We use third-party services that may set cookies, including:</p>
+                <ul>
+                    <li>Google Analytics (website analytics)</li>
+                    <li>Facebook Pixel (advertising)</li>
+                    <li>Payment processors (secure transactions)</li>
+                </ul>
+
+                <h3>4. Managing Cookies</h3>
+                <p>You can control cookies through:</p>
+                <ul>
+                    <li><strong>Browser Settings:</strong> Most browsers allow you to refuse or delete cookies</li>
+                    <li><strong>Cookie Consent Tool:</strong> Use our cookie preference center to manage non-essential
+                        cookies</li>
+                </ul>
+                <p>Note: Disabling certain cookies may affect Platform functionality.</p>
+
+                <h3>5. Contact Us</h3>
+                <p>For questions about our use of cookies, contact us at privacy@marketmyn.co.za</p>
+            </div>
+
+            <!-- Returns & Refunds Policy -->
+            <div class="legal-section" id="returns">
+                <h2>Returns & Refunds Policy</h2>
+                <div class="last-updated"><i class="fas fa-calendar"></i> Last Updated: February 4, 2026</div>
+
+                <p>MakertMyn is committed to customer satisfaction. This policy outlines your rights regarding returns
+                    and refunds in accordance with the Consumer Protection Act of South Africa.</p>
+
+                <h3>1. Your Right to Return</h3>
+                <p>You have the right to return most products within <strong>30 days</strong> of delivery for a full
+                    refund, provided the product is:</p>
+                <ul>
+                    <li>Unused and in its original condition</li>
+                    <li>In original packaging with all tags and labels attached</li>
+                    <li>Accompanied by proof of purchase</li>
+                </ul>
+
+                <h3>2. How to Return a Product</h3>
+                <ol>
+                    <li>Log into your MakertMyn account</li>
+                    <li>Go to "My Orders" and select the order</li>
+                    <li>Click "Return Item" and select the reason for return</li>
+                    <li>Submit your return request</li>
+                    <li>Pack the item securely in its original packaging</li>
+                    <li>Our courier will collect the item from your address (free collection)</li>
+                </ol>
+
+                <h3>3. Refund Process</h3>
+                <p>Once we receive and inspect your returned item:</p>
+                <ul>
+                    <li>Approved returns are refunded within <strong>5-7 business days</strong></li>
+                    <li>Refunds are issued to the original payment method</li>
+                    <li>You will receive an email confirmation when the refund is processed</li>
+                    <li>Bank processing times may vary (typically 3-5 business days)</li>
+                </ul>
+
+                <h3>4. Non-Returnable Items</h3>
+                <p>For health, hygiene, and safety reasons, the following items cannot be returned:</p>
+                <ul>
+                    <li>Opened cosmetics, skincare, and personal care products</li>
+                    <li>Underwear, swimwear, and intimate apparel (unless unopened)</li>
+                    <li>Perishable goods</li>
+                    <li>Digital downloads and software</li>
+                    <li>Custom-made or personalized items</li>
+                    <li>Items marked as "Final Sale" or "Non-Returnable"</li>
+                </ul>
+
+                <h3>5. Damaged or Defective Products</h3>
+                <p>If you receive a damaged or defective product:</p>
+                <ul>
+                    <li>Contact us within <strong>48 hours</strong> of delivery</li>
+                    <li>Provide photos of the damage/defect</li>
+                    <li>We will arrange a free return and provide a full refund or replacement</li>
+                    <li>You are not responsible for return shipping costs for damaged/defective items</li>
+                </ul>
+
+                <h3>6. Wrong Item Received</h3>
+                <p>If you receive the wrong item:</p>
+                <ul>
+                    <li>Contact us immediately</li>
+                    <li>We will arrange a free return</li>
+                    <li>The correct item will be sent at no additional cost</li>
+                </ul>
+
+                <h3>7. Exchanges</h3>
+                <p>We do not offer direct exchanges. To exchange an item:</p>
+                <ol>
+                    <li>Return the original item for a refund</li>
+                    <li>Place a new order for the desired item</li>
+                </ol>
+
+                <h3>8. Return Shipping</h3>
+                <ul>
+                    <li><strong>Change of Mind Returns:</strong> Free collection within South Africa</li>
+                    <li><strong>Damaged/Defective/Wrong Item:</strong> Free collection and return shipping</li>
+                    <li><strong>International Returns:</strong> Customer responsible for return shipping costs</li>
+                </ul>
+
+                <h3>9. Refund Exceptions</h3>
+                <p>Refunds may be denied or reduced if:</p>
+                <ul>
+                    <li>The item is not in its original condition</li>
+                    <li>The item shows signs of use or wear</li>
+                    <li>Original packaging is damaged or missing</li>
+                    <li>Tags or labels have been removed</li>
+                    <li>The return is made after the 30-day period</li>
+                </ul>
+
+                <h3>10. Seller-Specific Policies</h3>
+                <p>Some sellers may have additional return policies. These will be clearly stated on the product page.
+                    Seller-specific policies do not override your statutory rights under the Consumer Protection Act.
+                </p>
+
+                <h3>11. Cooling-Off Period (Consumer Protection Act)</h3>
+                <p>In accordance with the Consumer Protection Act, you have the right to cancel an online purchase
+                    within <strong>7 days</strong> of receipt without providing a reason, provided the product is unused
+                    and in its original packaging.</p>
+
+                <h3>12. Contact Us</h3>
+                <p>For return-related queries:</p>
+                <p><strong>Email:</strong> returns@marketmyn.co.za<br>
+                    <strong>Phone:</strong> 0800 123 456<br>
+                    <strong>Hours:</strong> Monday-Friday, 8am-6pm | Saturday, 9am-1pm
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2>Subscribe to Our Newsletter</h2>
+                    <p>Get exclusive deals, new arrivals, and special offers delivered to your inbox</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Makert<span>Myn</span></h3>
+                    <p>Your one-stop marketplace for everything you need. Shop from thousands of trusted sellers across
+                        South
+                        Africa.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="help.html">Track Order</a></li>
+                        <li><a href="legal.html#returns">Returns & Refunds</a></li>
+                        <li><a href="help.html">Shipping Info</a></li>
+                        <li><a href="help.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press & Media</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Sell With Us</h4>
+                    <ul>
+                        <li><a href="sell-on-makertmyn.html">Become a Seller</a></li>
+                        <li><a href="#">Seller Dashboard</a></li>
+                        <li><a href="#">Seller Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#flashDeals">Today's Deals</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="legal.html">Privacy Policy</a></li>
+                        <li><a href="legal.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="menu.js"></script>
+    <script>
+        const CART_KEY = "makertmyn_cart_v1";
+        function read(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } }
+        function cartCount() { return read(CART_KEY).reduce((s, i) => s + (i.qty || 0), 0); }
+        function updateCartBadge() { const b = document.getElementById("cartBadge"); if (b) b.textContent = cartCount(); }
+        updateCartBadge();
+
+        // Highlight active section in nav
+        const sections = document.querySelectorAll('.legal-section');
+        const navLinks = document.querySelectorAll('.legal-nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

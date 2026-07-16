@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get It Fast - Express Delivery | Marketmyn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .mega-menu.active {
+            max-height: 900px !important;
+            overflow: hidden !important;
+            padding: 30px 0 !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .mega-menu.active .mega-menu-content {
+            max-height: 820px !important;
+            overflow-y: auto !important;
+            padding-right: 8px !important;
+        }
+
+        .delivery-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .delivery-banner h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .delivery-banner p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .delivery-info {
+            background: #f5f5f5;
+            padding: 40px 0;
+            margin-bottom: 50px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-truck"></i> Free Shipping on Orders Over R500 | <i class="fas fa-shield-alt"></i> 100%
+                Buyer Protection</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products, brands, and categories...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="header-actions">
+                    <a href="login.html" class="header-link"><i class="fas fa-user"></i> Sign In</a>
+                    <a href="wishlist.html" class="header-link"><i class="fas fa-heart"></i> Wishlist</a>
+                    <a href="cart.html" class="header-link cart-link">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <button class="categories-btn" id="allButton" style="background: #ff6b00; color: white;">
+                    <i class="fas fa-bars"></i> All Categories
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html#flashDeals">Today's Deals</a></li>
+                    <li><a href="index.html#bestSellers">Best Sellers</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="register.html?type=seller">Become a Seller</a></li>
+                    <li><a href="help.html">Customer Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Delivery Banner -->
+    <section class="delivery-banner">
+        <div class="container">
+            <h1><i class="fas fa-shipping-fast"></i> Get It Fast</h1>
+            <p>Express delivery products - Same day or next day delivery available in major SA cities</p>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section class="delivery-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Same Day Delivery</h3>
+                    <p>Order before 12pm for same day delivery in Johannesburg, Cape Town, and Durban</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Next Day Delivery</h3>
+                    <p>Available to all major cities across South Africa when you order before 3pm</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-box"></i>
+                    <h3>Track Your Order</h3>
+                    <p>Real-time tracking updates from dispatch to your doorstep</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safe Delivery</h3>
+                    <p>Contactless delivery options and package insurance included</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fast Delivery Products -->
+    <section class="best-sellers" style="padding:50px 0;">
+        <div class="container">
+            <h2 class="section-title">Express Delivery Products</h2>
+            <p style="text-align:center; color:var(--text-light); margin-bottom:40px;">Products available for fast
+                delivery in your area</p>
+
+            <div class="product-grid" id="fastDeliveryGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Makert<span>Myn</span></h3>
+                    <p>Your one-stop marketplace for everything you need. Shop from thousands of trusted sellers across
+                        South
+                        Africa.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="help.html">Track Order</a></li>
+                        <li><a href="legal.html#returns">Returns & Refunds</a></li>
+                        <li><a href="help.html">Shipping Info</a></li>
+                        <li><a href="help.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press & Media</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Sell With Us</h4>
+                    <ul>
+                        <li><a href="sell-on-makertmyn.html">Become a Seller</a></li>
+                        <li><a href="#">Seller Dashboard</a></li>
+                        <li><a href="#">Seller Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#flashDeals">Today's Deals</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="legal.html">Privacy Policy</a></li>
+                        <li><a href="legal.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const CART_KEY = "makertmyn_cart_v1";
+        function read(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } }
+        function write(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+        function cartCount() { return read(CART_KEY).reduce((s, i) => s + (i.qty || 0), 0); }
+        function updateCartBadge() { const b = document.getElementById("cartBadge"); if (b) b.textContent = cartCount(); }
+
+        function addToCart(product) {
+            const cart = read(CART_KEY);
+            const found = cart.find(i => i.id === product.id);
+            if (found) found.qty += 1;
+            else cart.push({ id: product.id, name: product.title, price: product.price, image: product.images[0], vendor: product.vendor, qty: 1 });
+            write(CART_KEY, cart);
+            updateCartBadge();
+            updateCartBadge();
+            showCartModal(product);
+        }
+
+        function renderFastDelivery() {
+            if (typeof getFastDeliveryProducts === 'undefined') return;
+            const products = getFastDeliveryProducts(20);
+            const grid = document.getElementById("fastDeliveryGrid");
+            grid.innerHTML = "";
+
+            products.forEach(p => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.setAttribute('data-id', p.id);
+                const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
+                card.innerHTML = `
+          ${discount > 0 ? `<span class="product-badge">-${discount}%</span>` : '<span class="product-badge" style="background:var(--success);">Fast Delivery</span>'}
+          <div class="product-image">
+            <a href="product-detail.html?id=${encodeURIComponent(p.id)}">
+              <img src="${p.images[0]}" alt="${p.title}">
+            </a>
+            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          </div>
+          <div class="product-info">
+            <a href="product-detail.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit;">
+              <h3>${p.title}</h3>
+            </a>
+            <div class="product-price">
+              <span class="current-price">R${p.price.toLocaleString("en-ZA")}</span>
+              ${p.originalPrice ? `<span class="original-price">R${p.originalPrice.toLocaleString("en-ZA")}</span>` : ''}
+            </div>
+            <button class="btn btn-cart"><i class="fas fa-shipping-fast"></i> Add to Cart</button>
+          </div>
+        `;
+                card.querySelector(".btn-cart").addEventListener("click", () => addToCart(p));
+                grid.appendChild(card);
+            });
+        }
+
+        updateCartBadge();
+        renderFastDelivery();
+
+        // Wishlist Logic
+        document.body.addEventListener('click', async (e) => {
+            if (e.target.closest('.wishlist-btn')) {
+                e.preventDefault();
+                const btn = e.target.closest('.wishlist-btn');
+                const card = btn.closest('.product-card');
+                const productId = card ? card.getAttribute('data-id') : null;
+
+                if (!productId) return;
+
+                const user = JSON.parse(localStorage.getItem('makertmyn_user_v1'));
+                if (!user || !user.token) {
+                    alert('Please login to use Wishlist');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const icon = btn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'fa-spin');
+
+                try {
+                    const res = await fetch(`/api/user/wishlist/${productId}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${user.token}` }
+                    });
+
+                    if (res.ok) {
+                        icon.classList.remove('fa-spin');
+                        icon.style.color = 'red';
+                        alert('Added to Wishlist!');
+                    } else {
+                        throw new Error('Failed');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    icon.classList.remove('fas', 'fa-spin');
+                    icon.classList.add('far');
+                    alert('Error adding to wishlist');
+                }
+            }
+        });
+    </script>
+    <script src="js/products-data.js"></script>
+    <script src="menu.js"></script>
+</body>
+
+</html>

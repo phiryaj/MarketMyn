@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller Login / Register - MakertMyn</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    .wrap {
+      background: #f5f5f5;
+      min-height: 80vh;
+      padding: 50px 0;
+    }
+
+    .card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    .left {
+      background: linear-gradient(135deg, var(--secondary-color), #0095ff);
+      color: #fff;
+      padding: 34px;
+    }
+
+    .left h2 {
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .left p {
+      opacity: .92;
+      line-height: 1.6;
+    }
+
+    .statusBox {
+      margin-top: 14px;
+      background: rgba(255, 255, 255, .16);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+
+    .right {
+      padding: 34px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 2px solid var(--border);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .field {
+      margin-top: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--primary-color);
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 14px;
+      border: none;
+      border-radius: 999px;
+      padding: 14px;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #ff8534;
+    }
+
+    .note {
+      color: var(--text-light);
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .miniLink {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--primary-color);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .miniLink:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 18px 0;
+    }
+
+    .smallBadge {
+      display: inline-block;
+      background: rgba(255, 107, 0, .12);
+      color: var(--primary-color);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    @media(max-width:900px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // Auto-redirect if already logged in
+    (function () {
+      const sellerData = localStorage.getItem('makertmyn_seller_v1');
+      if (sellerData) {
+        try {
+          const { lastActive } = JSON.parse(sellerData);
+          const NOW = Date.now();
+          const EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 Hours
+
+          if (lastActive && (NOW - lastActive < EXPIRY_MS)) {
+            // Valid Session -> Redirect
+            window.location.href = 'seller-dashboard.html';
+          } else {
+            // Expired
+            localStorage.removeItem('makertmyn_seller_v1');
+          }
+        } catch (e) {
+          localStorage.removeItem('makertmyn_seller_v1');
+        }
+      }
+    })();
+  </script>
+
+  <div class="top-banner">
+    <div class="container">
+      <p><i class="fas fa-store"></i> Seller Access — registration & approval required</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="header-actions">
+          <a href="sell-on-makertmyn.html" class="header-link"><i class="fas fa-arrow-left"></i> <span>Back</span></a>
+          <a href="index.html" class="header-link"><i class="fas fa-home"></i> <span>Store</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="wrap">
+    <div class="container">
+      <div class="card">
+        <div class="left">
+          <span class="smallBadge">Sell on MakertMyn</span>
+          <h2>Login or Register</h2>
+          <p>
+            Create a seller account, submit your details, and wait for approval.
+            Once approved, you can access your Seller Dashboard to upload products and manage orders.
+          </p>
+
+          <div class="statusBox">
+            Status: <span id="statusText">Not registered</span>
+          </div>
+
+
+        </div>
+
+        <div class="right">
+          <div class="tabs">
+            <button class="tab active" id="tabLogin" onclick="showTab('login')">Login</button>
+            <button class="tab" id="tabRegister" onclick="showTab('register')">Register</button>
+          </div>
+
+          <!-- LOGIN -->
+          <form id="loginForm">
+            <div class="field">
+              <label>Email</label>
+              <input id="loginEmail" type="email" placeholder="seller@email.com" required>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input id="loginPass" type="password" placeholder="••••••••" required>
+            </div>
+            <button class="btn" type="submit">Login</button>
+            <div class="note">
+              If your account is pending approval, you won’t be able to enter the dashboard yet.
+            </div>
+          </form>
+
+          <!-- REGISTER -->
+          <form id="registerForm" style="display:none;" enctype="multipart/form-data">
+
+            <!-- Type Selector -->
+            <div class="field">
+              <label>Seller Type</label>
+              <select id="regType" onchange="toggleSellerFields()">
+                <option value="individual">Individual / Sole Proprietor</option>
+                <option value="business">Registered Business (Pty Ltd, CC)</option>
+              </select>
+            </div>
+
+            <!-- Common Fields -->
+            <div class="field">
+              <label>Store Name (Trading Name)</label>
+              <input id="regStore" name="storeName" type="text" placeholder="My Awesome Store" required>
+            </div>
+            <div class="field">
+              <label>Your Name (Contact Person)</label>
+              <input id="regName" name="name" type="text" placeholder="John Doe" required>
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input id="regEmail" name="email" type="email" placeholder="seller@email.com" required>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input id="regPass" name="password" type="password" placeholder="Create robust password" required>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Individual Fields -->
+            <div id="individualFields">
+              <div class="field">
+                <label>ID Number (RSA)</label>
+                <input id="regIdNum" name="idNumber" type="text" placeholder="13-digit ID Number">
+              </div>
+              <div class="field">
+                <label>Upload ID Document (PDF/Image)</label>
+                <input id="regIdDoc" name="idDoc" type="file" accept=".pdf,.jpg,.jpeg,.png">
+              </div>
+            </div>
+
+            <!-- Business Fields -->
+            <div id="businessFields" style="display:none;">
+              <div class="field">
+                <label>Business Registration Number</label>
+                <input id="regBizNum" name="businessRegNumber" type="text" placeholder="YYYY/NNNNNN/NN">
+              </div>
+              <div class="field">
+                <label>Upload CIPC Registration Doc</label>
+                <input id="regBizDoc" name="bizReg" type="file" accept=".pdf,.jpg,.jpeg,.png">
+              </div>
+              <div class="field">
+                <label>Upload Director's ID</label>
+                <input id="regDirectorDoc" name="directorIdDoc" type="file" accept=".pdf,.jpg,.jpeg,.png">
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>Banking Details for Payouts</h3>
+
+            <div class="field">
+              <label>Bank Name</label>
+              <input id="regBankName" name="bankName" type="text" placeholder="e.g. FNB, Capitec" required>
+            </div>
+            <div class="field">
+              <label>Account Holder Name</label>
+              <input id="regAccHolder" name="accountHolder" type="text" placeholder="Must match ID or Biz Name"
+                required>
+            </div>
+            <div class="field">
+              <label>Account Number</label>
+              <input id="regAccNum" name="accountNumber" type="text" required>
+            </div>
+            <div class="field">
+              <label>Branch Code</label>
+              <input id="regBranch" name="branchCode" type="text" required>
+            </div>
+            <div class="field">
+              <label>Upload Bank Confirmation Letter</label>
+              <input id="regBankProof" name="bankProof" type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+
+            <button class="btn" type="submit" style="margin-top:20px;">Register & Submit Documents</button>
+
+            <div class="note">
+              By registering, you agree to our Seller Terms. Your account will be <b>Pending</b> until documents are
+              verified.
+            </div>
+          </form>
+
+          <div class="divider"></div>
+
+          <!-- (No demo shortcuts visible) -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (public buyer footer already on your pages) -->
+  <!-- You can paste your standard footer here too, if you want. -->
+
+  <script>
+    // API Configuration
+    const API_URL = 'http://127.0.0.1:5000/api';
+
+    // --- AUTH LOGIC ---
+
+    async function registerSeller(storeName, email, password, type) {
+      try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: storeName,
+            email,
+            password,
+            role: 'seller',
+            storeName
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Registration successful! Please wait for admin approval.");
+          showTab('login');
+        } else {
+          alert(data.message || 'Registration failed');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Server error during registration');
+      }
+    }
+
+    async function loginSeller(email, password) {
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          if (data.role !== 'seller') {
+            alert("This account is not a seller account.");
+            return;
+          }
+
+          // Store Token
+          localStorage.setItem('sellerToken', data.token);
+          localStorage.setItem('sellerInfo', JSON.stringify(data));
+
+          window.location.href = 'seller-dashboard.html';
+        } else {
+          // If 403 (Forbidden) likely pending/banned
+          if (response.status === 403) {
+            alert(data.message || 'Account not active.');
+          } else {
+            alert(data.message || 'Login failed');
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        console.log(error)
+        alert('Server error during login');
+      }
+    }
+
+    // --- UI LOGIC ---
+
+    function showTab(which) {
+      document.getElementById("loginForm").style.display = (which === "login") ? "block" : "none";
+      document.getElementById("registerForm").style.display = (which === "register") ? "block" : "none";
+      document.getElementById("tabLogin").classList.toggle("active", which === "login");
+      document.getElementById("tabRegister").classList.toggle("active", which === "register");
+    }
+
+    function toggleSellerFields() {
+      const type = document.getElementById("regType").value;
+      const indFields = document.getElementById("individualFields");
+      const bizFields = document.getElementById("businessFields");
+
+      if (type === 'individual') {
+        indFields.style.display = 'block';
+        bizFields.style.display = 'none';
+      } else {
+        indFields.style.display = 'none';
+        bizFields.style.display = 'block';
+      }
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Use FormData for file uploads
+      const form = document.getElementById("registerForm");
+      const formData = new FormData(form);
+
+      // Manual append for things not in name attribs if any? No, I added name attribs.
+      // Except 'role' which is hardcoded 'seller'
+      formData.append('role', 'seller');
+      formData.append('sellerType', document.getElementById("regType").value); // Explicitly add
+
+      try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          // headers: 'Content-Type': 'multipart/form-data', // DO NOT SET CONTENT-TYPE for FormData, browser does it with boundary
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Registration successful! Documents uploaded. Please wait for ID verification.");
+          showTab('login');
+        } else {
+          alert(data.message || 'Registration failed');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Server error during registration');
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const pass = document.getElementById("loginPass").value.trim();
+
+      if (!email || !pass) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      loginSeller(email, pass);
+    });
+
+    // Initialize
+    document.getElementById("statusText").parentElement.style.display = 'none'; // Hide legacy status box
+    document.querySelector('.left button').style.display = 'none'; // Hide demo button
+  </script>
+
+</body>
+
+</html>

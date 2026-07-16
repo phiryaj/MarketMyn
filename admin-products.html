@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Products | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        /* Adjust main content for fixed sidebar */
+        .main-content {
+            flex: 1;
+            background: #f4f6f8;
+            padding: 30px;
+            margin-left: 260px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #16213e;
+            color: #fff;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #666;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .product-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 500px;
+            max-width: 95%;
+        }
+    </style>
+<script src="/js/admin-auth.js"></script>
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <aside class="sidebar">
+            <div style="padding-bottom: 20px;">
+                <h2>MarketMyn Panel</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin-products.html" class="nav-item active"><i class="fas fa-box"></i> Products</a>
+                <a href="admin-clipper.html" class="nav-item" style="color: #22c55e;"><i class="fas fa-cut"></i> Product
+                    Clipper</a>
+                <a href="admin-orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="admin-sellers.html" class="nav-item"><i class="fas fa-store"></i> Sellers</a>
+                <a href="admin-payouts.html" class="nav-item"><i class="fas fa-wallet"></i> Payouts</a>
+                <a href="admin-users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                <a href="admin-staff.html" class="nav-item"><i class="fas fa-user-shield"></i> Staff</a>
+                <a href="admin-categories.html" class="nav-item"><i class="fas fa-tags"></i> Categories</a>
+                <a href="admin-settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <a href="#" onclick="logout()" class="nav-item" style="color:#ff6b6b;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header"
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 14px; color: #666;">
+                        <a href="admin-dashboard.html" style="text-decoration: none; color: #888;">Dashboard</a> &gt;
+                        <span>Products</span>
+                    </div>
+                    <a href="admin-dashboard.html" class="btn-sm"
+                        style="text-decoration: none; background: #95a5a6;">Back to Dashboard</a>
+                </div>
+                <h1 style="margin-top:0; margin-bottom:20px;">Manage Products</h1>
+            </div>
+
+            <div class="card">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchProductTab('pending', this)">Pending Approvals <span
+                            id="pendingCount"
+                            style="background:#e74c3c; color:white; font-size:10px; padding:2px 6px; border-radius:10px; margin-left:5px; display:none;">0</span>
+                    </div>
+                    <div class="tab" onclick="switchProductTab('approved', this)">Approved Products</div>
+                    <div class="tab" onclick="switchProductTab('rejected', this)">Rejected</div>
+                </div>
+
+                <div class="search-bar" style="margin-bottom: 20px;">
+                    <input type="text" id="searchInput" placeholder="Search products or vendors..."
+                        style="padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 6px;"
+                        onkeyup="filterTable()">
+                </div>
+
+                <div class="data-table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Vendor</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTable">
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding:20px;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                <h3 style="margin:0;">Edit Product Status</h3>
+                <span onclick="closeModal()" style="cursor:pointer; font-size:20px;">&times;</span>
+            </div>
+            <form id="editProductForm" onsubmit="handleEditSubmit(event)">
+                <input type="hidden" id="editProdId">
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Product Title</label>
+                    <input type="text" id="editProdTitle" readonly
+                        style="width:100%; padding:8px; background:#f9f9f9; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Vendor</label>
+                    <input type="text" id="editProdVendor" readonly
+                        style="width:100%; padding:8px; background:#f9f9f9; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Status</label>
+                    <select id="editProdStatus"
+                        style="width:100%; padding:10px; border:1px solid #ddd; border-radius:4px;">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div style="text-align:right;">
+                    <button type="button" onclick="closeModal()" class="btn-sm" style="background:#eee;">Cancel</button>
+                    <button type="submit" class="btn-sm btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+        let allProducts = [];
+        let currentFilter = 'pending';
+
+        // Auth Check
+        const token = localStorage.getItem('adminToken');
+        if (!token) window.location.href = 'admin-login.html';
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API_URL}/admin/products`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.status === 401) { logout(); return; }
+
+                const data = await res.json();
+                allProducts = data || [];
+
+                updateCounts();
+                renderTable();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('productTable').innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Error loading products</td></tr>';
+            }
+        }
+
+        function updateCounts() {
+            const pendingCount = allProducts.filter(p => p.status === 'pending').length;
+            const badge = document.getElementById('pendingCount');
+            if (pendingCount > 0) {
+                badge.textContent = pendingCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function switchProductTab(filter, tabElement) {
+            currentFilter = filter;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tabElement.classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('productTable');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = allProducts.filter(p => {
+                const matchesStatus = p.status === currentFilter;
+                const matchesSearch = p.title.toLowerCase().includes(search) ||
+                    (p.vendorName || '').toLowerCase().includes(search);
+                return matchesStatus && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px;">No ${currentFilter} products found.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td><img src="${p.image || 'https://via.placeholder.com/40'}" class="product-img" alt="prod"></td>
+                    <td>
+                        <b>${p.title}</b><br>
+                        <small style="color:#888;">ID: ${p._id.substr(-6)}</small>
+                    </td>
+                    <td>${p.vendorName || 'Unknown'}</td>
+                    <td>R ${(p.price || 0).toFixed(2)}</td>
+                    <td>${p.stock || 0}</td>
+                    <td><span class="status-badge status-${p.status}">${p.status}</span></td>
+                    <td>
+                        <button class="btn-sm btn-info" onclick="openEditModal('${p._id}')">Edit</button>
+                        ${p.status === 'pending' ? `
+                            <button class="btn-sm btn-success" onclick="updateStatus('${p._id}', 'approved')"><i class="fas fa-check"></i></button>
+                            <button class="btn-sm btn-danger" onclick="updateStatus('${p._id}', 'rejected')"><i class="fas fa-times"></i></button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterTable() {
+            renderTable();
+        }
+
+        async function updateStatus(id, status) {
+            if (!confirm(`Mark this product as ${status.toUpperCase()}?`)) return;
+
+            try {
+                // Backend route is PUT /api/admin/products/:id -> updateProductStatus
+                const res = await fetch(`${API_URL}/admin/products/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (res.ok) {
+                    loadProducts(); // Reload to refresh list
+                } else {
+                    alert('Failed to update status');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error updating status');
+            }
+        }
+
+        // Modal Logic
+        function openEditModal(id) {
+            const product = allProducts.find(p => p._id === id);
+            if (!product) return;
+
+            document.getElementById('editProdId').value = product._id;
+            document.getElementById('editProdTitle').value = product.title;
+            document.getElementById('editProdVendor').value = product.vendorName || 'Unknown';
+            document.getElementById('editProdStatus').value = product.status;
+
+            document.getElementById('editProductModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('editProductModal').style.display = 'none';
+        }
+
+        async function handleEditSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('editProdId').value;
+            const status = document.getElementById('editProdStatus').value;
+
+            await updateStatus(id, status);
+            closeModal();
+        }
+
+        loadProducts();
+    </script>
+</body>
+
+</html>

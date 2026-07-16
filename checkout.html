@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - MakertMyn</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f7f6;
+    }
+
+    .wrap {
+      min-height: 80vh;
+      padding: 50px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .summary-panel {
+      position: sticky;
+      top: 100px;
+      background: #fafbfc;
+      border: 1px solid #edf2f7;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: #111;
+      letter-spacing: -0.5px;
+    }
+
+    .title-sub {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 35px;
+      margin-bottom: 20px;
+      color: #111;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .field label {
+      font-weight: 600;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      outline: none;
+      font-size: 15px;
+      background: #f8fafc;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--primary-color);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Premium Payment Methods styling using modern :has selector */
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fff;
+      margin-bottom: 15px;
+    }
+
+    .payment-option:hover {
+      border-color: #cbd5e0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.03);
+    }
+
+    .payment-option:has(input[type="radio"]:checked) {
+      border-color: var(--primary-color);
+      background: #fffaf5;
+      box-shadow: 0 8px 20px rgba(255, 107, 0, 0.12);
+    }
+
+    .payment-option input[type="radio"] {
+      accent-color: var(--primary-color);
+      width: 22px;
+      height: 22px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    .payment-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payment-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: #111;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .payment-desc {
+      font-size: 13px;
+      color: #718096;
+      margin-top: 6px;
+    }
+
+    /* Summary section */
+    .note {
+      color: #4a5568;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+
+    .sumRow {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      font-size: 15px;
+    }
+
+    .sumRow.total-row {
+      border-bottom: none;
+      border-top: 2px solid #e2e8f0;
+      margin-top: 10px;
+      padding-top: 20px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .money {
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+
+    .btnPay {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, #ff8534 100%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 25px;
+      box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btnPay:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(255, 107, 0, 0.4);
+    }
+
+    .mini {
+      font-size: 13px;
+      color: #a0aec0;
+      margin-top: 15px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #4a5568;
+      border: 1px solid #edf2f7;
+    }
+
+    .badge i {
+      color: #38a169;
+      font-size: 16px;
+    }
+
+    @media(max-width:1000px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .panel {
+        padding: 25px;
+      }
+    }
+    @media(max-width:600px) {
+      .row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-banner">
+    <div class="container">
+      <p><i class="fas fa-lock"></i> Secure Checkout | <i class="fas fa-shield-alt"></i> Buyer Protection</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="header-actions" style="margin-left: auto;">
+          <a href="cart.html" class="header-link cart-link" style="background: #f1f5f9; padding: 10px 20px; border-radius: 999px;">
+            <i class="fas fa-shopping-cart"></i> <span>Return to Cart</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="wrap">
+    <div class="container">
+      <div class="grid">
+
+        <!-- LEFT PANEL -->
+        <div class="panel">
+          <div class="title">Delivery Details</div>
+
+          <div class="row">
+            <div class="field">
+              <label>Full Name</label>
+              <input id="name" type="text" placeholder="Enter your full name" required>
+            </div>
+            <div class="field">
+              <label>Phone Number</label>
+              <input id="phone" type="tel" placeholder="e.g. 081 234 5678" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Email Address</label>
+            <input id="email" type="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="field">
+            <label>Street Address</label>
+            <input id="address" type="text" placeholder="House number, street name, and suburb" required>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>City</label>
+              <input id="city" type="text" placeholder="e.g. Johannesburg" required>
+            </div>
+            <div class="field">
+              <label>Province</label>
+              <select id="province" required>
+                <option value="">Select your province</option>
+                <option>Gauteng</option>
+                <option>Western Cape</option>
+                <option>KwaZulu-Natal</option>
+                <option>Eastern Cape</option>
+                <option>Free State</option>
+                <option>Limpopo</option>
+                <option>Mpumalanga</option>
+                <option>North West</option>
+                <option>Northern Cape</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Postal Code</label>
+              <input id="postal" type="text" placeholder="e.g. 2001" required>
+            </div>
+            <div class="field">
+              <label>Delivery Option</label>
+              <select id="delivery">
+                <option value="standard">Standard Delivery (3–4 days)</option>
+                <option value="express">Express Delivery (1–2 days)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Order Notes (optional)</label>
+            <textarea id="notes" placeholder="Any special instructions for the driver?" rows="2"></textarea>
+          </div>
+
+          <div class="title-sub">Payment Method</div>
+          
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="payfast" checked>
+            <div class="payment-info">
+              <div class="payment-title">
+                PayFast Secure
+                <img src="https://www.payfast.co.za/images/buttons/light-small-paynow.png" alt="PayFast" style="height:24px; border-radius:4px;">
+              </div>
+              <div class="payment-desc">
+                Credit Card, Instant EFT, Masterpass, SnapScan, and more.
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="ozow">
+            <div class="payment-info">
+              <div class="payment-title">
+                Ozow Instant EFT
+                <img src="assets/ozow-logo.png" alt="Ozow" style="height:20px;">
+              </div>
+              <div class="payment-desc">
+                Fast, seamless bank-to-bank payment without a card.
+              </div>
+            </div>
+          </label>
+
+        </div>
+
+        <!-- RIGHT PANEL (SUMMARY) -->
+        <div class="panel summary-panel">
+          <div class="title" style="font-size: 20px; border-bottom: 2px solid #edf2f7; padding-bottom: 15px; margin-bottom: 5px;">Order Summary</div>
+
+          <div id="items" class="note">Loading items...</div>
+
+          <div style="margin-top:20px;">
+            <div class="sumRow">
+              <span style="color:#718096;">Subtotal</span>
+              <span style="font-weight:700;" id="subtotal">R0</span>
+            </div>
+            <div class="sumRow">
+              <span style="color:#718096;">Shipping</span>
+              <span style="font-weight:700;" id="shipping">R0</span>
+            </div>
+            <div class="sumRow total-row">
+              <span>Total</span>
+              <span class="money" id="total">R0</span>
+            </div>
+          </div>
+
+          <button class="btnPay" onclick="toggleProcessing()">
+            <i class="fas fa-lock" style="margin-right: 8px;"></i> Complete Secure Payment
+          </button>
+          
+          <div id="processing" style="display:none; text-align:center; font-size:14px; font-weight:700; color:var(--primary-color); margin-top:15px;">
+            <i class="fas fa-circle-notch fa-spin"></i> Processing your order securely...
+          </div>
+          
+          <div class="mini"><i class="fas fa-shield-check"></i> Encrypted & secure payment.</div>
+
+          <div class="badges">
+            <div class="badge"><i class="fas fa-lock"></i> Secure Checkout</div>
+            <div class="badge"><i class="fas fa-undo"></i> Easy Returns</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PayFast Hidden Form -->
+  <form id="payfast-form" action="https://sandbox.payfast.co.za/eng/process" method="POST">
+    <input type="hidden" name="merchant_id" value="10000100">
+    <input type="hidden" name="merchant_key" value="46f0cd694581a">
+    <input type="hidden" name="return_url" id="pf_return_url">
+    <input type="hidden" name="cancel_url" id="pf_cancel_url">
+    <input type="hidden" name="notify_url" id="pf_notify_url">
+
+    <input type="hidden" name="amount" id="pf_amount">
+    <input type="hidden" name="item_name" id="pf_item_name">
+    <input type="hidden" name="name_first" id="pf_name_first">
+    <input type="hidden" name="email_address" id="pf_email">
+  </form>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+        <div class="payment-methods">
+          <img src="assets/visa-logo.png" alt="Visa" style="height:24px; vertical-align:middle; margin-right:5px;">
+          <img src="assets/mastercard-logo.png" alt="Mastercard" style="height:24px; vertical-align:middle; margin-right:5px;">
+          <img src="assets/payfast-logo.png" alt="PayFast" style="height:24px; vertical-align:middle; margin-right:5px;">
+          <img src="assets/ozow-logo.png" alt="Ozow" style="height:24px; vertical-align:middle; margin-right:5px;">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CART_KEY = "makertmyn_cart_v1";
+
+    function readCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
+    function money(n) { return "R" + (n || 0).toLocaleString("en-ZA"); }
+
+    const cart = readCart();
+    let currentTotal = 0;
+
+    function renderSummary() {
+      if (!cart.length) {
+        document.getElementById("items").innerHTML = `<div style="padding: 20px 0; text-align: center;">Your cart is empty. <br><br><a href="index.html" style="background:var(--primary-color);color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;">Shop now →</a></div>`;
+        return;
+      }
+
+      let subtotal = 0;
+      const lines = cart.map(i => {
+        subtotal += i.price * i.qty;
+        return `
+          <div class="sumRow" style="padding: 12px 0;">
+            <div style="display:flex; align-items:center; gap: 15px;">
+              <div style="width: 45px; height: 45px; border-radius: 8px; overflow:hidden; background:#f1f5f9; flex-shrink:0;">
+                <img src="${i.image}" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <div style="display:flex; flex-direction:column;">
+                <span style="font-weight:600; color:#111; font-size:14px;">${i.name}</span>
+                <span style="font-size:12px; color:#718096;">Qty: ${i.qty}</span>
+              </div>
+            </div>
+            <span style="font-weight:700; color:#111;">${money(i.price * i.qty)}</span>
+          </div>`;
+      }).join("");
+
+      const delivery = document.getElementById("delivery").value;
+      const shipping = delivery === "express" ? 99 : (subtotal >= 500 ? 0 : 60);
+      currentTotal = subtotal + shipping;
+
+      document.getElementById("items").innerHTML = lines;
+      document.getElementById("subtotal").textContent = money(subtotal);
+      
+      if (shipping === 0) {
+        document.getElementById("shipping").innerHTML = `<span style="color:#38a169; font-weight:700;">FREE</span>`;
+      } else {
+        document.getElementById("shipping").textContent = money(shipping);
+      }
+      
+      document.getElementById("total").textContent = money(currentTotal);
+    }
+
+    document.getElementById("delivery").addEventListener("change", renderSummary);
+    renderSummary();
+
+    function toggleProcessing() {
+      if (!cart.length) { alert("Your cart is empty."); return; }
+
+      const required = ["name", "phone", "email", "address", "city", "province", "postal"];
+      for (const id of required) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          el.style.borderColor = "#e53e3e";
+          el.focus();
+          // Reset border after a bit
+          setTimeout(() => el.style.borderColor = "", 3000);
+          return;
+        }
+      }
+
+      // Show spinner
+      document.querySelector('.btnPay').style.display = 'none';
+      document.getElementById("processing").style.display = 'block';
+
+      // Populate PayFast Form
+      document.getElementById('pf_amount').value = currentTotal.toFixed(2);
+      document.getElementById('pf_item_name').value = `Order #${Math.floor(1000 + Math.random() * 9000)} - MarketMyn`;
+
+      const fullName = document.getElementById('name').value.trim();
+      document.getElementById('pf_name_first').value = fullName;
+      document.getElementById('pf_email').value = document.getElementById('email').value.trim();
+
+      const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+      document.getElementById('pf_return_url').value = baseUrl + "/order-success.html";
+      document.getElementById('pf_cancel_url').value = baseUrl + "/cart.html";
+      document.getElementById('pf_notify_url').value = "https://sandbox.payfast.co.za/eng/process"; 
+
+      const orderData = {
+        id: document.getElementById('pf_item_name').value,
+        items: cart,
+        total: currentTotal,
+        payment: document.querySelector('input[name="payment_method"]:checked').value,
+        delivery: document.getElementById("delivery").value,
+        customer: fullName,
+        date: new Date().toISOString()
+      };
+      localStorage.setItem("makertmyn_last_order_v1", JSON.stringify(orderData));
+      localStorage.removeItem(CART_KEY); 
+
+      setTimeout(() => {
+        const form = document.getElementById('payfast-form');
+        if (form) {
+          form.submit();
+        } else {
+          alert('Payment gateway error. Please try again.');
+          document.querySelector('.btnPay').style.display = 'block';
+          document.getElementById("processing").style.display = 'none';
+        }
+      }, 1500);
+    }
+  </script>
+
+</body>
+
+</html>

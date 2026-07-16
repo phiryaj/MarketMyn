@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seller Support | MakertMyn Seller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal</p>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span style="font-weight:700;margin-right:15px;" id="storeName">Seller</span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-promotions.html" class="nav-link"><i class="fas fa-bullhorn"></i> Promotions</a>
+                        <a href="seller-messages.html" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                        <a href="seller-returns.html" class="nav-link"><i class="fas fa-undo"></i> Returns</a>
+                        <a href="seller-bulk.html" class="nav-link"><i class="fas fa-file-csv"></i> Bulk Tools</a>
+                        <a href="seller-staff.html" class="nav-link"><i class="fas fa-users-cog"></i> Staff</a>
+                        <a href="seller-analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-support.html" class="nav-link active"><i class="fas fa-headset"></i> Support</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Settings</a>
+                    </nav>
+                </aside>
+                <main>
+                    <h2 style="margin:0 0 20px 0;">Seller Support</h2>
+                    <div class="panel" style="margin-bottom:20px;">
+                        <h3 style="margin:0 0 15px 0;">Submit a Request</h3>
+                        <div class="form-group">
+                            <label>Topic</label>
+                            <select id="topic">
+                                <option>Order Issue</option>
+                                <option>Payout Inquiry</option>
+                                <option>Account Verification</option>
+                                <option>Technical Issue</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="subject" placeholder="Brief summary of the issue">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea id="message" rows="5" placeholder="Describe your issue in detail..."></textarea>
+                        </div>
+                        <button class="btn" onclick="createTicket()">Submit Ticket</button>
+                    </div>
+
+                    <div class="panel">
+                        <h3 style="margin:0 0 15px 0;">Recent Tickets</h3>
+                        <table style="width:100%; text-align:left;">
+                            <thead>
+                                <tr style="border-bottom:1px solid #eee;">
+                                    <th style="padding:10px;">ID</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketTable">
+                                <tr>
+                                    <td colspan="4" style="text-align:center; padding:20px; color:#888;">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+    <!-- Ticket Detail Modal -->
+    <div id="ticketModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+        <div
+            style="background:white; padding:25px; border-radius:12px; width:600px; max-width:95%; max-height:90vh; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="margin:0;" id="modalSubject">Ticket Subject</h3>
+                <button onclick="closeModal()"
+                    style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+
+            <div id="modalMessages"
+                style="flex:1; overflow-y:auto; background:#f9f9f9; padding:15px; border-radius:8px; margin-bottom:20px;">
+                <!-- Messages go here -->
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="replyInput" placeholder="Type a reply..."
+                    style="flex:1; padding:10px; border:1px solid #ddd; border-radius:6px;">
+                <button onclick="sendReply()"
+                    style="padding:10px 20px; background:var(--primary-color); color:white; border:none; border-radius:6px; cursor:pointer;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api';
+        function logout() { localStorage.removeItem('makertmyn_seller_v1'); window.location.href = 'seller-auth.html'; }
+        const session = JSON.parse(localStorage.getItem('makertmyn_seller_v1'));
+        if (session && session.store) document.getElementById('storeName').textContent = session.store;
+        if (!session) window.location.href = 'seller-auth.html';
+
+        let currentTicketId = null;
+
+        async function createTicket() {
+            const topic = document.getElementById('topic').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (!subject || !message) return alert('Please fill in all fields');
+
+            try {
+                const res = await fetch(`${API_URL}/support`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.token}` },
+                    body: JSON.stringify({ topic, subject, message })
+                });
+
+                if (res.ok) {
+                    alert('Ticket Created!');
+                    document.getElementById('subject').value = '';
+                    document.getElementById('message').value = '';
+                    loadTickets();
+                } else {
+                    alert('Failed to create ticket');
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadTickets() {
+            try {
+                const res = await fetch(`${API_URL}/support`, {
+                    headers: { 'Authorization': `Bearer ${session.token}` }
+                });
+                const tickets = await res.json();
+                const tbody = document.getElementById('ticketTable');
+
+                if (!tickets.length) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#888;">No recent tickets.</td></tr>';
+                    return;
+                }
+
+                // Store tickets globally to access details easily without re-fetch
+                window.allTickets = tickets;
+
+                tbody.innerHTML = tickets.map(t => `
+                    <tr>
+                        <td style="padding:10px;">#${t._id.substr(-6).toUpperCase()}</td>
+                        <td><b>${t.subject}</b><br><small>${t.topic}</small></td>
+                        <td><span style="background:${t.status === 'open' ? '#e3f2fd' : '#e8f5e9'}; color:${t.status === 'open' ? '#1976d2' : '#2e7d32'}; padding:4px 8px; border-radius:4px; font-size:12px;">${t.status}</span></td>
+                        <td>${new Date(t.createdAt).toLocaleDateString()}</td>
+                        <td><button onclick="openTicket('${t._id}')" style="padding:5px 10px; border:1px solid #ddd; background:white; border-radius:4px; cursor:pointer;">View</button></td>
+                    </tr>
+                `).join('');
+            } catch (e) { console.error(e); }
+        }
+
+        function openTicket(id) {
+            const ticket = window.allTickets.find(t => t._id === id);
+            if (!ticket) return;
+
+            currentTicketId = id;
+            document.getElementById('modalSubject').textContent = ticket.subject;
+
+            const msgContainer = document.getElementById('modalMessages');
+            msgContainer.innerHTML = `
+                <div style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    <div style="font-weight:bold; color:#555;">You asked:</div>
+                    <div style="margin-top:5px;">${ticket.message}</div>
+                    <div style="font-size:11px; color:#999; margin-top:5px;">${new Date(ticket.createdAt).toLocaleString()}</div>
+                </div>
+            `;
+
+            if (ticket.replies && ticket.replies.length > 0) {
+                ticket.replies.forEach(r => {
+                    const isAdmin = r.senderRole === 'admin';
+                    msgContainer.innerHTML += `
+                        <div style="margin-bottom:15px; text-align:${isAdmin ? 'left' : 'right'};">
+                            <div style="display:inline-block; max-width:80%; background:${isAdmin ? '#fff' : '#e3f2fd'}; padding:10px; border-radius:8px; border:1px solid ${isAdmin ? '#eee' : 'transparent'};">
+                                <div style="font-weight:bold; font-size:12px; margin-bottom:4px;">${isAdmin ? 'Support Team' : 'You'}</div>
+                                <div>${r.message}</div>
+                                <div style="font-size:10px; opacity:0.6; margin-top:4px;">${new Date(r.createdAt || Date.now()).toLocaleTimeString()}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('ticketModal').style.display = 'flex';
+        }
+
+        async function sendReply() {
+            const msg = document.getElementById('replyInput').value;
+            if (!msg || !currentTicketId) return;
+
+            try {
+                const res = await fetch(`${API_URL}/support/${currentTicketId}/reply`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.token}` },
+                    body: JSON.stringify({ message: msg })
+                });
+
+                if (res.ok) {
+                    document.getElementById('replyInput').value = '';
+                    // Reload tickets to get updated replies
+                    await loadTickets();
+                    // Re-open modal with new data
+                    openTicket(currentTicketId);
+                } else {
+                    alert('Failed to send reply');
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function closeModal() {
+            document.getElementById('ticketModal').style.display = 'none';
+        }
+
+        loadTickets();
+    </script>
+</body>
+
+</html>

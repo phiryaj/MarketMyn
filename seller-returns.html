@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Returns | MakertMyn Seller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #888;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .badge.badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal</p>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span style="font-weight:700;margin-right:15px;" id="storeName">Seller</span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-promotions.html" class="nav-link"><i class="fas fa-bullhorn"></i> Promotions</a>
+                        <a href="seller-messages.html" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                        <a href="seller-returns.html" class="nav-link active"><i class="fas fa-undo"></i> Returns</a>
+                        <a href="seller-bulk.html" class="nav-link"><i class="fas fa-file-csv"></i> Bulk Tools</a>
+                        <a href="seller-staff.html" class="nav-link"><i class="fas fa-users-cog"></i> Staff</a>
+                        <a href="seller-analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-support.html" class="nav-link"><i class="fas fa-headset"></i> Support</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Settings</a>
+                    </nav>
+                </aside>
+                <main>
+                    <h2 style="margin:0 0 20px 0;">Returns Management (RMA)</h2>
+                    <div class="panel">
+                        <table id="returnsTable">
+                            <thead>
+                                <tr>
+                                    <th>Return ID</th>
+                                    <th>Item</th>
+                                    <th>Reason</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" style="text-align:center; padding:30px; color:#999;">Loading
+                                        returns...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return Details Modal -->
+    <div id="returnModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+        <div style="background:white; padding:20px; border-radius:10px; width:500px; max-width:90%;">
+            <h3 style="margin-top:0;">Return Request Details</h3>
+            <div id="modalContent" style="margin-bottom:20px;"></div>
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button onclick="closeModal()"
+                    style="padding:8px 15px; border:1px solid #ccc; background:white; border-radius:5px; cursor:pointer;">Close</button>
+                <button onclick="updateReturn('Rejected')"
+                    style="padding:8px 15px; border:none; background:#dc3545; color:white; border-radius:5px; cursor:pointer;">Reject</button>
+                <button onclick="updateReturn('Approved')"
+                    style="padding:8px 15px; border:none; background:#28a745; color:white; border-radius:5px; cursor:pointer;">Approve</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- AUTH ---
+        function getToken() { return localStorage.getItem('sellerToken'); }
+        if (!getToken()) window.location.href = 'seller-auth.html';
+        const session = JSON.parse(localStorage.getItem('sellerInfo'));
+        if (session && session.storeName) document.getElementById('storeName').textContent = session.storeName;
+        function logout() { localStorage.removeItem('sellerToken'); localStorage.removeItem('sellerInfo'); window.location.href = 'seller-auth.html'; }
+
+        let allReturns = [];
+        let selectedReturnId = null;
+
+        async function fetchReturns() {
+            try {
+                const token = getToken();
+                const res = await fetch('/api/returns/seller', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                allReturns = data;
+                renderReturns();
+            } catch (err) {
+                console.error(err);
+                document.querySelector('#returnsTable tbody').innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Error loading returns.</td></tr>';
+            }
+        }
+
+        function renderReturns() {
+            const tbody = document.querySelector('#returnsTable tbody');
+            if (allReturns.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px; color:#999;">No active return requests.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = allReturns.map(r => `
+                <tr>
+                    <td>#${r._id.slice(-6).toUpperCase()}</td>
+                    <td>
+                        <div style="font-weight:600;">${r.orderItem.name}</div>
+                        <div style="font-size:12px; color:#888;">Qty: ${r.orderItem.qty}</div>
+                    </td>
+                    <td>${r.reason}</td>
+                    <td>${r.user.name}<br><small>${r.user.email}</small></td>
+                    <td><span class="badge ${getStatusClass(r.status)}">${r.status}</span></td>
+                    <td>${new Date(r.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <button onclick="openModal('${r._id}')" style="padding:5px 10px; border:1px solid #ddd; background:white; border-radius:4px; cursor:pointer;">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getStatusClass(status) {
+            if (status === 'Approved') return 'badge-success';
+            if (status === 'Rejected') return 'badge-danger';
+            return 'badge-warning';
+        }
+
+        function openModal(id) {
+            selectedReturnId = id;
+            const r = allReturns.find(item => item._id === id);
+            if (!r) return;
+
+            const html = `
+                <p><strong>Reason:</strong> ${r.reason}</p>
+                <p><strong>Customer Comment:</strong> ${r.comment}</p>
+                <p><strong>Order ID:</strong> ${r.order}</p>
+                <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+                <p><strong>Item Price:</strong> R${r.orderItem.price}</p>
+            `;
+            document.getElementById('modalContent').innerHTML = html;
+            document.getElementById('returnModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('returnModal').style.display = 'none';
+        }
+
+        async function updateReturn(newStatus) {
+            if (!selectedReturnId) return;
+            if (!confirm(`Are you sure you want to ${newStatus} this return?`)) return;
+
+            try {
+                const token = getToken();
+                const res = await fetch(`/api/returns/${selectedReturnId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (res.ok) {
+                    alert('Return status updated');
+                    closeModal();
+                    fetchReturns();
+                } else {
+                    alert('Error updating status');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        fetchReturns();
+    </script>
+</body>
+
+</html>

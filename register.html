@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MakertMyn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-wrap {
+            background: #f5f5f5;
+            padding: 50px 0;
+            min-height: 80vh;
+        }
+
+        .auth-card {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+        }
+
+        .auth-left {
+            padding: 40px;
+            color: #fff;
+            background: linear-gradient(135deg, #0095ff, var(--secondary-color));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-left h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .auth-left p {
+            opacity: .95;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .auth-right {
+            padding: 50px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            outline: none;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .auth-btn {
+            width: 100%;
+            border: none;
+            padding: 16px;
+            border-radius: 999px;
+            background: var(--primary-color);
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .auth-btn:hover {
+            background: #e55e00;
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .login-link a {
+            color: var(--secondary-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Seller Specific Fields */
+        #sellerFields {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 900px) {
+            .auth-card {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-left {
+                padding: 30px;
+                text-align: center;
+            }
+
+            .auth-right {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-truck"></i> Free Shipping on Orders Over R500 | <i class="fas fa-star"></i> Join
+                Thousands of Happy Shoppers</p>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <a href="login.html" class="header-link"
+                        style="color:var(--primary-color); font-weight:700;">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="auth-wrap">
+        <div class="container">
+            <div class="auth-card">
+
+                <div class="auth-left">
+                    <h2>Create Your Account</h2>
+                    <p>Join MakertMyn today. Shop from thousands of local sellers or start your own business.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px;">
+                        <p style="margin-bottom:10px; font-weight:700;"><i class="fas fa-check-circle"></i> Track your
+                            orders</p>
+                        <p style="margin-bottom:10px; font-weight:700;"><i class="fas fa-check-circle"></i> Save items
+                            to wishlist</p>
+                        <p style="margin-bottom:0; font-weight:700;"><i class="fas fa-check-circle"></i> Fast & secure
+                            checkout</p>
+                    </div>
+                </div>
+
+                <div class="auth-right">
+                    <div class="tabs">
+                        <button class="tab active" id="tabBuyer" onclick="switchType('buyer')">Register as
+                            Buyer</button>
+                        <button class="tab" id="tabSeller" onclick="switchType('seller')">Register as Seller</button>
+                    </div>
+
+                    <form id="registerForm">
+                        <input type="hidden" id="userType" value="buyer">
+
+                        <div class="field">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName" placeholder="e.g. Thabo Moloi" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Email Address</label>
+                            <input type="email" id="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" id="password" placeholder="Create a strong password" required>
+                        </div>
+
+                        <div id="sellerFields">
+                            <div class="field">
+                                <label>Store Name</label>
+                                <input type="text" id="storeName" placeholder="e.g. Thabo's Tech Store">
+                            </div>
+                            <div class="field">
+                                <label>Phone Number</label>
+                                <input type="tel" id="phone" placeholder="e.g. 082 123 4567">
+                            </div>
+                            <p
+                                style="font-size:13px; color:var(--text-light); margin-bottom:15px; background:#fff8e6; padding:10px; border-radius:8px; border:1px solid #ffe58f;">
+                                <i class="fas fa-info-circle"></i> Sellers need approval before listing products. We
+                                will contact you shortly after registration.
+                            </p>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Create Account</button>
+                    </form>
+
+                    <div class="login-link">
+                        Already have an account? <a href="login.html">Login here</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function switchType(type) {
+            document.getElementById('userType').value = type;
+
+            if (type === 'seller') {
+                document.getElementById('tabSeller').classList.add('active');
+                document.getElementById('tabBuyer').classList.remove('active');
+                document.getElementById('sellerFields').style.display = 'block';
+                document.getElementById('storeName').setAttribute('required', 'true');
+                document.getElementById('phone').setAttribute('required', 'true');
+                document.querySelector('.auth-btn').textContent = "Apply as Seller";
+                document.querySelector('.auth-left h2').textContent = "Start Selling Today";
+                document.querySelector('.auth-left p').textContent = "Reach millions of customers across South Africa. Zero listing fees.";
+            } else {
+                document.getElementById('tabBuyer').classList.add('active');
+                document.getElementById('tabSeller').classList.remove('active');
+                document.getElementById('sellerFields').style.display = 'none';
+                document.getElementById('storeName').removeAttribute('required');
+                document.getElementById('phone').removeAttribute('required');
+                document.querySelector('.auth-btn').textContent = "Create Account";
+                document.querySelector('.auth-left h2').textContent = "Create Your Account";
+                document.querySelector('.auth-left p').textContent = "Join MakertMyn today. Shop from thousands of local sellers.";
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const type = document.getElementById('userType').value;
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const storeName = document.getElementById('storeName').value;
+
+            const payload = {
+                name,
+                email,
+                password,
+                role: type,
+                storeName: type === 'seller' ? storeName : undefined
+            };
+
+            try {
+                const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:5000' : '';
+                const res = await fetch(`${API_BASE}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    if (type === 'seller') {
+                        // Match seller-dashboard.html expectations
+                        localStorage.setItem('sellerToken', data.token);
+                        localStorage.setItem('sellerInfo', JSON.stringify(data));
+
+                        alert("Application Submitted! You will be redirected to the Seller Dashboard.");
+                        window.location.href = "seller-dashboard.html";
+                    } else {
+                        // Buyer Logic
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('userInfo', JSON.stringify(data));
+
+                        alert("Account Created! Welcome, " + data.name);
+                        window.location.href = "index.html";
+                    }
+                } else {
+                    alert(data.message || 'Registration failed');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error connecting to server. Ensure server is running on port 5000.');
+            }
+        });
+
+        // Check URL params for auto-switching
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('type') === 'seller') {
+            switchType('seller');
+        }
+    </script>
+
+</body>
+
+</html>

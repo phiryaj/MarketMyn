@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Categories | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-wrap {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            background: #f4f6f8;
+            padding: 30px;
+            margin-left: 260px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #666;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 95%;
+        }
+    </style>
+<script src="/js/admin-auth.js"></script>
+</head>
+
+<body>
+    <div class="admin-wrap">
+        <aside class="sidebar">
+            <div style="padding-bottom: 20px;">
+                <h2>Market<span>Myn</span></h2>
+                <p style="font-size:12px; opacity:0.7;">Admin Panel</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin-dashboard.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="admin-products.html" class="nav-item"><i class="fas fa-box"></i> Products</a>
+                <a href="admin-orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="admin-sellers.html" class="nav-item"><i class="fas fa-store"></i> Sellers</a>
+                <a href="admin-payouts.html" class="nav-item"><i class="fas fa-wallet"></i> Payouts</a>
+                <a href="admin-users.html" class="nav-item"><i class="fas fa-users"></i> Users</a>
+                <a href="admin-staff.html" class="nav-item"><i class="fas fa-user-shield"></i> Staff</a>
+                <a href="admin-categories.html" class="nav-item active"><i class="fas fa-tags"></i> Categories</a>
+                <a href="admin-settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <a href="#" onclick="logout()" class="nav-item" style="color:#ff6b6b;"><i
+                            class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="header"
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 14px; color: #666;">
+                        <a href="admin-dashboard.html" style="text-decoration: none; color: #888;">Dashboard</a> &gt;
+                        <span>Categories</span>
+                    </div>
+                    <a href="admin-dashboard.html" class="btn-sm"
+                        style="text-decoration: none; background: #95a5a6;">Back to Dashboard</a>
+                </div>
+                <h1 style="margin-top:0; margin-bottom:20px;">Manage Categories</h1>
+                <button class="btn-primary" onclick="openModal()">+ Add Category</button>
+            </div>
+
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Category Name</th>
+                            <th>Slug</th>
+                            <th>Items</th> <!-- Placeholder for item count if we had it -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoryTable">
+                        <tr>
+                            <td colspan="5" style="text-align:center;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="catModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="margin-top:0;">Add Category</h3>
+            <form id="catForm" onsubmit="handleCatSubmit(event)">
+                <input type="hidden" id="catId">
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600;">Name</label>
+                    <input type="text" id="catName" required
+                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600;">Icon Class (FontAwesome)</label>
+                    <input type="text" id="catIcon" placeholder="fas fa-box"
+                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                </div>
+                <div style="margin-bottom:15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600;">Description</label>
+                    <textarea id="catDesc" rows="3"
+                        style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;"></textarea>
+                </div>
+                <div style="text-align:right;">
+                    <button type="button" class="btn-sm" onclick="closeModal()" style="background:#eee;">Cancel</button>
+                    <button type="submit" class="btn-sm btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.protocol === 'file:' ? 'http://localhost:5000/api' : '/api';
+
+        // Auth Check
+        const token = localStorage.getItem('adminToken');
+        if (!token) window.location.href = 'admin-login.html';
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+
+        async function loadCategories() {
+            try {
+                const res = await fetch(`${API_URL}/categories`);
+                const categories = await res.json();
+
+                const tbody = document.getElementById('categoryTable');
+                if (!categories || categories.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No categories found.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = categories.map(c => `
+                    <tr>
+                        <td><i class="${c.icon || 'fas fa-box'}"></i></td>
+                        <td>${c.name}</td>
+                        <td>${c.slug}</td>
+                        <td>-</td> 
+                        <td>
+                            <button class="btn-sm btn-primary" onclick="editCat('${c._id}', '${c.name}', '${c.icon || ''}', '${c.description || ''}')">Edit</button>
+                            <button class="btn-sm btn-danger" onclick="deleteCat('${c._id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function handleCatSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('catId').value;
+            const name = document.getElementById('catName').value;
+            const icon = document.getElementById('catIcon').value;
+            const description = document.getElementById('catDesc').value;
+
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `${API_URL}/categories/${id}` : `${API_URL}/categories`;
+
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ name, icon, description })
+                });
+
+                if (res.ok) {
+                    closeModal();
+                    loadCategories();
+                } else {
+                    const err = await res.json();
+                    alert(err.message || 'Error saving category');
+                }
+            } catch (e) { console.error(e); alert('Error'); }
+        }
+
+        async function deleteCat(id) {
+            if (!confirm('Delete this category?')) return;
+            try {
+                await fetch(`${API_URL}/categories/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                loadCategories();
+            } catch (e) { console.error(e); }
+        }
+
+        function openModal() {
+            document.getElementById('catForm').reset();
+            document.getElementById('catId').value = '';
+            document.getElementById('modalTitle').textContent = 'Add Category';
+            document.getElementById('catModal').style.display = 'flex';
+        }
+
+        function editCat(id, name, icon, desc) {
+            document.getElementById('catId').value = id;
+            document.getElementById('catName').value = name;
+            document.getElementById('catIcon').value = icon;
+            document.getElementById('catDesc').value = desc;
+            document.getElementById('modalTitle').textContent = 'Edit Category';
+            document.getElementById('catModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('catModal').style.display = 'none';
+        }
+
+        loadCategories();
+    </script>
+</body>
+
+</html>

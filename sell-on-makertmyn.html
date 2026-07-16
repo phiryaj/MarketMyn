@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell on MakertMyn - Reach millions of shoppers and grow your business</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .page-wrap {
+      background: #f5f5f5;
+      min-height: 70vh;
+      padding: 50px 0;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 18px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 107, 0, .12);
+      color: var(--primary-color);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .btnLink {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+
+    .btnLink:hover {
+      background: #ff8534;
+    }
+
+    .list {
+      margin-top: 10px;
+      color: var(--text-light);
+      line-height: 1.9;
+    }
+
+    @media(max-width:900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-banner">
+    <div class="container">
+      <p><i class="fas fa-store"></i> Grow your business with MakertMyn</p>
+    </div>
+  </div>
+
+
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search for products, brands, and categories...">
+          <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <a href="login.html" class="header-link"><i class="fas fa-user"></i> Sign In</a>
+          <a href="#" class="header-link"><i class="fas fa-heart"></i> Wishlist</a>
+          <a href="cart.html" class="header-link cart-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <button class="categories-btn" id="allButton" style="background: #ff6b00; color: white;">
+          <i class="fas fa-bars"></i> All Categories
+        </button>
+        <ul class="nav-links">
+          <li><a href="#flashDeals">Today's Deals</a></li>
+          <li><a href="#bestSellers">Best Sellers</a></li>
+          <li><a href="new-arrivals.html">New Arrivals</a></li>
+          <li><a href="register.html?type=seller">Become a Seller</a></li>
+          <li><a href="help.html">Customer Service</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero-section"
+    style="background: linear-gradient(135deg, #ff6b00 0%, #ff8534 100%); padding: 60px 0; color: white; text-align: center; margin-bottom: 30px;">
+    <div class="container">
+      <h1 style="font-size: 3rem; margin-bottom: 1rem;">Sell on MakertMyn</h1>
+      <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">Reach millions of shoppers and grow your
+        business.</p>
+      <a href="seller-auth.html" class="btnLink"
+        style="background: white; color: #ff6b00; padding: 15px 30px; font-size: 1.1rem;">Start Selling Now</a>
+    </div>
+  </div>
+
+  <section class="page-wrap">
+    <div class="container">
+      <div class="card">
+        <div class="grid">
+          <div>
+            <span class="badge">Sell on MakertMyn</span>
+            <h2 style="font-size:28px;font-weight:900;margin-bottom:8px;">Start selling to more customers</h2>
+            <p style="color:var(--text-light);max-width:720px;">
+              MakertMyn helps sellers reach buyers across categories. Upload products, get approved, and start receiving
+              orders.
+            </p>
+
+            <div class="list">
+              ✅ List products in categories<br />
+              ✅ Admin approval for safety & quality<br />
+              ✅ Order management in Seller Dashboard<br />
+              ✅ Payouts & seller analytics (coming soon)
+            </div>
+
+            <a class="btnLink" href="seller-auth.html">Go to Seller Dashboard →</a>
+          </div>
+
+          <div style="background:var(--gray);border-radius:14px;padding:16px;">
+            <h3 style="font-weight:900;margin-bottom:10px;">What sellers need</h3>
+            <ul style="padding-left:18px;color:var(--text-light);line-height:1.8;">
+              <li>Product name, price, category</li>
+              <li>Good product images</li>
+              <li>Accurate description</li>
+              <li>Stock availability</li>
+            </ul>
+            <p style="margin-top:12px;font-size:13px;color:var(--text-light);">
+              This is a buyer-first marketplace. Seller tools are accessed through Seller Dashboard.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h2>Subscribe to Our Newsletter</h2>
+          <p>Get exclusive deals, new arrivals, and special offers delivered to your inbox</p>
+        </div>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Makert<span>Myn</span></h3>
+          <p>Your one-stop marketplace for everything you need. Shop from thousands of trusted sellers across South
+            Africa.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Customer Service</h4>
+          <ul>
+            <li><a href="help.html">Help Center</a></li>
+            <li><a href="help.html">Track Order</a></li>
+            <li><a href="legal.html#returns">Returns & Refunds</a></li>
+            <li><a href="help.html">Shipping Info</a></li>
+            <li><a href="help.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>About Us</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press & Media</a></li>
+            <li><a href="#">Sustainability</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Sell With Us</h4>
+          <ul>
+            <li><a href="sell-on-makertmyn.html">Become a Seller</a></li>
+            <li><a href="#">Seller Dashboard</a></li>
+            <li><a href="#">Seller Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#flashDeals">Today's Deals</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="legal.html">Privacy Policy</a></li>
+            <li><a href="legal.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- AMAZON STYLE MENU HTML -->
+  <!-- Dark Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Main Sidebar Menu -->
+  <div class="amazon-menu" id="amazonMenu">
+    <div
+      style="background: #ff6b00; padding: 15px 20px; color: white; font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+      <i class="fas fa-user-circle" style="font-size: 24px;"></i> Hello, Sign in
+      <button class="menu-close-btn" style="color: white; top: 12px;" onclick="closeMenu()">×</button>
+    </div>
+
+    <div style="padding: 10px 0;">
+      <div style="padding: 10px 20px; font-weight: 700; font-size: 16px; color: #111;">Shop By Category</div>
+
+      <!-- 1. Home Appliances -->
+      <div class="menu-category" data-submenu="submenu-home-appliances">
+        <i class="fas fa-blender"></i>
+        <span>Home Appliances</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 2. Electronics -->
+      <div class="menu-category" data-submenu="submenu-electronics">
+        <i class="fas fa-tv"></i>
+        <span>Electronics & Entertainment</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 3. Cellphones -->
+      <div class="menu-category" data-submenu="submenu-cellphones">
+        <i class="fas fa-mobile-alt"></i>
+        <span>Cellphones</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 4. Home & Furniture -->
+      <div class="menu-category" data-submenu="submenu-furniture">
+        <i class="fas fa-couch"></i>
+        <span>Home & Furniture</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 5. Baby & Kids -->
+      <div class="menu-category" data-submenu="submenu-baby">
+        <i class="fas fa-baby-carriage"></i>
+        <span>Baby, Toddlers & Kids</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 6. Sports -->
+      <div class="menu-category" data-submenu="submenu-sports">
+        <i class="fas fa-running"></i>
+        <span>Sports, Outdoors & Healthy Living</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 7. Garden -->
+      <div class="menu-category" data-submenu="submenu-garden">
+        <i class="fas fa-seedling"></i>
+        <span>Garden, Patio & Pool</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 8. Household -->
+      <div class="menu-category" data-submenu="submenu-household">
+        <i class="fas fa-broom"></i>
+        <span>Household Essentials</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 9. Office -->
+      <div class="menu-category" data-submenu="submenu-office">
+        <i class="fas fa-book"></i>
+        <span>Office, Stationery & Books</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 10. DIY -->
+      <div class="menu-category" data-submenu="submenu-diy">
+        <i class="fas fa-tools"></i>
+        <span>DIY</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 11. Groceries (NEW) -->
+      <div class="menu-category" data-submenu="submenu-groceries">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Groceries & Beverages</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 12. Automotive -->
+      <div class="menu-category" data-submenu="submenu-automotive">
+        <i class="fas fa-car"></i>
+        <span>Automotive</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 13. Health & Beauty -->
+      <div class="menu-category" data-submenu="submenu-health">
+        <i class="fas fa-spa"></i>
+        <span>Health, Beauty & Personal Care</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 14. Pets -->
+      <div class="menu-category" data-submenu="submenu-pets">
+        <i class="fas fa-paw"></i>
+        <span>Pets</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 15. Party -->
+      <div class="menu-category" data-submenu="submenu-party">
+        <i class="fas fa-gift"></i>
+        <span>Party & Occasions</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <div
+        style="padding: 10px 20px; border-top: 1px solid #ddd; margin-top: 10px; font-weight: 700; font-size: 16px; color: #111;">
+        Programs & Features</div>
+
+      <div class="menu-category" onclick="location.href='sell-on-makertmyn.html'">
+        <i class="fas fa-store"></i>
+        <span>Sell on MakertMyn</span>
+      </div>
+
+      <div class="menu-category" onclick="location.href='help.html'">
+        <i class="fas fa-question-circle"></i>
+        <span>Customer Service</span>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="menu.js"></script>
+  <script>
+    // Check if seller is already logged in
+    document.addEventListener("DOMContentLoaded", () => {
+      const sellerData = localStorage.getItem('makertmyn_seller_v1');
+      if (sellerData) {
+        try {
+          const { token, lastActive } = JSON.parse(sellerData);
+          // Check if session is expired (e.g. > 24 hours unused)
+          // If lastActive is not present, assume it is old session and valid or invalid based on token?
+          // For now, if token exists, we consider them logged in, but we can verify expiry if we decoded it or checked backend.
+          // Let's do a simple expiry check if lastActive exists
+          const NOW = Date.now();
+          const EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 Hours
+
+          if (lastActive && (NOW - lastActive > EXPIRY_MS)) {
+            // Session Expired
+            localStorage.removeItem('makertmyn_seller_v1');
+            return;
+          }
+
+          // Update active time
+          const newData = JSON.parse(sellerData);
+          newData.lastActive = Date.now();
+          localStorage.setItem('makertmyn_seller_v1', JSON.stringify(newData));
+
+          // Redirect to Dashboard or Change Buttons
+          // Let's change the CTA buttons to "Go to Dashboard"
+          const btns = document.querySelectorAll('.btnLink');
+          btns.forEach(btn => {
+            btn.textContent = "Go to Seller Dashboard";
+            btn.href = "seller-dashboard.html";
+          });
+
+        } catch (e) {
+          console.error("Error parsing seller session:", e);
+          localStorage.removeItem('makertmyn_seller_v1');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

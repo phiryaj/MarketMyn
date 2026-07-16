@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - MakertMyn</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .cart-wrap {
+      padding: 40px 0;
+      background: #f5f5f5;
+      min-height: 70vh;
+    }
+
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item img {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .cart-item h4 {
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .qty button {
+      border: none;
+      background: var(--gray);
+      padding: 10px 12px;
+      cursor: pointer;
+    }
+
+    .qty input {
+      width: 55px;
+      text-align: center;
+      border: none;
+      font-weight: 700;
+    }
+
+    .price {
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+
+    .remove {
+      background: none;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+
+    .checkout {
+      width: 100%;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 999px;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .checkout:hover {
+      background: #ff8534;
+    }
+
+    @media (max-width: 900px) {
+      .cart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-banner">
+    <div class="container">
+      <p><i class="fas fa-truck"></i> Free Shipping on Orders Over R500 | <i class="fas fa-shield-alt"></i> 100% Buyer
+        Protection</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search for products, brands, and categories...">
+          <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <a href="login.html" class="header-link"><i class="fas fa-user"></i> Sign In</a>
+          <a href="#" class="header-link"><i class="fas fa-heart"></i> Wishlist</a>
+          <a href="cart.html" class="header-link cart-link">
+            <i class="fas fa-shopping-cart"></i> Cart
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <button class="categories-btn" id="allButton" style="background: #ff6b00; color: white;">
+          <i class="fas fa-bars"></i> All Categories
+        </button>
+        <ul class="nav-links">
+          <li><a href="index.html#flashDeals">Today's Deals</a></li>
+          <li><a href="index.html#bestSellers">Best Sellers</a></li>
+          <li><a href="new-arrivals.html">New Arrivals</a></li>
+          <li><a href="register.html?type=seller">Become a Seller</a></li>
+          <li><a href="help.html">Customer Service</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="cart-wrap">
+    <div class="container">
+      <h2 style="margin-bottom: 18px;">Your Cart</h2>
+
+      <div class="cart-grid">
+        <div class="panel">
+          <div id="cartItems"></div>
+          <div id="emptyState" class="muted" style="display:none; padding: 15px 0;">
+            Your cart is empty. <a href="index.html"
+              style="color: var(--primary-color); font-weight: 700; text-decoration:none;">Continue shopping →</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-bottom: 10px;">Order Summary</h3>
+          <div class="summary-row"><span class="muted">Subtotal</span><span id="subtotal" class="price">R0</span></div>
+          <div class="summary-row"><span class="muted">Shipping</span><span id="shipping" class="muted">R0</span></div>
+          <div class="summary-row" style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 12px;">
+            <span style="font-weight:800;">Total</span><span id="total" class="price">R0</span>
+          </div>
+
+          <!-- ✅ FIXED: goes to checkout.html -->
+          <a class="checkout" href="checkout.html" id="checkoutLink">Checkout</a>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="logo" style="margin-bottom: 20px;">
+            <a href="index.html">
+              <h1>Makert<span>Myn</span></h1>
+            </a>
+          </div>
+          <p>South Africa's most trusted online marketplace. Shop from thousands of local sellers and get the best deals delivered to your doorstep.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="help.html">Help Center</a></li>
+            <li><a href="help.html">Track Order</a></li>
+            <li><a href="legal.html#returns">Returns & Refunds</a></li>
+            <li><a href="help.html">Shipping Info</a></li>
+            <li><a href="help.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="category.html?category=Electronics">Electronics</a></li>
+            <li><a href="category.html?category=Fashion">Fashion</a></li>
+            <li><a href="category.html?category=Home%20%26%20Garden">Home & Garden</a></li>
+            <li><a href="category.html?category=Sports%20%26%20Outdoors">Sports & Outdoors</a></li>
+            <li><a href="category.html?category=Groceries">Groceries</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Partner</h4>
+          <ul>
+            <li><a href="#">Corporate Sales</a></li>
+            <li><a href="#">Brand Partnerships</a></li>
+            <li><a href="#">Affiliate Program</a></li>
+            <li><a href="#">Logistics Partners</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="legal.html#privacy">Privacy Policy</a></li>
+            <li><a href="legal.html#terms">Terms & Conditions</a></li>
+            <li><a href="legal.html#cookies">Cookie Policy</a></li>
+            <li><a href="legal.html#returns">Returns Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. Built with ❤️ for South Africa.</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-bitcoin"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ================= END FOOTER ================= -->
+
+  <script>
+    const CART_KEY = "makertmyn_cart_v1";
+
+    function readCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+      catch { return []; }
+    }
+    function writeCart(items) { localStorage.setItem(CART_KEY, JSON.stringify(items)); }
+    function cartCount(items) { return items.reduce((sum, i) => sum + (i.qty || 0), 0); }
+    function updateBadge(items) { document.getElementById("cartBadge").textContent = cartCount(items); }
+
+    function money(n) { return "R" + (n || 0).toLocaleString("en-ZA"); }
+
+    function render() {
+      const items = readCart();
+      updateBadge(items);
+
+      const cartEl = document.getElementById("cartItems");
+      const empty = document.getElementById("emptyState");
+      const checkoutLink = document.getElementById("checkoutLink");
+
+      cartEl.innerHTML = "";
+
+      if (!items.length) {
+        empty.style.display = "block";
+        document.getElementById("subtotal").textContent = "R0";
+        document.getElementById("shipping").textContent = "R0";
+        document.getElementById("total").textContent = "R0";
+
+        // ✅ stop checkout when empty
+        checkoutLink.setAttribute("href", "#");
+        checkoutLink.style.opacity = "0.6";
+        checkoutLink.style.pointerEvents = "none";
+        return;
+      }
+
+      empty.style.display = "none";
+      checkoutLink.setAttribute("href", "checkout.html");
+      checkoutLink.style.opacity = "1";
+      checkoutLink.style.pointerEvents = "auto";
+
+      let subtotal = 0;
+
+      items.forEach((p, idx) => {
+        subtotal += (p.price * p.qty);
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <div>
+          <h4>${p.name}</h4>
+          <div class="muted">Sold by: ${p.vendor || "Vendor"}</div>
+          <div class="muted" style="margin-top:6px;">${money(p.price)} each</div>
+          <button class="remove" onclick="removeItem(${idx})">Remove</button>
+        </div>
+        <div style="text-align:right;">
+          <div class="qty" style="margin-bottom:10px;">
+            <button onclick="dec(${idx})">-</button>
+            <input value="${p.qty}" readonly>
+            <button onclick="inc(${idx})">+</button>
+          </div>
+          <div class="price">${money(p.price * p.qty)}</div>
+        </div>
+      `;
+        cartEl.appendChild(row);
+      });
+
+      const shipping = subtotal >= 500 ? 0 : 60;
+      const total = subtotal + shipping;
+
+      document.getElementById("subtotal").textContent = money(subtotal);
+      document.getElementById("shipping").textContent = money(shipping);
+      document.getElementById("total").textContent = money(total);
+    }
+
+    function inc(i) {
+      const items = readCart();
+      items[i].qty += 1;
+      writeCart(items);
+      render();
+    }
+    function dec(i) {
+      const items = readCart();
+      items[i].qty = Math.max(1, items[i].qty - 1);
+      writeCart(items);
+      render();
+    }
+    function removeItem(i) {
+      const items = readCart();
+      items.splice(i, 1);
+      writeCart(items);
+      render();
+    }
+
+    render();
+  </script>
+
+  <!-- AMAZON STYLE MENU HTML -->
+  <!-- Dark Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Main Sidebar Menu -->
+  <div class="amazon-menu" id="amazonMenu">
+    <div
+      style="background: #ff6b00; padding: 15px 20px; color: white; font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+      <i class="fas fa-user-circle" style="font-size: 24px;"></i> Hello, Sign in
+      <button class="menu-close-btn" style="color: white; top: 12px;" onclick="closeMenu()">×</button>
+    </div>
+
+    <div style="padding: 10px 0;">
+      <div style="padding: 10px 20px; font-weight: 700; font-size: 16px; color: #111;">Shop By Category</div>
+
+      <!-- 1. Home Appliances -->
+      <div class="menu-category" data-submenu="submenu-home-appliances">
+        <i class="fas fa-blender"></i>
+        <span>Home Appliances</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 2. Electronics -->
+      <div class="menu-category" data-submenu="submenu-electronics">
+        <i class="fas fa-tv"></i>
+        <span>Electronics & Entertainment</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 3. Cellphones -->
+      <div class="menu-category" data-submenu="submenu-cellphones">
+        <i class="fas fa-mobile-alt"></i>
+        <span>Cellphones</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 4. Home & Furniture -->
+      <div class="menu-category" data-submenu="submenu-furniture">
+        <i class="fas fa-couch"></i>
+        <span>Home & Furniture</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 5. Baby & Kids -->
+      <div class="menu-category" data-submenu="submenu-baby">
+        <i class="fas fa-baby-carriage"></i>
+        <span>Baby, Toddlers & Kids</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 6. Sports -->
+      <div class="menu-category" data-submenu="submenu-sports">
+        <i class="fas fa-running"></i>
+        <span>Sports, Outdoors & Healthy Living</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 7. Garden -->
+      <div class="menu-category" data-submenu="submenu-garden">
+        <i class="fas fa-seedling"></i>
+        <span>Garden, Patio & Pool</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 8. Household -->
+      <div class="menu-category" data-submenu="submenu-household">
+        <i class="fas fa-broom"></i>
+        <span>Household Essentials</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 9. Office -->
+      <div class="menu-category" data-submenu="submenu-office">
+        <i class="fas fa-book"></i>
+        <span>Office, Stationery & Books</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 10. DIY -->
+      <div class="menu-category" data-submenu="submenu-diy">
+        <i class="fas fa-tools"></i>
+        <span>DIY</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 11. Groceries (NEW) -->
+      <div class="menu-category" data-submenu="submenu-groceries">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Groceries & Beverages</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 12. Automotive -->
+      <div class="menu-category" data-submenu="submenu-automotive">
+        <i class="fas fa-car"></i>
+        <span>Automotive</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 13. Health & Beauty -->
+      <div class="menu-category" data-submenu="submenu-health">
+        <i class="fas fa-spa"></i>
+        <span>Health, Beauty & Personal Care</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 14. Pets -->
+      <div class="menu-category" data-submenu="submenu-pets">
+        <i class="fas fa-paw"></i>
+        <span>Pets</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 15. Party -->
+      <div class="menu-category" data-submenu="submenu-party">
+        <i class="fas fa-gift"></i>
+        <span>Party & Occasions</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <div
+        style="padding: 10px 20px; border-top: 1px solid #ddd; margin-top: 10px; font-weight: 700; font-size: 16px; color: #111;">
+        Programs & Features</div>
+
+      <div class="menu-category" onclick="location.href='sell-on-makertmyn.html'">
+        <i class="fas fa-store"></i>
+        <span>Sell on MakertMyn</span>
+      </div>
+
+      <div class="menu-category" onclick="location.href='help.html'">
+        <i class="fas fa-question-circle"></i>
+        <span>Customer Service</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="menu.js"></script>
+</body>
+
+</html>

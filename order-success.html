@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Success - MakertMyn</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    .wrap {
+      background: #f5f5f5;
+      min-height: 80vh;
+      padding: 50px 0;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    }
+
+    .big {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      color: var(--text-light);
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .pill {
+      background: rgba(82, 196, 26, .16);
+      color: #246b10;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--primary-color);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    .btn:hover {
+      background: #ff8534;
+    }
+
+    .list {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .line {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-banner">
+    <div class="container">
+      <p><i class="fas fa-check-circle"></i> Order placed successfully</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="header-actions">
+          <a href="index.html" class="header-link"><i class="fas fa-home"></i> <span>Home</span></a>
+          <a href="cart.html" class="header-link cart-link"><i class="fas fa-shopping-cart"></i> <span>Cart</span><span
+              class="cart-badge">0</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="wrap">
+    <div class="container">
+      <div class="card">
+        <div class="big">Thank you! Your order is confirmed ✅</div>
+        <div class="note">We’ve received your order. You will receive updates by email/SMS in the real version.</div>
+
+        <div class="row">
+          <div class="pill" id="orderId">Order: —</div>
+          <div class="pill" id="delivery">Delivery: —</div>
+          <div class="pill" id="payment">Payment: —</div>
+        </div>
+
+        <div class="list" id="items"></div>
+
+        <a class="btn" href="index.html">Continue Shopping</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const ORDER_KEY = "makertmyn_last_order_v1";
+
+    function readOrder() {
+      try { return JSON.parse(localStorage.getItem(ORDER_KEY)) || null; }
+      catch { return null; }
+    }
+    function money(n) { return "R" + (n || 0).toLocaleString("en-ZA"); }
+
+    const order = readOrder();
+    if (!order) {
+      document.getElementById("orderId").textContent = "Order: Not found";
+      document.getElementById("items").innerHTML = `<div class="note">No order data. Go back to <a href="cart.html" style="color:var(--primary-color);font-weight:900;text-decoration:none;">cart</a>.</div>`;
+    } else {
+      document.getElementById("orderId").textContent = "Order: " + order.id;
+      document.getElementById("payment").textContent = "Payment: " + (order.payment || "—");
+      document.getElementById("delivery").textContent = "Delivery: " + (order.delivery || "—");
+
+      let subtotal = 0;
+      const lines = order.items.map(i => {
+        subtotal += i.price * i.qty;
+        return `<div class="line"><span>${i.name} × ${i.qty}</span><span>${money(i.price * i.qty)}</span></div>`;
+      }).join("");
+
+      document.getElementById("items").innerHTML = `
+      <div style="font-weight:900;margin-bottom:8px;">Order Items</div>
+      ${lines}
+      <div class="line" style="font-weight:900;">
+        <span>Total</span>
+        <span>${money(subtotal)}</span>
+      </div>
+    `;
+    }
+  </script>
+
+</body>
+
+</html>

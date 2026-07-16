@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - MakertMyn Seller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal</p>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span style="font-weight:700;margin-right:15px;" id="storeName">Seller</span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-analytics.html" class="nav-link active"><i class="fas fa-chart-bar"></i>
+                            Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Store
+                            Settings</a>
+                    </nav>
+                </aside>
+
+                <main class="panel">
+                    <h2 style="margin-bottom:20px;">Store Analytics</h2>
+
+                    <div style="height:400px; margin-bottom:40px;">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+
+                    <h3 style="margin-bottom:15px;">Top Selling Products</h3>
+                    <div id="topProductsContainer" class="panel" style="border:1px solid #eee; box-shadow:none;">
+                        <p>Loading...</p>
+                    </div>
+
+                </main>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- AUTH ---
+        function getToken() { return localStorage.getItem('sellerToken'); }
+        if (!getToken()) window.location.href = 'seller-auth.html';
+
+        try {
+            const sellerInfo = JSON.parse(localStorage.getItem('sellerInfo'));
+            if (sellerInfo && sellerInfo.storeName) {
+                document.getElementById('storeName').textContent = sellerInfo.storeName;
+            }
+        } catch (e) { }
+
+        function logout() {
+            localStorage.removeItem('sellerToken');
+            localStorage.removeItem('sellerInfo');
+            window.location.href = 'seller-auth.html';
+        }
+
+        async function initAnalytics() {
+            try {
+                const token = getToken();
+                const res = await fetch('/api/seller/analytics', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+
+                if (data.weeklySales) {
+                    renderChart(data.weeklySales.labels, data.weeklySales.data);
+                }
+
+                if (data.topProducts) {
+                    renderTopProducts(data.topProducts);
+                }
+
+            } catch (error) {
+                console.error('Error fetching analytics:', error);
+            }
+        }
+
+        function renderChart(labels, data) {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Weekly Revenue (R)',
+                        data: data,
+                        borderColor: '#ff6b00',
+                        backgroundColor: 'rgba(255, 107, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function renderTopProducts(products) {
+            const container = document.getElementById('topProductsContainer');
+            if (!products.length) {
+                container.innerHTML = '<p style="color:#888;">No sales data yet.</p>';
+                return;
+            }
+
+            let html = '<ul style="list-style:none; padding:0;">';
+            products.forEach((p, index) => {
+                html += `
+                    <li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
+                        <span><span style="font-weight:bold; color:#888; margin-right:10px;">#${index + 1}</span> ${p.name}</span>
+                        <span style="font-weight:bold;">${p.qty} sold</span>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+        }
+
+        initAnalytics();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MakertMyn - Shop Everything You Need</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <!-- Top Trust Bar -->
+  <div class="top-banner" style="background: var(--dark); padding: 8px 0; font-size: 12px; font-weight: 500;">
+    <div class="container" style="display:flex; justify-content: space-between; align-items:center;">
+      <div><i class="fas fa-shipping-fast" style="color:var(--accent-color);"></i> Free Delivery on orders over R500</div>
+      <div style="display:flex; gap: 20px;">
+        <span><i class="fas fa-shield-alt" style="color:var(--success);"></i> 100% Secure Payments</span>
+        <span><i class="fas fa-undo" style="color:var(--primary-color);"></i> 30-Day Easy Returns</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Header -->
+  <header class="header glass-header" id="mainHeader">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search for products, brands, and categories...">
+          <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <a href="login.html" class="header-link"><i class="fas fa-user"></i> Sign In</a>
+          <a href="wishlist.html" class="header-link"><i class="fas fa-heart"></i></a>
+          <a href="cart.html" class="header-link cart-link">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <button class="categories-btn" id="allButton" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; margin: 10px 0;">
+          <i class="fas fa-bars"></i> Shop Categories
+        </button>
+        <ul class="nav-links">
+          <li><a href="#flashDeals">Daily Deals</a></li>
+          <li><a href="#bestSellers">Popular</a></li>
+          <li><a href="new-arrivals.html">New Arrivals</a></li>
+          <li><a href="get-it-fast.html">Get It Fast</a></li>
+          <li><a href="help.html">Help</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Slider -->
+  <section class="hero-slider" id="heroSlider" style="position: relative; overflow: hidden; width: 100%; aspect-ratio: 1440 / 500; max-height: 500px;">
+    <div class="slider-container" style="height: 100%;">
+      <!-- Slide 1: Winter Bag Sale (Toys) -->
+      <div class="slide active" style="background: #fdfdfd; overflow: hidden; display: flex; justify-content: center;">
+        <!-- Blurred background for ultra-wide screens -->
+        <img src="slide-winter-bag-sale.png" alt="" style="position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; object-fit: cover; filter: blur(30px); opacity: 0.8; z-index: 1;">
+        
+        <!-- Main Crisp Image -->
+        <a href="category.html?category=Toys" style="position: relative; z-index: 2; display: block; width: 100%; max-width: 1440px; height: 100%;">
+          <img src="slide-winter-bag-sale.png" alt="Winter Fun Bag Sale - Up to 50% Off Toys" style="width: 100%; height: 100%; object-fit: contain; display: block;" fetchpriority="high" loading="eager">
+        </a>
+      </div>
+
+
+      <!-- Slide 2: Dream Body (Sports & Fitness) -->
+      <div class="slide" style="background: #1a1a1a; overflow: hidden; display: flex; justify-content: center;">
+        <!-- Blurred background for ultra-wide screens -->
+        <img src="slide-dream-body.png" alt="" style="position: absolute; top: -5%; left: -5%; width: 110%; height: 110%; object-fit: cover; filter: blur(30px); opacity: 0.8; z-index: 1;">
+        
+        <!-- Main Crisp Image -->
+        <a href="category.html?category=Sports" style="position: relative; z-index: 2; display: block; width: 100%; max-width: 1440px; height: 100%;">
+          <img src="slide-dream-body.png" alt="Build Your Dream Body - Up to 30% Off Fitness" style="width: 100%; height: 100%; object-fit: contain; display: block;" loading="lazy">
+        </a>
+      </div>
+    </div>
+    <div class="slider-dots" style="position: absolute; bottom: 20px; right: 40px; display: flex; gap: 8px;">
+      <span class="dot active" style="width: 10px; height: 10px; border-radius: 50%; background: #333; cursor: pointer;"></span>
+      <span class="dot" style="width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer;"></span>
+      <span class="dot" style="width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer;"></span>
+      <span class="dot" style="width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer;"></span>
+    </div>
+  </section>
+
+  <!-- Unique Section: The Daily Drop -->
+  <section class="daily-drop" style="background: #f9f9f9; color: #111; padding: 60px 0; overflow: hidden; position: relative;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <div>
+          <span style="background: #ff6b00; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Limited Edition</span>
+          <h2 style="font-size: 42px; font-weight: 900; margin-top: 10px; color: #111;">The Daily Drop<span style="color: #ff6b00;">.</span></h2>
+          <p style="color: #666;">Ultra-premium collections curated for you. Resets in <span id="dropTimer" style="color: #111; font-weight: 800;">23:59:59</span></p>
+        </div>
+        <button class="btn btn-primary" style="background: #111; color: #fff; border: none; padding: 12px 30px; font-weight: 800;">View Collection</button>
+      </div>
+
+      <div class="drop-scroller" id="dailyDropGrid" style="display: flex; gap: 30px; overflow-x: auto; padding-bottom: 20px; scroll-behavior: smooth;">
+        <!-- Dynamic content will be loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="new-arrivals" id="newArrivals" style="padding: 60px 0;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Just Landed</h2>
+          <p class="section-subtitle" style="margin-top: 15px;">The newest products on MakertMyn</p>
+        </div>
+        <a href="new-arrivals.html" class="view-all" style="color: var(--primary-color); font-weight: 700; text-decoration: none;">View All <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div class="product-grid" id="newArrivalGrid">
+        <!-- JS Content -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Scroller -->
+  <section class="category-scroller">
+    <div class="container">
+      <div class="category-circles">
+        <div class="category-circle" onclick="location.href='category.html?category=Electronics'">
+          <div class="circle-img"><i class="fas fa-laptop"></i></div>
+          <span>Electronics</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Fashion'">
+          <div class="circle-img"><i class="fas fa-tshirt"></i></div>
+          <span>Fashion</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Home'">
+          <div class="circle-img"><i class="fas fa-home"></i></div>
+          <span>Home</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Sports'">
+          <div class="circle-img"><i class="fas fa-running"></i></div>
+          <span>Sports</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Beauty'">
+          <div class="circle-img"><i class="fas fa-spa"></i></div>
+          <span>Beauty</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Toys'">
+          <div class="circle-img"><i class="fas fa-gamepad"></i></div>
+          <span>Toys</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Groceries'">
+          <div class="circle-img"><i class="fas fa-shopping-basket"></i></div>
+          <span>Groceries</span>
+        </div>
+        <div class="category-circle" onclick="location.href='category.html?category=Automotive'">
+          <div class="circle-img"><i class="fas fa-car"></i></div>
+          <span>Auto</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo Grid (Ads) -->
+  <section class="promo-section">
+    <div class="container">
+      <div class="promo-grid">
+        <div class="promo-card promo-large" onclick="location.href='category.html?category=Home'">
+          <img src="https://images.unsplash.com/photo-1556911220-e15224bbafb0?w=1200" alt="Home Appliances">
+          <div class="promo-content">
+            <span class="promo-label">Home Essentials</span>
+            <h3>Upgrade Your Kitchen<br>Today</h3>
+            <button class="btn btn-light" style="padding: 8px 20px; font-size: 13px;">Shop Sale</button>
+          </div>
+        </div>
+        <div class="promo-card" onclick="location.href='category.html?category=Electronics'">
+          <img src="promo_tech_deals_1778509215563_1778526897661.png" alt="Tech Deals">
+          <div class="promo-content">
+            <span class="promo-label">Tech Deal</span>
+            <h3>Smart Watches</h3>
+            <p>From R499</p>
+          </div>
+        </div>
+        <div class="promo-card" onclick="location.href='category.html?category=Fashion'">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800" alt="Fashion Sale">
+          <div class="promo-content">
+            <span class="promo-label">Fashion</span>
+            <h3>New Footwear</h3>
+            <p>30% Off</p>
+          </div>
+        </div>
+        <div class="promo-card" style="grid-column: span 2;" onclick="location.href='category.html?category=Sports'">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200" alt="Fitness Sale">
+          <div class="promo-content">
+            <span class="promo-label">Active Living</span>
+            <h3>Fitness & Outdoor Sale</h3>
+            <button class="btn btn-dark" style="padding: 8px 20px; font-size: 13px; color: white;">Shop Fitness</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flash Deals -->
+  <section class="flash-deals" id="flashDeals" style="background: transparent;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title"><i class="fas fa-bolt" style="color:var(--accent-color);"></i> Daily Deals</h2>
+          <p class="section-subtitle" style="margin-top: 15px;">Limited quantities. Ending soon!</p>
+        </div>
+        <div class="deal-timer">
+          <div class="timer" style="background: var(--dark); padding: 8px 15px; border-radius: 12px; display:flex; align-items:center; gap: 10px;">
+             <span style="color:white; font-size: 14px; font-weight: 700;">Ends in:</span>
+             <div style="color:var(--game-pink); font-size: 18px; font-weight: 900;" id="timerDisplay">12:34:56</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-grid" id="flashGrid">
+        <!-- JS Content -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Products -->
+  <section class="best-sellers" id="bestSellers" style="padding: 60px 0;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Popular This Week</h2>
+          <p class="section-subtitle" style="margin-top: 15px;">Based on top customer picks</p>
+        </div>
+        <a href="category.html" class="view-all" style="color: var(--takealot-blue); font-weight: 700; text-decoration: none;">View All <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div class="product-grid" id="bestSellerGrid">
+        <!-- JS Content -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="logo" style="margin-bottom: 20px;">
+            <a href="index.html">
+              <h1>Makert<span>Myn</span></h1>
+            </a>
+          </div>
+          <p>South Africa's most trusted online marketplace. Shop from thousands of local sellers and get the best deals delivered to your doorstep.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="help.html">Help Center</a></li>
+            <li><a href="help.html">Track Order</a></li>
+            <li><a href="legal.html#returns">Returns & Refunds</a></li>
+            <li><a href="help.html">Shipping Info</a></li>
+            <li><a href="help.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="category.html?category=Electronics">Electronics</a></li>
+            <li><a href="category.html?category=Fashion">Fashion</a></li>
+            <li><a href="category.html?category=Home%20%26%20Garden">Home & Garden</a></li>
+            <li><a href="category.html?category=Sports%20%26%20Outdoors">Sports & Outdoors</a></li>
+            <li><a href="category.html?category=Groceries">Groceries</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Partner</h4>
+          <ul>
+            <li><a href="#">Corporate Sales</a></li>
+            <li><a href="#">Brand Partnerships</a></li>
+            <li><a href="#">Affiliate Program</a></li>
+            <li><a href="#">Logistics Partners</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="legal.html#privacy">Privacy Policy</a></li>
+            <li><a href="legal.html#terms">Terms & Conditions</a></li>
+            <li><a href="legal.html#cookies">Cookie Policy</a></li>
+            <li><a href="legal.html#returns">Returns Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. Built with ❤️ for South Africa.</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-bitcoin"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Logic Scripts -->
+  <!-- products-data.js loaded once at end of body (see below) -->
+  <script src="js/cart.js"></script>
+  <script>
+    // --- 1. UI Toggle Logic ---
+    // Mega Menu logic is now handled by menu.js for consistent behavior across pages.
+    // We only keep necessary button checks to prevent errors if elements missing.
+    // --- 1. UI Toggle Logic ---
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const header = document.getElementById('mainHeader');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+
+    // --- 3. Timer Logic ---
+    function updateTimer() {
+      const display = document.getElementById('timerDisplay');
+      if (!display) return;
+
+      const now = new Date();
+      const end = new Date();
+      end.setHours(23, 59, 59, 999); // End of day
+
+      const diff = end - now;
+      if (diff <= 0) {
+        display.textContent = "00:00:00";
+        return;
+      }
+
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      display.textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // --- 3. Dynamic Product Rendering (Hybrid) ---
+    // Helper to create grid-styled cards
+    function renderStars(rating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) stars += '<i class="fas fa-star"></i>';
+        else if (i - 0.5 <= rating) stars += '<i class="fas fa-star-half-alt"></i>';
+        else stars += '<i class="far fa-star"></i>';
+      }
+      return stars;
+    }
+
+    function createGridCard(p) {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.setAttribute('data-id', p.id);
+      const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
+      const savings = p.originalPrice ? (p.originalPrice - p.price) : 0;
+      
+      card.innerHTML = `
+        ${discount > 0 ? `<span class="product-badge">Save R${savings.toLocaleString()}</span>` : ''}
+        <div class="product-image">
+          <a href="product-detail.html?id=${encodeURIComponent(p.id)}">
+            <img src="${p.image || p.images[0]}" alt="${p.title}" loading="lazy">
+          </a>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+        </div>
+        <div class="product-info">
+          ${(p.vendor && p.vendor !== 'MakertMyn Official' && p.vendor !== 'MakertMyn Admin') ? `<a href="category.html?vendor=${encodeURIComponent(p.vendor)}" class="product-vendor">${p.vendor}</a>` : ''}
+          <a href="product-detail.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit;">
+            <h3>${p.title}</h3>
+          </a>
+          <div class="product-rating">
+            ${renderStars(p.rating)} <span>(${p.reviews || 0})</span>
+          </div>
+          <div class="product-stock-label stock-in">
+             <i class="fas fa-check-circle"></i> In stock
+          </div>
+          <div class="delivery-note">
+             <i class="fas fa-truck"></i> Get it by Wed, 14 May
+          </div>
+          <div class="product-price">
+            <span class="current-price">R${p.price.toLocaleString("en-ZA")}</span>
+            ${p.originalPrice ? `<span class="original-price">R${p.originalPrice.toLocaleString("en-ZA")}</span>` : ''}
+          </div>
+          <button class="btn btn-cart" onclick="location.href='product-detail.html?id=${encodeURIComponent(p.id)}'">
+            <i class="fas fa-plus"></i> Add to Cart
+          </button>
+        </div>
+      `;
+      return card;
+    }
+
+    // Render Best Sellers function
+    function renderBestSellers() {
+      const bestGrid = document.getElementById('bestSellerGrid');
+      if (!bestGrid) return;
+      bestGrid.innerHTML = '';
+      if (typeof getBestSellers !== 'undefined') {
+        getBestSellers(8).forEach(p => bestGrid.appendChild(createGridCard(p)));
+      } else {
+        bestGrid.innerHTML = '<p style="text-align:center; padding:20px; width:100%;">Loading best sellers...</p>';
+      }
+    }
+
+    // Render New Arrivals function
+    function renderNewArrivals() {
+      const newGrid = document.getElementById('newArrivalGrid');
+      if (!newGrid) return;
+      newGrid.innerHTML = '';
+      if (typeof getNewArrivals !== 'undefined') {
+        getNewArrivals(12).forEach(p => newGrid.appendChild(createGridCard(p)));
+      }
+    }
+
+    // Render Flash Deals function
+    function renderFlashDeals() {
+      const flashGrid = document.getElementById("flashGrid");
+      if (!flashGrid) return;
+      if (typeof getFlashDeals !== 'undefined') {
+        flashGrid.innerHTML = getFlashDeals(4).map(p => createGridCard(p).outerHTML).join("");
+      }
+    }
+
+    // Render Daily Drop function
+    function renderDailyDrop() {
+      const dropGrid = document.getElementById("dailyDropGrid");
+      if (!dropGrid) return;
+      if (typeof getDailyDrop !== 'undefined') {
+        dropGrid.innerHTML = '';
+        getDailyDrop(4).forEach(p => {
+          const card = createGridCard(p);
+          card.style.minWidth = "280px"; // Make them wider for the scroller
+          dropGrid.appendChild(card);
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.updateCartBadge) window.updateCartBadge();
+
+      // Initial render (might be empty if API slow)
+      renderBestSellers();
+      renderFlashDeals();
+      renderNewArrivals();
+      renderDailyDrop();
+
+      // Listen for API data load
+      window.addEventListener('productsLoaded', () => {
+        renderBestSellers();
+        renderFlashDeals();
+        renderNewArrivals();
+        renderDailyDrop();
+      });
+
+      // Also make it globally available for products-data.js to call if needed
+      window.renderProducts = renderBestSellers;
+
+      // Wishlist Toggle
+      document.body.addEventListener('click', async (e) => {
+        if (e.target.closest('.wishlist-btn')) {
+          e.preventDefault(); // Prevent bubbling if inside link
+          const btn = e.target.closest('.wishlist-btn');
+          const productCard = btn.closest('.product-card');
+          const productId = productCard.getAttribute('data-id'); // Ensure product cards have data-id
+
+          // Check Auth
+          const user = JSON.parse(localStorage.getItem('makertmyn_user_v1'));
+          if (!user || !user.token) {
+            alert('Please login to use Wishlist');
+            window.location.href = 'login.html';
+            return;
+          }
+
+          // Optimistic UI update
+          const icon = btn.querySelector('i');
+          icon.classList.remove('far');
+          icon.classList.add('fas', 'fa-spin'); // Loading spinner effect
+
+          try {
+            const res = await fetch(`/api/user/wishlist/${productId}`, {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${user.token}` }
+            });
+
+            if (res.ok) {
+              icon.classList.remove('fa-spin');
+              icon.style.color = 'red';
+              alert('Added to Wishlist!');
+            } else {
+              throw new Error('Failed');
+            }
+          } catch (err) {
+            console.error(err);
+            icon.classList.remove('fas', 'fa-spin');
+            icon.classList.add('far');
+            alert('Error adding to wishlist');
+          }
+        }
+      });
+      // --- Hero Slider Logic ---
+      const slides = document.querySelectorAll('#heroSlider .slide');
+      const dots = document.querySelectorAll('#heroSlider .dot');
+      let currentSlide = 0;
+      let slideInterval;
+
+      function showSlide(n) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function startSlider() {
+        slideInterval = setInterval(nextSlide, 5000);
+      }
+
+      function resetSlider() {
+        clearInterval(slideInterval);
+        startSlider();
+      }
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          showSlide(idx);
+          resetSlider();
+        });
+      });
+
+      if (slides.length > 0) startSlider();
+      
+      // --- Daily Drop Timer ---
+      function updateTimer() {
+        const timerEl = document.getElementById('dropTimer');
+        if (!timerEl) return;
+        const now = new Date();
+        const endOfDay = new Date();
+        endOfDay.setHours(23, 59, 59, 999);
+        const diff = endOfDay - now;
+        const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+        const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+        const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+        timerEl.textContent = `${h}:${m}:${s}`;
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+    });
+
+    // Add to Cart Wrapper
+    function addToCart(id, title, price, img) {
+      // Use existing cart logic if available in cart.js
+      const CART_KEY = 'makertmyn_cart';
+      let cart = [];
+      try {
+        cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      } catch (e) { }
+
+      const found = cart.find(i => i.id === id);
+      if (found) found.qty += 1;
+      else cart.push({ id, name: title, price, image: img, qty: 1 });
+
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      if (window.updateCartBadge) window.updateCartBadge();
+
+      // Cart badge is already updated by window.updateCartBadge() above
+    }
+
+    // Simple Cart Badge Updater
+    window.updateCartBadge = function () {
+      const CART_KEY = 'makertmyn_cart';
+      let cart = [];
+      try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { }
+      const count = cart.reduce((acc, i) => acc + i.qty, 0);
+      const badge = document.getElementById('cartBadge');
+      if (badge) badge.textContent = count;
+    }
+  </script>
+
+  <!-- AMAZON STYLE MENU HTML -->
+  <!-- Dark Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Main Sidebar Menu -->
+  <div class="amazon-menu" id="amazonMenu">
+    <div
+      style="background: #ff6b00; padding: 15px 20px; color: white; font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+      <i class="fas fa-user-circle" style="font-size: 24px;"></i> Hello, Sign in
+      <button class="menu-close-btn" style="color: white; top: 12px;" onclick="closeMenu()">×</button>
+    </div>
+
+    <div style="padding: 10px 0;">
+      <div style="padding: 10px 20px; font-weight: 700; font-size: 16px; color: #111;">Shop By Category</div>
+
+      <!-- 1. Home Appliances -->
+      <div class="menu-category" data-submenu="submenu-home-appliances">
+        <i class="fas fa-blender"></i>
+        <span>Home Appliances</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 2. Electronics -->
+      <div class="menu-category" data-submenu="submenu-electronics">
+        <i class="fas fa-tv"></i>
+        <span>Electronics & Entertainment</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 3. Cellphones -->
+      <div class="menu-category" data-submenu="submenu-cellphones">
+        <i class="fas fa-mobile-alt"></i>
+        <span>Cellphones</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 4. Home & Furniture -->
+      <div class="menu-category" data-submenu="submenu-furniture">
+        <i class="fas fa-couch"></i>
+        <span>Home & Furniture</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 5. Baby & Kids -->
+      <div class="menu-category" data-submenu="submenu-baby">
+        <i class="fas fa-baby-carriage"></i>
+        <span>Baby, Toddlers & Kids</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 6. Sports -->
+      <div class="menu-category" data-submenu="submenu-sports">
+        <i class="fas fa-running"></i>
+        <span>Sports, Outdoors & Healthy Living</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 7. Garden -->
+      <div class="menu-category" data-submenu="submenu-garden">
+        <i class="fas fa-seedling"></i>
+        <span>Garden, Patio & Pool</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 8. Household -->
+      <div class="menu-category" data-submenu="submenu-household">
+        <i class="fas fa-broom"></i>
+        <span>Household Essentials</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 9. Office -->
+      <div class="menu-category" data-submenu="submenu-office">
+        <i class="fas fa-book"></i>
+        <span>Office, Stationery & Books</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 10. DIY -->
+      <div class="menu-category" data-submenu="submenu-diy">
+        <i class="fas fa-tools"></i>
+        <span>DIY</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 11. Groceries (NEW) -->
+      <div class="menu-category" data-submenu="submenu-groceries">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Groceries & Beverages</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 12. Automotive -->
+      <div class="menu-category" data-submenu="submenu-automotive">
+        <i class="fas fa-car"></i>
+        <span>Automotive</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 13. Health & Beauty -->
+      <div class="menu-category" data-submenu="submenu-health">
+        <i class="fas fa-spa"></i>
+        <span>Health, Beauty & Personal Care</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 14. Pets -->
+      <div class="menu-category" data-submenu="submenu-pets">
+        <i class="fas fa-paw"></i>
+        <span>Pets</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <!-- 15. Party -->
+      <div class="menu-category" data-submenu="submenu-party">
+        <i class="fas fa-gift"></i>
+        <span>Party & Occasions</span>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+
+      <div
+        style="padding: 10px 20px; border-top: 1px solid #ddd; margin-top: 10px; font-weight: 700; font-size: 16px; color: #111;">
+        Programs & Features</div>
+
+      <div class="menu-category" onclick="location.href='sell-on-makertmyn.html'">
+        <i class="fas fa-store"></i>
+        <span>Sell on MakertMyn</span>
+      </div>
+
+      <div class="menu-category" onclick="location.href='help.html'">
+        <i class="fas fa-question-circle"></i>
+        <span>Customer Service</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- External Scripts -->
+  <script src="js/products-data.js?v=2"></script>
+  <script src="menu.js"></script>
+
+  <!-- Page Logic -->
+  <script>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small delay to ensure products-data.js has initialized its products array
+      window.addEventListener('productsLoaded', () => {
+        if (typeof renderBestSellers === 'function') renderBestSellers();
+        if (typeof renderFlashDeals === 'function') renderFlashDeals();
+        if (typeof renderNewArrivals === 'function') renderNewArrivals();
+        if (typeof renderDailyDrop === 'function') renderDailyDrop();
+      });
+    });
+
+    // --- Promotions Logic ---
+    async function fetchActivePromotions() {
+      try {
+        const res = await fetch('/api/promotions/active');
+        const data = await res.json();
+        if (data && data.length > 0) {
+          const container = document.getElementById('featuredPromotions');
+          const start = document.getElementById('promoCarousel');
+          if (container && start) {
+            container.style.display = 'block';
+            start.innerHTML = data.map(p => `
+              <div class="promo-item" style="border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.1); cursor:pointer; position:relative;" onclick="alert('Redirect to promotion: ${p.title}')">
+                <img src="${p.bannerImage}" alt="${p.title}" style="width:100%; height:180px; object-fit:cover;">
+                <div style="padding:15px;">
+                  <h3 style="margin:0 0 5px 0; font-size:18px;">${p.title}</h3>
+                  <div style="color:#ff6b00; font-weight:700;">
+                    ${p.discountType === 'percentage' ? p.discountValue + '% OFF' : 'R' + p.discountValue + ' OFF'}
+                  </div>
+                  <small style="color:#666;">Ends ${new Date(p.endDate).toLocaleDateString()}</small>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (err) { console.error("Error loading promotions:", err); }
+    }
+    fetchActivePromotions();
+  </script>
+</body>
+
+</html>

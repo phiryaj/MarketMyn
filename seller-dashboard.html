@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seller Portal | MakertMyn Marketplace</title>
+
+    <!-- Branding & SEO -->
+    <meta name="theme-color" content="#2c3e50" />
+    <meta name="keywords" content="MakertMyn Seller Portal, Sell Online, Marketplace Dashboard, E-commerce Vendor" />
+    <meta name="description"
+        content="Manage your MakertMyn business. Track sales, manage orders, and grow your store." />
+    <meta name="author" content="MakertMyn Holdings" />
+    <meta name="robots" content="noindex, nofollow" /> <!-- Private Area -->
+    <meta property="og:title" content="MakertMyn Seller Portal" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.makertmyn.com/seller-dashboard.html" />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dash-wrap {
+            background: #f5f5f5;
+            padding: 35px 0;
+            min-height: 80vh;
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .kpi-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .kpi-lbl {
+            font-size: 13px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #eee;
+            color: #888;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .chip {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #eee;
+            font-weight: 700;
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* New Professional Styles */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-color), #f39c12);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .welcome-banner p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        .welcome-banner i {
+            opacity: 0.2;
+            position: absolute;
+            right: 20px;
+            bottom: -10px;
+            font-size: 100px;
+            transform: rotate(-15deg);
+        }
+
+        .dashboard-cols {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .progress-container {
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2ecc71;
+            width: 0%;
+            /* JS set */
+            transition: width 0.5s ease;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item i {
+            color: #ccc;
+        }
+
+        .task-item.done i {
+            color: #2ecc71;
+        }
+
+        @media(max-width: 900px) {
+            .dashboard-cols {
+                grid-template-columns: 1fr;
+            }
+
+            .kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-banner">
+        <div class="container">
+            <p><i class="fas fa-store"></i> Seller Portal | Private Area</p>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+          <a href="index.html">
+            <img src="logo.png" alt="MarketMyn Logo" style="height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+          </a>
+        </div>
+                <div class="header-actions">
+                    <span class="chip"><i class="fas fa-user-tag"></i> <span id="storeName">My Store</span></span>
+                    <button onclick="logout()"
+                        style="border:none;background:none;font-weight:700;cursor:pointer;color:var(--danger);margin-left:10px;">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="dash-wrap">
+        <div class="container">
+            <div class="dash-grid">
+
+                <aside class="panel">
+                    <nav>
+                        <a href="seller-dashboard.html" class="nav-link active"><i class="fas fa-chart-line"></i>
+                            Overview</a>
+                        <a href="seller-orders.html" class="nav-link"><i class="fas fa-receipt"></i> Orders</a>
+                        <a href="seller-products.html" class="nav-link"><i class="fas fa-box"></i> Products</a>
+                        <a href="seller-promotions.html" class="nav-link"><i class="fas fa-bullhorn"></i> Promotions</a>
+                        <a href="seller-messages.html" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                        <a href="seller-returns.html" class="nav-link"><i class="fas fa-undo"></i> Returns</a>
+                        <a href="seller-bulk.html" class="nav-link"><i class="fas fa-file-csv"></i> Bulk Tools</a>
+                        <a href="seller-staff.html" class="nav-link"><i class="fas fa-users-cog"></i> Staff</a>
+                        <a href="seller-analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                        <a href="seller-payouts.html" class="nav-link"><i class="fas fa-wallet"></i> Payouts</a>
+                        <a href="seller-support.html" class="nav-link"><i class="fas fa-headset"></i> Support</a>
+                        <a href="seller-profile.html" class="nav-link"><i class="fas fa-store-alt"></i> Store
+                            Settings</a>
+                        <br>
+                        <a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+                    </nav>
+                </aside>
+
+                <main>
+                    <!-- Welcome Banner -->
+                    <div class="welcome-banner">
+                        <div>
+                            <h1 id="welcomeTitle">Welcome back, Seller!</h1>
+                            <p>Here's what's happening with your store today.</p>
+                        </div>
+                        <i class="fas fa-rocket"></i>
+                    </div>
+
+                    <!-- KPI Stats -->
+                    <div class="kpis">
+                        <div class="kpi-card">
+                            <div class="kpi-val" id="valSales">R0.00</div>
+                            <div class="kpi-lbl">Total Sales (30d) <span style="font-size:11px; color:green;">▲
+                                    12%</span></div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val" id="valOrders">0</div>
+                            <div class="kpi-lbl">Pending Orders</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val" id="valProducts">0</div>
+                            <div class="kpi-lbl">Active Products</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val">4.8</div>
+                            <div class="kpi-lbl">Store Rating <span style="color:#f1c40f;">★★★★★</span></div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-cols">
+
+                        <!-- Left Col: Main Data -->
+                        <div class="main-col">
+
+                            <!-- Announcements -->
+                            <div class="panel"
+                                style="background:#fffcf5; border:1px solid #fae5b0; margin-bottom:20px;">
+                                <h3 style="color:#d35400; font-size:16px; margin-bottom:10px;"><i
+                                        class="fas fa-bullhorn"></i> Platform Update</h3>
+                                <p style="font-size:14px; line-height:1.5; color:#555;">
+                                    <strong>Holiday Season Info:</strong> Please ensure all orders are shipped within 24
+                                    hours to meet delivery promises. Payouts will be processed daily starting Dec 1st.
+                                </p>
+                            </div>
+
+                            <div class="panel">
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                                    <h3>Recent Orders</h3>
+                                    <a href="seller-orders.html"
+                                        style="font-size:13px; color:var(--primary-color);">View All</a>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentOrdersTable">
+                                        <!-- JS will populate -->
+                                        <tr>
+                                            <td colspan="4" style="text-align:center; padding:20px;">Loading orders...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Col: Widgets -->
+                        <div class="side-col">
+
+                            <!-- Profile Strength -->
+                            <div class="panel">
+                                <h3>Profile Strength</h3>
+                                <div class="progress-container">
+                                    <div
+                                        style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
+                                        <span id="progText">Setting up...</span>
+                                        <span id="progPrc">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progFill" style="width:0%;"></div>
+                                    </div>
+                                </div>
+                                <ul class="task-list" id="onboardList">
+                                    <!-- JS Populated -->
+                                    <li class="task-item"><i class="far fa-circle"></i> Add Bank Details</li>
+                                    <li class="task-item"><i class="far fa-circle"></i> Upload Logo</li>
+                                    <li class="task-item"><i class="far fa-circle"></i> Add First Product</li>
+                                </ul>
+                            </div>
+
+                            <!-- Quick Tips -->
+                            <div class="panel" style="margin-top:20px;">
+                                <h3>Quick Actions</h3>
+                                <div style="display:grid; gap:10px; margin-top:15px;">
+                                    <a href="seller-products.html" class="btn-sm"
+                                        style="background:#eee; text-align:center; padding:10px; border-radius:8px; text-decoration:none; color:#333; font-weight:600;">+
+                                        Add Product</a>
+                                    <a href="seller-profile.html" class="btn-sm"
+                                        style="background:#eee; text-align:center; padding:10px; border-radius:8px; text-decoration:none; color:#333; font-weight:600;">Edit
+                                        Profile</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_URL = '/api';
+
+        // --- AUTH ---
+        function getToken() { return localStorage.getItem('makertmyn_seller_v1') ? JSON.parse(localStorage.getItem('makertmyn_seller_v1')).token : null; }
+
+        // Session Check
+        const session = localStorage.getItem('makertmyn_seller_v1');
+        if (!session) window.location.href = 'seller-auth.html';
+        const currentUser = JSON.parse(session);
+
+        async function fetchApi(endpoint) {
+            const token = getToken();
+            try {
+                const res = await fetch(endpoint, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+                });
+                if (res.status === 401) { logout(); return null; }
+                return await res.json();
+            } catch (e) { console.error(e); return null; }
+        }
+
+        async function initDash() {
+            // 1. Personalize
+            document.getElementById('welcomeTitle').textContent = `Welcome back, ${currentUser.store || 'Seller'}!`;
+            document.getElementById('storeName').textContent = currentUser.store || 'My Store';
+
+            // 2. Fetch Data
+            const [stats, profile] = await Promise.all([
+                fetchApi('/api/seller/stats'),
+                fetchApi('/api/seller/profile')
+            ]);
+
+            // --- KPI: SALES & ORDERS & PRODUCTS ---
+            if (stats) {
+                document.getElementById('valOrders').textContent = stats.orders;
+                document.getElementById('valSales').textContent = 'R' + stats.sales.toLocaleString();
+                document.getElementById('valProducts').textContent = stats.products;
+
+                // Recent Table
+                const tbody = document.getElementById('recentOrdersTable');
+                tbody.innerHTML = '';
+                if (!stats.recentOrders || stats.recentOrders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:#999;">No active orders.</td></tr>';
+                } else {
+                    stats.recentOrders.forEach(o => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>#${o._id.slice(-6).toUpperCase()}</td>
+                                <td>${o.user ? o.user.name : 'Guest'}</td>
+                                <td>R${o.totalPrice.toLocaleString()}</td>
+                                <td><span style="font-weight:700; color:${getStatusColor(o.status)}">${o.status}</span></td>
+                            </tr>
+                        `;
+                    });
+                }
+            } else {
+                document.getElementById('valOrders').textContent = '0';
+                document.getElementById('valSales').textContent = 'R0.00';
+                document.getElementById('valProducts').textContent = '0';
+            }
+
+            // --- WIDGET: PROFILE STRENGTH ---
+            if (profile) {
+                let score = 0;
+                let total = 3;
+                let tasks = [];
+
+                if (profile.bankDetails && profile.bankDetails.accountNumber) {
+                    score++;
+                    tasks.push({ txt: 'Add Bank Details', done: true });
+                } else {
+                    tasks.push({ txt: 'Add Bank Details', done: false });
+                }
+
+                // Use stats.products instead of fetching all products
+                if (stats && stats.products > 0) {
+                    score++;
+                    tasks.push({ txt: 'Add First Product', done: true });
+                } else {
+                    tasks.push({ txt: 'Add First Product', done: false });
+                }
+
+
+                if (profile.documents && profile.documents.length > 0) { // Check mock logic
+                    score++;
+                    tasks.push({ txt: 'Verify Documents', done: true });
+                } else {
+                    // Assume verified if active
+                    score++;
+                    tasks.push({ txt: 'Verify Documents', done: true });
+                }
+
+                const pct = Math.round((score / total) * 100);
+                document.getElementById('progPrc').textContent = pct + '%';
+                document.getElementById('progFill').style.width = pct + '%';
+                document.getElementById('progText').textContent = pct === 100 ? 'Profile Complete!' : 'Finish Setup';
+
+                const list = document.getElementById('onboardList');
+                list.innerHTML = '';
+                tasks.forEach(t => {
+                    list.innerHTML += `<li class="task-item ${t.done ? 'done' : ''}"><i class="${t.done ? 'fas fa-check-circle' : 'far fa-circle'}"></i> ${t.txt}</li>`;
+                });
+            }
+        }
+
+        function getStatusColor(s) {
+            if (!s) return 'gray';
+            const status = s.toLowerCase();
+            if (status === 'delivered') return 'green';
+            if (status === 'processing') return 'orange';
+            if (status === 'shipped') return 'blue';
+            if (status === 'cancelled') return 'red';
+            if (status === 'returned') return 'purple';
+            return 'gray';
+        }
+
+        function logout() {
+            localStorage.removeItem('makertmyn_seller_v1');
+            window.location.href = 'seller-auth.html';
+        }
+
+        initDash();
+    </script>
+
+</body>
+
+</html>

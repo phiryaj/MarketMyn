@@ -1,0 +1,6 @@
+node_modules
+.env
+.git
+.vercel
+start_mongo.bat
+scripts/seedAdmin.js
