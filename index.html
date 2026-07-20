@@ -459,7 +459,7 @@
       if (!dropGrid) return;
       if (typeof getDailyDrop !== 'undefined') {
         dropGrid.innerHTML = '';
-        getDailyDrop(4).forEach(p => {
+        getDailyDrop(5).forEach(p => {
           const card = createGridCard(p);
           card.style.minWidth = "280px"; // Make them wider for the scroller
           dropGrid.appendChild(card);
