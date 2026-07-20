@@ -54,13 +54,13 @@ html {
   border-color: var(--primary-color);
 }
 
-.daily-drop::-webkit-scrollbar {
-  height: 6px;
+.drop-scroller::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
 }
 
-.daily-drop::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 10px;
+.drop-scroller {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .drop-card {
