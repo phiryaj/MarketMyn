@@ -28,11 +28,24 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, '/')));
 
 // ─── DATABASE ─────────────────────────────────────────────────────────────────
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/marketmyn')
-    .then(() => console.log('✅ MongoDB Connected'))
-    .catch(err => {
+let cachedDb = null;
+
+async function connectToDatabase() {
+    if (cachedDb) return cachedDb;
+    try {
+        const db = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/marketmyn', {
+            serverSelectionTimeoutMS: 5000
+        });
+        cachedDb = db;
+        console.log('✅ MongoDB Connected (Cold Start)');
+        return db;
+    } catch (err) {
         console.error('❌ MongoDB Connection Error:', err.message);
-    });
+    }
+}
+
+// Connect immediately
+connectToDatabase();
 
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
 app.get('/api/status', (req, res) => res.json({ status: 'MarketMyn API Running', version: '1.0.0' }));

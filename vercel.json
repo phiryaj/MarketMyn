@@ -3,34 +3,28 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "**/*.html",
-          "**/*.css",
-          "**/*.js",
-          "**/*.png",
-          "**/*.jpg",
-          "**/*.jpeg",
-          "**/*.webp",
-          "**/*.gif",
-          "**/*.svg",
-          "**/*.ico",
-          "**/*.jfif",
-          "assets/**",
-          "routes/**",
-          "controllers/**",
-          "models/**",
-          "middleware/**",
-          "utils/**"
-        ]
-      }
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "/server.js"
+      "source": "/(.*)\\.(png|jpg|jpeg|gif|webp|svg|ico|css|js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin-dashboard.html"
     }
   ]
 }
