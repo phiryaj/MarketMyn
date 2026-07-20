@@ -24,8 +24,16 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Serve static files from project root (HTML, CSS, JS, images)
-app.use(express.static(path.join(__dirname, '/')));
+// Serve static files from project root with Vercel Edge Caching
+app.use(express.static(path.join(__dirname, '/'), {
+    setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=60, must-revalidate');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=31536000, immutable');
+        }
+    }
+}));
 
 // ─── DATABASE ─────────────────────────────────────────────────────────────────
 let cachedDb = null;
