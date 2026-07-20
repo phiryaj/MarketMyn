@@ -1,42 +1,28 @@
-require('dotenv').config();
+try { require('dotenv').config(); } catch(e) {}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ─── CORS ─────────────────────────────────────────────────────────────────────
-// In production, restrict to your deployed domain via ALLOWED_ORIGIN env var.
-// In development (or when not set), allow all origins so file:// protocol works.
-const allowedOrigins = process.env.ALLOWED_ORIGIN
-    ? process.env.ALLOWED_ORIGIN.split(',').map(o => o.trim())
-    : ['*'];
+console.log('[Startup] Node version:', process.version);
+console.log('[Startup] NODE_ENV:', process.env.NODE_ENV);
+console.log('[Startup] MONGO_URI set:', !!process.env.MONGO_URI);
 
-app.use(cors({
-    origin: (origin, callback) => {
-        // Allow requests with no origin (e.g. mobile apps, curl, Vercel internal)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        callback(new Error(`CORS policy: origin ${origin} not allowed`));
-    },
-    credentials: true
-}));
+// ─── CORS ─────────────────────────────────────────────────────────────────────
+app.use(cors({ origin: '*', credentials: true }));
 
 // ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
-// Request logger
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
 
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files from project root (HTML, CSS, JS, images)
 app.use(express.static(path.join(__dirname, '/')));
@@ -46,32 +32,41 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/marketmyn')
     .then(() => console.log('✅ MongoDB Connected'))
     .catch(err => {
         console.error('❌ MongoDB Connection Error:', err.message);
-        // Don't crash — Vercel will still serve static pages
     });
 
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
 app.get('/api/status', (req, res) => res.json({ status: 'MarketMyn API Running', version: '1.0.0' }));
 app.get('/admin', (req, res) => res.redirect('/admin-dashboard.html'));
 
-app.use('/api/auth',       require('./routes/authRoutes'));
-app.use('/api/products',   require('./routes/productRoutes'));
-app.use('/api/orders',     require('./routes/orderRoutes'));
-app.use('/api/admin',      require('./routes/adminRoutes'));
-app.use('/api/payouts',    require('./routes/payoutRoutes'));
-app.use('/api/staff',      require('./routes/staffRoutes'));
-app.use('/api/seller',     require('./routes/sellerRoutes'));
-app.use('/api/upload',     require('./routes/uploadRoutes'));
-app.use('/api/returns',    require('./routes/returnRoutes'));
-app.use('/api/promotions', require('./routes/promotionRoutes'));
-app.use('/api/messages',   require('./routes/messageRoutes'));
-app.use('/api/bulk',       require('./routes/bulkRoutes'));
-app.use('/api/settings',   require('./routes/settingsRoutes'));
-app.use('/api/categories', require('./routes/categoryRoutes'));
-app.use('/api/support',    require('./routes/supportRoutes'));
-app.use('/api/user',       require('./routes/userRoutes'));
+const routes = [
+    ['/api/auth',       './routes/authRoutes'],
+    ['/api/products',   './routes/productRoutes'],
+    ['/api/orders',     './routes/orderRoutes'],
+    ['/api/admin',      './routes/adminRoutes'],
+    ['/api/payouts',    './routes/payoutRoutes'],
+    ['/api/staff',      './routes/staffRoutes'],
+    ['/api/seller',     './routes/sellerRoutes'],
+    ['/api/upload',     './routes/uploadRoutes'],
+    ['/api/returns',    './routes/returnRoutes'],
+    ['/api/promotions', './routes/promotionRoutes'],
+    ['/api/messages',   './routes/messageRoutes'],
+    ['/api/bulk',       './routes/bulkRoutes'],
+    ['/api/settings',   './routes/settingsRoutes'],
+    ['/api/categories', './routes/categoryRoutes'],
+    ['/api/support',    './routes/supportRoutes'],
+    ['/api/user',       './routes/userRoutes'],
+];
+
+for (const [mountPath, routeFile] of routes) {
+    try {
+        app.use(mountPath, require(routeFile));
+        console.log(`[Route] Loaded: ${mountPath}`);
+    } catch (err) {
+        console.error(`[Route] FAILED to load ${routeFile}:`, err.message);
+    }
+}
 
 // ─── CATCH-ALL ────────────────────────────────────────────────────────────────
-// Send index.html for any non-API route (SPA-style fallback)
 app.use((req, res, next) => {
     if (req.path.startsWith('/api/')) return next();
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -90,4 +85,4 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-module.exports = app; // Required for Vercel serverless export
+module.exports = app;
