@@ -140,42 +140,103 @@
     </div>
   </section>
 
-  <!-- Category Scroller -->
-  <section class="category-scroller">
+  <!-- Category Showcase -->
+  <section class="cat-showcase">
     <div class="container">
-      <div class="category-circles">
-        <div class="category-circle" onclick="location.href='category.html?category=Electronics'">
-          <div class="circle-img"><i class="fas fa-laptop"></i></div>
-          <span>Electronics</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Fashion'">
-          <div class="circle-img"><i class="fas fa-tshirt"></i></div>
-          <span>Fashion</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Home'">
-          <div class="circle-img"><i class="fas fa-home"></i></div>
-          <span>Home</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Sports'">
-          <div class="circle-img"><i class="fas fa-running"></i></div>
-          <span>Sports</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Beauty'">
-          <div class="circle-img"><i class="fas fa-spa"></i></div>
-          <span>Beauty</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Toys'">
-          <div class="circle-img"><i class="fas fa-gamepad"></i></div>
-          <span>Toys</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Groceries'">
-          <div class="circle-img"><i class="fas fa-shopping-basket"></i></div>
-          <span>Groceries</span>
-        </div>
-        <div class="category-circle" onclick="location.href='category.html?category=Automotive'">
-          <div class="circle-img"><i class="fas fa-car"></i></div>
-          <span>Auto</span>
-        </div>
+      <div class="cat-showcase-header">
+        <h2>Shop by Category</h2>
+        <p>Explore our curated collections</p>
+      </div>
+      <div class="cat-cards-grid">
+
+        <a href="category.html?category=Electronics" class="cat-card" style="--cat-c1:#667eea;--cat-c2:#764ba2;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-microchip"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Electronics</span>
+            <span class="cat-card-sub">Gadgets & Tech</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Fashion" class="cat-card" style="--cat-c1:#f093fb;--cat-c2:#f5576c;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-tshirt"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Fashion</span>
+            <span class="cat-card-sub">Clothing & Accessories</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Home" class="cat-card" style="--cat-c1:#4facfe;--cat-c2:#00f2fe;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-couch"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Home & Living</span>
+            <span class="cat-card-sub">Décor & Appliances</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Sports" class="cat-card" style="--cat-c1:#43e97b;--cat-c2:#38f9d7;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Sports</span>
+            <span class="cat-card-sub">Fitness & Outdoors</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Beauty" class="cat-card" style="--cat-c1:#fa709a;--cat-c2:#fee140;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-magic"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Beauty</span>
+            <span class="cat-card-sub">Skincare & Cosmetics</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Toys" class="cat-card" style="--cat-c1:#a18cd1;--cat-c2:#fbc2eb;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-gamepad"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Toys & Games</span>
+            <span class="cat-card-sub">Kids & Family</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Groceries" class="cat-card" style="--cat-c1:#f6d365;--cat-c2:#fda085;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-apple-alt"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Groceries</span>
+            <span class="cat-card-sub">Fresh & Pantry</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="category.html?category=Automotive" class="cat-card" style="--cat-c1:#30cfd0;--cat-c2:#330867;">
+          <div class="cat-card-bg"></div>
+          <div class="cat-card-icon"><i class="fas fa-car-side"></i></div>
+          <div class="cat-card-glow"></div>
+          <div class="cat-card-body">
+            <span class="cat-card-label">Automotive</span>
+            <span class="cat-card-sub">Parts & Accessories</span>
+          </div>
+          <div class="cat-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+
       </div>
     </div>
   </section>
