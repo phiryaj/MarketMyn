@@ -28,9 +28,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, '/'), {
     setHeaders: (res, filePath) => {
         if (filePath.endsWith('.html')) {
-            res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=60, must-revalidate');
+            // HTML: never cache - always fresh
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        } else if (filePath.endsWith('.css') || filePath.endsWith('.js')) {
+            // CSS/JS: short cache, re-validate (version query string busts this)
+            res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
         } else {
-            res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=31536000, immutable');
+            // Images & fonts: long cache, immutable
+            res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
         }
     }
 }));
