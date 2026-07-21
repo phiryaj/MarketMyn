@@ -11,12 +11,16 @@
 
 <body>
   <!-- Top Trust Bar -->
-  <div class="top-banner" style="background: var(--dark); padding: 8px 0; font-size: 12px; font-weight: 500;">
+  <div class="top-banner" style="background: #f4f6f8; color: #333; padding: 10px 0; font-size: 13px; border-bottom: 1px solid #e1e1e1;">
     <div class="container" style="display:flex; justify-content: space-between; align-items:center;">
-      <div><i class="fas fa-shipping-fast" style="color:var(--accent-color);"></i> Free Delivery on orders over R500</div>
-      <div style="display:flex; gap: 20px;">
-        <span><i class="fas fa-shield-alt" style="color:var(--success);"></i> 100% Secure Payments</span>
-        <span><i class="fas fa-undo" style="color:var(--primary-color);"></i> 30-Day Easy Returns</span>
+      <div style="display:flex; gap: 24px;">
+        <a href="#" style="color: #555; text-decoration: none; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-color)'" onmouseout="this.style.color='#555'">Sell on MarketMyn</a>
+        <a href="#" style="color: #555; text-decoration: none; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-color)'" onmouseout="this.style.color='#555'">Track Your Order</a>
+        <a href="help.html" style="color: #555; text-decoration: none; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-color)'" onmouseout="this.style.color='#555'">Customer Service</a>
+      </div>
+      <div style="display:flex; gap: 24px; font-weight: 600;">
+        <span style="color: #222; cursor: pointer; display: flex; align-items: center; gap: 6px;"><img src="https://flagcdn.com/w20/za.png" alt="SA" style="height: 12px; width: auto; border-radius: 2px;"> EN / ZAR <i class="fas fa-chevron-down" style="font-size: 10px; color: #888;"></i></span>
+        <span style="color: #222; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i class="fas fa-map-marker-alt" style="color: var(--primary-color);"></i> Deliver to: <span style="text-decoration: underline; color: #444;">South Africa</span></span>
       </div>
     </div>
   </div>
@@ -33,9 +37,16 @@
           </a>
         </div>
 
-        <div class="search-bar">
-          <input type="text" placeholder="Search for products, brands, and categories...">
-          <button class="search-btn"><i class="fas fa-search"></i></button>
+        <div class="search-bar" style="display: flex; flex: 1; max-width: 650px; margin: 0 40px; border-radius: 6px; overflow: hidden; border: 2px solid var(--primary-color); align-items: stretch; position: relative;">
+          <select style="background: #f3f3f3; border: none; padding: 0 15px; font-size: 14px; color: #333; border-right: 1px solid #ccc; outline: none; cursor: pointer; font-family: inherit; height: 100%; border-radius: 0;">
+            <option>All</option>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Home</option>
+            <option>Sports</option>
+          </select>
+          <input type="text" placeholder="Search for products, brands, and categories..." style="flex: 1; padding: 12px 15px; border: none; outline: none; font-size: 15px; border-radius: 0; box-shadow: none;">
+          <button class="search-btn" style="background: var(--primary-color); color: #fff; border: none; padding: 0 25px; cursor: pointer; transition: background 0.3s; font-size: 16px; position: static; height: auto; transform: none; border-radius: 0; width: auto;"><i class="fas fa-search"></i></button>
         </div>
 
         <div class="header-actions">
@@ -241,43 +252,33 @@
     </div>
   </section>
 
-  <!-- Promo Grid (Ads) -->
-  <section class="promo-section">
+  <!-- Premium Promo Banners -->
+  <section class="promo-section" style="padding: 50px 0; background: #fff;">
     <div class="container">
-      <div class="promo-grid">
-        <div class="promo-card promo-large" onclick="location.href='category.html?category=Home'">
-          <img src="https://images.unsplash.com/photo-1556911220-e15224bbafb0?w=1200" alt="Home Appliances">
-          <div class="promo-content">
-            <span class="promo-label">Home Essentials</span>
-            <h3>Upgrade Your Kitchen<br>Today</h3>
-            <button class="btn btn-light" style="padding: 8px 20px; font-size: 13px;">Shop Sale</button>
-          </div>
-        </div>
-        <div class="promo-card" onclick="location.href='category.html?category=Electronics'">
-          <img src="promo_tech_deals_1778509215563_1778526897661.png" alt="Tech Deals">
-          <div class="promo-content">
-            <span class="promo-label">Tech Deal</span>
-            <h3>Smart Watches</h3>
-            <p>From R499</p>
-          </div>
-        </div>
-        <div class="promo-card" onclick="location.href='category.html?category=Fashion'">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800" alt="Fashion Sale">
-          <div class="promo-content">
-            <span class="promo-label">Fashion</span>
-            <h3>New Footwear</h3>
-            <p>30% Off</p>
-          </div>
-        </div>
-        <div class="promo-card" style="grid-column: span 2;" onclick="location.href='category.html?category=Sports'">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200" alt="Fitness Sale">
-          <div class="promo-content">
-            <span class="promo-label">Active Living</span>
-            <h3>Fitness & Outdoor Sale</h3>
-            <button class="btn btn-dark" style="padding: 8px 20px; font-size: 13px; color: white;">Shop Fitness</button>
-          </div>
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+        
+        <!-- Large Left Banner -->
+        <a href="category.html?category=Home" style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.06); transition: transform 0.3s; position: relative;">
+          <img src="promo_home.jpg" alt="Home Essentials Sale" style="width: 100%; height: 100%; object-fit: cover; display: block; min-height: 380px; max-height: 420px; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+        </a>
+
+        <!-- Right Side Banners (Stacked) -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <a href="category.html?category=Electronics" style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.06); flex: 1; transition: transform 0.3s; position: relative;">
+            <img src="promo_tech.jpg" alt="Tech Deals" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          </a>
+          <a href="category.html?category=Fashion" style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.06); flex: 1; transition: transform 0.3s; position: relative;">
+            <img src="promo_fashion.jpg" alt="Fashion Sale" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          </a>
         </div>
       </div>
+      
+      <!-- Wide Bottom Banner -->
+      <a href="category.html?category=Sports" style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.06); margin-top: 20px; transition: transform 0.3s; position: relative;">
+        <img src="promo_sports.jpg" alt="Fitness Sale" style="width: 100%; height: 220px; object-fit: cover; display: block; object-position: center; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      </a>
+    </div>
+  </section>
     </div>
   </section>
 
