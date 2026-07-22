@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="pageTitle">Product - MakertMyn</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=11">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="js/products-data.js"></script>
 
@@ -1326,168 +1326,6 @@
         document.getElementById("notFound").style.display = "block";
       }
     }
-      <div class="footer-bottom">
-        <p>&copy; 2026 MakertMyn. All rights reserved.</p>
-
-        <div class="payment-methods">
-          <i title="Visa" class="fab fa-cc-visa"></i>
-          <i title="Mastercard" class="fab fa-cc-mastercard"></i>
-          <span style="font-weight:700;font-size:14px;">PayFast</span>
-          <span style="font-weight:700;font-size:14px;">Ozow</span>
-          <span style="font-weight:700;font-size:14px;">MobiCred</span>
-          <span style="font-weight:700;font-size:14px;">Payflex</span>
-          <span style="font-weight:700;font-size:14px;">Discovery Miles</span>
-        </div>
-      </div>
-
-    </div>
-  </footer>
-  <!-- ================= END FOOTER ================= -->
-
-
-  <script>
-    const CART_KEY = "makertmyn_cart_v1";
-    const APPROVED_KEY = "makertmyn_products_approved_v1";
-    const RECENT_KEY = "makertmyn_recently_viewed";
-
-    // Helpers
-    function read(key) { try { return JSON.parse(localStorage.getItem(key)) || [] } catch { return [] } }
-    function write(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-    function cartCount() { return read(CART_KEY).reduce((s, i) => s + (i.qty || 0), 0); }
-    function updateBadge() { document.getElementById("cartBadge").textContent = cartCount(); }
-    function money(n) { return "R" + (n || 0).toLocaleString("en-ZA"); }
-
-    // Init Logic
-    let currentProduct = null;
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id");
-
-    async function loadProduct() {
-      let p = null;
-      let allProducts = [];
-
-      // 1. Load local static products
-      if (typeof getAllProducts === 'function') {
-        allProducts = getAllProducts();
-        p = getProductById(id);
-      } else if (typeof products !== 'undefined') {
-        allProducts = products;
-        p = products.find(x => (x.id === id || x._id === id));
-      }
-
-      // 2. Fetch from API if online/connected
-      try {
-        const res = await fetch('/api/products');
-        if (res.ok) {
-          const apiProds = await res.json();
-          if (Array.isArray(apiProds) && apiProds.length > 0) {
-            // Merge API products into allProducts
-            apiProds.forEach(ap => {
-              const pid = ap._id || ap.id;
-              if (!allProducts.some(existing => (existing.id === pid || existing._id === pid))) {
-                allProducts.push({
-                  id: pid,
-                  _id: pid,
-                  title: ap.title,
-                  price: ap.price,
-                  image: ap.image,
-                  images: ap.images && ap.images.length ? ap.images : [ap.image],
-                  category: ap.category,
-                  vendor: ap.vendor,
-                  vendorName: ap.vendorName,
-                  desc: ap.description || ap.desc,
-                  specs: ap.specs || {},
-                  rating: ap.rating || 4.8,
-                  reviews: ap.reviews || 12
-                });
-              }
-            });
-
-            // Find current product if not found yet
-            if (!p) {
-              const apiMatch = apiProds.find(x => (x._id === id || x.id === id));
-              if (apiMatch) {
-                p = {
-                  id: apiMatch._id || apiMatch.id,
-                  _id: apiMatch._id || apiMatch.id,
-                  title: apiMatch.title,
-                  price: apiMatch.price,
-                  image: apiMatch.image,
-                  images: apiMatch.images && apiMatch.images.length ? apiMatch.images : [apiMatch.image],
-                  category: apiMatch.category,
-                  vendor: apiMatch.vendor,
-                  vendorName: apiMatch.vendorName,
-                  desc: apiMatch.description || apiMatch.desc || "No description provided.",
-                  specs: apiMatch.specs || {},
-                  rating: apiMatch.rating || 4.8,
-                  reviews: apiMatch.reviews || 12
-                };
-              }
-            }
-          }
-        }
-      } catch (err) {
-        console.log("Using local product catalog");
-      }
-
-      // 3. Try Approved Sellers (Overrides if saved in localStorage)
-      const approved = read(APPROVED_KEY).find(x => (x.id === id || x._id === id));
-      if (approved) {
-        p = {
-          ...approved,
-          id: approved.id || approved._id,
-          price: parseFloat(approved.price),
-          images: Array.isArray(approved.images) ? approved.images : [approved.image],
-          desc: approved.desc || approved.description || "No description provided.",
-          specs: approved.specs || {},
-          vendor: approved.vendor,
-          vendorName: approved.vendorName,
-          reviews: 0,
-          rating: 4.5
-        };
-      }
-
-      if (p) {
-        // Normalizing
-        currentProduct = {
-          id: p.id || p._id,
-          _id: p._id || p.id,
-          title: p.title,
-          price: p.price,
-          oldPrice: p.originalPrice || p.oldPrice || (p.price * 1.25),
-          images: p.images || [p.image],
-          category: p.category || 'General',
-          vendor: p.vendor,
-          vendorName: p.vendorName,
-          desc: p.description || p.desc || "No description available.",
-          specs: p.specs || {},
-          rating: p.rating || 4.8,
-          reviews: p.reviews || 12,
-          fastDelivery: true,
-          variations: p.variations || {}
-        };
-      }
-
-      // Render
-      if (!currentProduct) {
-        document.getElementById("loadingState").style.display = "none";
-        document.getElementById("notFound").style.display = "block";
-        document.getElementById("productGrid").style.display = "none";
-      } else {
-        document.getElementById("loadingState").style.display = "none";
-        document.getElementById("notFound").style.display = "none";
-        document.getElementById("productGrid").style.display = "block"; // Make visible immediately!
-        
-        try {
-          renderProduct(currentProduct);
-        } catch (renderErr) {
-          console.error("renderProduct error:", renderErr);
-        }
-        
-        saveRecentlyViewed(currentProduct);
-        loadRelated(allProducts, currentProduct);
-      }
-    }
 
     function saveRecentlyViewed(p) {
       let recent = read(RECENT_KEY);
@@ -1496,6 +1334,79 @@
       if (recent.length > 10) recent.pop();
       write(RECENT_KEY, recent);
     }
+  </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="logo" style="margin-bottom: 20px;">
+            <a href="index.html">
+              <h1>Makert<span>Myn</span></h1>
+            </a>
+          </div>
+          <p>South Africa's most trusted online marketplace. Shop from thousands of local sellers and get the best deals delivered to your doorstep.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="help.html">Help Center</a></li>
+            <li><a href="help.html">Track Order</a></li>
+            <li><a href="legal.html#returns">Returns & Refunds</a></li>
+            <li><a href="help.html">Shipping Info</a></li>
+            <li><a href="help.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="category.html?category=Electronics">Electronics</a></li>
+            <li><a href="category.html?category=Fashion">Fashion</a></li>
+            <li><a href="category.html?category=Home%20%26%20Garden">Home & Garden</a></li>
+            <li><a href="category.html?category=Sports%20%26%20Outdoors">Sports & Outdoors</a></li>
+            <li><a href="category.html?category=Groceries">Groceries</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Partner</h4>
+          <ul>
+            <li><a href="#">Corporate Sales</a></li>
+            <li><a href="#">Brand Partnerships</a></li>
+            <li><a href="#">Affiliate Program</a></li>
+            <li><a href="#">Logistics Partners</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="legal.html#privacy">Privacy Policy</a></li>
+            <li><a href="legal.html#terms">Terms & Conditions</a></li>
+            <li><a href="legal.html#cookies">Cookie Policy</a></li>
+            <li><a href="legal.html#returns">Returns Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 MakertMyn. Built with ❤️ for South Africa.</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-apple-pay"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-bitcoin"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
 
     function renderProduct(p) {
       document.title = p.title + " - MakertMyn";
@@ -1508,7 +1419,13 @@
         'Sports': 'Fitness & Outdoor',
         'Fashion': 'Apparel & Accessories',
         'Home': 'Home & Kitchen',
-        'Home & Garden': 'Home Decor'
+        'Home & Garden': 'Home Decor',
+        'Groceries': 'Pantry & Fresh',
+        'Automotive': 'Parts & Accessories',
+        'Health': 'Personal Care',
+        'Pets': 'Pet Food & Care',
+        'Baby': 'Baby Essentials',
+        'DIY': 'Hardware & Tools'
       };
 
       // Breadcrumb (Main Category -> Subcategory -> Product Title)

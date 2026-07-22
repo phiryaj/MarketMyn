@@ -335,7 +335,11 @@ const SAMPLE_PRODUCTS = [
 
 async function fetchProducts() {
   try {
-    const res = await fetch(API_URL);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s max
+    const res = await fetch(API_URL, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    
     const data = await res.json();
 
     if (res.ok && Array.isArray(data) && data.length > 0) {
