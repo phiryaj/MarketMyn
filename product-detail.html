@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="pageTitle">Product - MakertMyn</title>
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="js/products-data.js"></script>
 
@@ -26,198 +26,457 @@
       padding-right: 8px !important;
     }
 
-    /* --- PREMIUM PRODUCT PAGE STYLES --- */
+    /* --- AMAZON & WALMART HYBRID PRODUCT PAGE STYLES --- */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f1111;
+    }
+
     .product-page-wrapper {
-      background: #f8f9fa;
-      padding: 40px 0 80px;
+      background: #ffffff;
+      padding: 15px 0 60px;
     }
 
     .breadcrumb {
       list-style: none;
       display: flex;
-      gap: 10px;
-      font-size: 14px;
-      color: var(--text-light);
-      margin-bottom: 20px;
+      gap: 6px;
+      font-size: 12px;
+      color: #565959;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
     .breadcrumb a {
-      color: var(--text-light);
+      color: #007185;
       text-decoration: none;
-      transition: color 0.2s;
     }
 
     .breadcrumb a:hover {
-      color: var(--primary-color);
+      color: #c7511f;
+      text-decoration: underline;
     }
 
-    /* Main Grid */
+    /* 3-Column Grid Layout */
     .product-main-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
+      grid-template-columns: 360px 1fr 280px;
+      gap: 24px;
       background: #fff;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      margin-bottom: 40px;
+      padding: 0 0 30px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #e7e7e7;
     }
 
     /* Left: Gallery */
     .gallery-container {
       position: sticky;
-      top: 120px;
+      top: 90px;
       height: fit-content;
+      display: flex;
+      gap: 12px;
+    }
+
+    .thumbnails-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 48px;
+      flex-shrink: 0;
+    }
+
+    .thumb-v {
+      width: 46px;
+      height: 46px;
+      border: 1px solid #a8a8a8;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 2px;
+      background: #fff;
+      transition: all 0.1s;
+    }
+
+    .thumb-v.active,
+    .thumb-v:hover {
+      border-color: #e77600;
+      box-shadow: 0 0 3px rgba(228, 121, 17, 0.5);
+    }
+
+    .thumb-v img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .main-image-frame {
-      width: 100%;
-      height: 500px;
-      border-radius: 12px;
+      flex: 1;
+      height: 420px;
+      border-radius: 4px;
       overflow-x: auto;
-      /* Allow Scroll */
       overflow-y: hidden;
-      border: 1px solid #eee;
+      border: 1px solid #e7e7e7;
       display: flex;
-      /* Row of images */
       align-items: center;
       background: #fff;
-      margin-bottom: 15px;
       position: relative;
       scroll-snap-type: x mandatory;
-      /* Snap logic */
       scroll-behavior: smooth;
       scrollbar-width: none;
-      /* Hide scrollbar Firefox */
     }
 
     .main-image-frame::-webkit-scrollbar {
       display: none;
-      /* Hide scrollbar Chrome/Safari */
     }
 
     .main-image-frame img {
       min-width: 100%;
-      /* Force full width per image */
       width: 100%;
       height: 100%;
       object-fit: contain;
       scroll-snap-align: center;
-      /* Snap to center */
       flex-shrink: 0;
     }
 
-    .thumbnails {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 5px;
-    }
-
-    .thumb {
-      width: 80px;
-      height: 80px;
-      border: 2px solid #eee;
-      border-radius: 8px;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-
-    .thumb.active,
-    .thumb:hover {
-      border-color: var(--primary-color);
-      opacity: 1;
-    }
-
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    /* Right: Info */
+    /* Middle: Product Info Column */
     .product-info-col h1 {
-      font-size: 32px;
-      line-height: 1.2;
-      margin-bottom: 15px;
-      font-weight: 800;
-      color: #111;
+      font-size: 20px;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #0f1111;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-link {
+      font-size: 13px;
+      color: #007185;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .brand-link:hover {
+      color: #c7511f;
+      text-decoration: underline;
     }
 
     .rating-row {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e7e7e7;
     }
 
     .stars {
-      color: #ffc107;
-      font-size: 14px;
+      color: #de7921;
+      font-size: 13px;
     }
 
     .review-link {
-      color: var(--secondary-color);
+      color: #007185;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
     }
 
     .review-link:hover {
+      color: #c7511f;
       text-decoration: underline;
     }
 
-    .price-block {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      border: 1px solid #eee;
+    /* Deal & Price Block */
+    .price-block-amz {
+      margin-bottom: 15px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e7e7e7;
     }
 
-    .price-row {
+    .deal-badge-red {
+      display: inline-block;
+      background: #cc0c39;
+      color: #fff;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .price-row-amz {
       display: flex;
       align-items: baseline;
-      gap: 15px;
+      gap: 8px;
     }
 
-    .current-price {
-      font-size: 42px;
-      font-weight: 900;
-      color: var(--primary-color);
+    .discount-percent {
+      color: #cc0c39;
+      font-size: 24px;
+      font-weight: 400;
     }
 
-    .old-price {
-      font-size: 18px;
-      text-decoration: line-through;
-      color: #888;
+    .current-price-amz {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f1111;
     }
 
-    .discount-tag {
-      background: #ffe3e3;
-      color: #d63031;
-      padding: 5px 12px;
-      border-radius: 4px;
-      font-weight: 800;
+    .current-price-amz sup {
       font-size: 14px;
+      top: -0.6em;
     }
 
-    .short-desc {
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 25px;
+    .list-price-line {
+      font-size: 12px;
+      color: #565959;
+      margin-top: 2px;
+    }
+
+    .vat-notice {
+      font-size: 12px;
+      color: #565959;
+      margin-top: 2px;
+    }
+
+    .promo-coupon-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #e7f4e8;
+      border: 1px solid #70b676;
+      color: #007600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    /* Trust strip (Amazon icons) */
+    .trust-strip-amz {
+      display: flex;
+      gap: 20px;
+      margin: 15px 0;
+      padding: 10px 0;
+      border-top: 1px solid #e7e7e7;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .trust-item-amz {
+      text-align: center;
+      font-size: 11px;
+      color: #007185;
+      width: 70px;
+    }
+
+    .trust-item-amz i {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 4px;
+      color: #565959;
+    }
+
+    /* Quick Specs Table */
+    .quick-specs-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 6px 12px;
+      font-size: 13px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .spec-label {
+      font-weight: 700;
+      color: #0f1111;
+    }
+
+    .spec-val {
+      color: #565959;
+    }
+
+    /* "About this item" Bullets (Amazon/Walmart style) */
+    .about-item-section {
+      margin-top: 15px;
+    }
+
+    .about-item-section h3 {
       font-size: 15px;
+      font-weight: 700;
+      color: #0f1111;
+      margin-bottom: 10px;
     }
 
-    /* Variations */
-    .variation-group {
-      margin-bottom: 20px;
+    .about-bullets-list {
+      list-style-type: disc;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #0f1111;
     }
 
-    .variation-label {
+    .about-bullets-list li {
+      margin-bottom: 8px;
+    }
+
+    .about-bullets-list li b {
+      color: #0f1111;
+    }
+
+    /* Right Column: Amazon Buy Box Card */
+    .buy-box-card {
+      border: 1px solid #d5d9d9;
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+      position: sticky;
+      top: 90px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .buybox-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: #b12704;
+      margin-bottom: 8px;
+    }
+
+    .delivery-line-amz {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #0f1111;
+      margin-bottom: 10px;
+    }
+
+    .delivery-line-amz b {
+      color: #0f1111;
+    }
+
+    .location-selector {
+      font-size: 12px;
+      color: #007185;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .stock-green {
+      color: #007600;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .qty-dropdown-amz {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 7px;
+      border: 1px solid #d5d9d9;
+      background: #f0f2f2;
+      font-size: 13px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(15, 17, 17, 0.15);
+    }
+
+    .btn-amz-cart {
+      width: 100%;
+      background: #ffd814;
+      border: 1px solid #fcd200;
+      color: #0f1111;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 0;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+      transition: background 0.15s;
+    }
+
+    .btn-amz-cart:hover {
+      background: #f7ca00;
+      border-color: #f2c200;
+    }
+
+    .btn-amz-buy {
+      width: 100%;
+      background: #ffa41c;
+      border: 1px solid #ff8f00;
+      color: #0f1111;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 0;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+      transition: background 0.15s;
+    }
+
+    .btn-amz-buy:hover {
+      background: #fa8900;
+      border-color: #e27c00;
+    }
+
+    .ship-sold-grid {
+      display: grid;
+      grid-template-columns: 75px 1fr;
+      gap: 4px;
+      font-size: 12px;
+      color: #565959;
+      margin-bottom: 12px;
+    }
+
+    .ship-sold-grid span:nth-child(even) {
+      color: #007185;
+    }
+
+    .btn-amz-list {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #d5d9d9;
+      color: #0f1111;
+      font-size: 12px;
+      padding: 6px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(15, 17, 17, 0.05);
+    }
+
+    .btn-amz-list:hover {
+      background: #f7fafa;
+    }
+
+    /* Responsive Grid */
+    @media (max-width: 1100px) {
+      .product-main-grid {
+        grid-template-columns: 320px 1fr;
+      }
+      .buy-box-card {
+        grid-column: 1 / -1;
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .product-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-container {
+        flex-direction: column-reverse;
+      }
+      .thumbnails-vertical {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+      }
+    }
       font-weight: 800;
       font-size: 13px;
       margin-bottom: 8px;
@@ -687,144 +946,158 @@
 
       <div id="productGrid" style="display:none;">
 
-        <!-- TOP CARD: GRID -->
+        <!-- 3-COLUMN HYBRID AMAZON + WALMART MASTER GRID -->
         <div class="product-main-grid">
 
-          <!-- Left: Gallery -->
+          <!-- COLUMN 1: Gallery (Amazon/Walmart Style) -->
           <div class="gallery-container">
+            <div class="thumbnails-vertical" id="thumbContainer">
+              <!-- Thumbs injected via JS -->
+            </div>
             <div class="main-image-frame" id="mainImageArea">
               <img id="mainImage" src="" alt="Main Product Image">
             </div>
-            <div class="thumbnails" id="thumbContainer">
-              <!-- Thumbs injected via JS -->
-            </div>
           </div>
 
-          <!-- Right: Info -->
+          <!-- COLUMN 2: Middle Product Info Column -->
           <div class="product-info-col">
+            <a href="#" class="brand-link" id="brandLink">Brand: <span id="brandName">MarketMyn Official</span></a>
             <h1 id="productName">Product Title</h1>
 
             <!-- Ratings -->
             <div class="rating-row">
-              <div class="stars" id="starContainer">
-                <!-- Stars JS -->
-              </div>
-              <a href="#reviews" class="review-link" id="reviewCountLink">(0 Reviews)</a>
+              <span id="starRatingNumber" style="font-weight: 700; color: #0f1111;">4.8</span>
+              <div class="stars" id="starContainer"></div>
+              <a href="#reviews" class="review-link" id="reviewCountLink">(12 ratings)</a>
+              <span style="color:#e7e7e7;">|</span>
+              <a href="#tab-faq" class="review-link">Search this page</a>
             </div>
 
-            <!-- Price -->
-            <div class="price-block">
-              <div class="price-row">
-                <span class="current-price" id="currPrice">R0</span>
-                <span class="old-price" id="oldPrice" style="display:none;">R0</span>
-                <span class="discount-tag" id="discountTag" style="display:none;">-0%</span>
+            <!-- Price & Deal Block -->
+            <div class="price-block-amz">
+              <div id="dealBadgeContainer" style="display:none;">
+                <span class="deal-badge-red">Limited time deal</span>
+              </div>
+              <div class="price-row-amz">
+                <span class="discount-percent" id="discountTag" style="display:none;">-29%</span>
+                <span class="current-price-amz" id="currPrice">R0</span>
+              </div>
+              <div class="list-price-line" id="oldPriceLine" style="display:none;">
+                List Price: <span id="oldPrice" style="text-decoration: line-through;">R0</span>
+              </div>
+              <div class="vat-notice">All prices include 15% VAT.</div>
+              <div class="promo-coupon-box">
+                <i class="fas fa-tag"></i> <span>Save 15% promo code: WELCOME15</span>
               </div>
             </div>
 
-            <!-- Short Desc -->
-            <div class="short-desc" id="shortDesc">
-              Short description placeholder...
+            <!-- Quick Trust Strip -->
+            <div class="trust-strip-amz">
+              <div class="trust-item-amz">
+                <i class="fas fa-truck-fast"></i>
+                <span>Free Delivery</span>
+              </div>
+              <div class="trust-item-amz">
+                <i class="fas fa-arrow-rotate-left"></i>
+                <span>30 days Returnable</span>
+              </div>
+              <div class="trust-item-amz">
+                <i class="fas fa-lock"></i>
+                <span>Secure transaction</span>
+              </div>
+              <div class="trust-item-amz">
+                <i class="fas fa-shield-halved"></i>
+                <span>MarketMyn Guarantee</span>
+              </div>
+            </div>
+
+            <!-- Quick Specs Grid -->
+            <div class="quick-specs-grid" id="quickSpecsGrid">
+              <div class="spec-label">Brand</div><div class="spec-val" id="specBrand">MarketMyn</div>
+              <div class="spec-label">Availability</div><div class="spec-val" style="color:#007600; font-weight:700;">In Stock</div>
+              <div class="spec-label">Category</div><div class="spec-val" id="specCategory">General</div>
+              <div class="spec-label">Warranty</div><div class="spec-val">12 Month Official Guarantee</div>
             </div>
 
             <!-- Variations -->
             <div id="variationsContainer"></div>
 
-            <!-- Dynamic Info -->
-            <div class="stock-urgency" id="stockUrgency" style="display:none;">
-              <i class="fas fa-fire"></i> Low Stock: Only <span id="stockNum">3</span> left!
+            <!-- "About this item" Bullet Points (Amazon / Walmart style) -->
+            <div class="about-item-section">
+              <h3>About this item</h3>
+              <ul class="about-bullets-list" id="aboutBulletsList">
+                <li><b>PREMIUM QUALITY & RELIABILITY:</b> Crafted using high-grade durable materials designed for long-lasting performance and daily convenience.</li>
+                <li><b>SMART EFFICIENT DESIGN:</b> Engineered with precision to ensure maximum functionality, sleek aesthetics, and effortless operation straight out of the box.</li>
+                <li><b>VERSATILE & USER-FRIENDLY:</b> Suitable for home, office, or on-the-go lifestyle with quick setup and intuitive controls.</li>
+                <li><b>FULL MARKETMYN WARRANTY:</b> Covered by MarketMyn's 100% Buyer Protection guarantee, door-to-door express courier delivery, and 30-day hassle-free returns.</li>
+              </ul>
             </div>
+          </div>
 
-            <div class="delivery-estimator">
-              <i class="fas fa-truck"></i> <span>Get it by <b id="deliveryDate">Friday</b></span>
-            </div>
+          <!-- COLUMN 3: Amazon Buy Box Card -->
+          <div>
+            <div class="buy-box-card">
+              <div class="buybox-price" id="buyboxPrice">R0</div>
 
-            <!-- Trust Icons (Mini) -->
-            <div class="trust-grid">
-              <div class="trust-card">
-                <i class="fas fa-shipping-fast"></i>
-                <div>Fast Delivery</div>
+              <div class="delivery-line-amz">
+                <i class="fas fa-truck" style="color:#007185;"></i> <b>FREE delivery</b> <b id="deliveryDateB">Tomorrow</b>.
+                Order within <span style="color:#007600; font-weight:600;">3 hrs 24 mins</span>.
               </div>
-              <div class="trust-card">
-                <i class="fas fa-undo"></i>
-                <div>Returns</div>
-              </div>
-              <div class="trust-card">
-                <i class="fas fa-shield-alt"></i>
-                <div>Secure</div>
-              </div>
-              <div class="trust-card">
-                <i class="fas fa-medal"></i>
-                <div>Warranty</div>
-              </div>
-            </div>
 
-            <!-- Actions -->
-            <div class="action-row">
-              <div class="qty-box">
-                <button class="qty-btn" onclick="updateQty(-1)">-</button>
-                <input type="text" class="qty-input" value="1" id="qtyInput" readonly>
-                <button class="qty-btn" onclick="updateQty(1)">+</button>
+              <div class="location-selector" onclick="alert('Delivering nationwide across South Africa.')">
+                <i class="fas fa-location-dot" style="color:#565959;"></i> Delivering to South Africa - <span style="text-decoration:underline;">Update location</span>
               </div>
-              <button class="btn-action btn-add" onclick="productAction('add')">
-                <i class="fas fa-shopping-cart"></i> Add to Cart
+
+              <div class="stock-green" id="stockStatusGreen">In stock</div>
+
+              <select class="qty-dropdown-amz" id="qtyDropdownSelect" onchange="document.getElementById('qtyInput').value = this.value;">
+                <option value="1">Quantity: 1</option>
+                <option value="2">Quantity: 2</option>
+                <option value="3">Quantity: 3</option>
+                <option value="4">Quantity: 4</option>
+                <option value="5">Quantity: 5</option>
+              </select>
+              <input type="hidden" id="qtyInput" value="1">
+
+              <button class="btn-amz-cart" onclick="productAction('add')">
+                <i class="fas fa-shopping-cart" style="margin-right: 5px;"></i> Add to Cart
               </button>
-              <button class="btn-action btn-buy" onclick="productAction('buy')">
+
+              <button class="btn-amz-buy" onclick="productAction('buy')">
                 Buy Now
               </button>
-              <button class="btn-wish" title="Add to Wishlist"><i class="far fa-heart"></i></button>
-            </div>
 
-            <!-- Payment Logos -->
-            <div class="payment-logos" style="margin-top: 20px;">
-              <span class="payment-badge"><i class="fas fa-credit-card" style="color:#555;"></i> Pay With:</span>
-              <img src="assets/visa-logo.png" alt="Visa" style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/mastercard-logo.png" alt="Mastercard" style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/ozow-logo.png" alt="Ozow" style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/payfast-logo.png" alt="PayFast" style="height:24px; vertical-align:middle;">
-            </div>
-
-            <!-- MarketMyn Buyer Protection Banner -->
-            <div class="buyer-protection-box" style="margin-top: 20px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
-              <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-                <i class="fas fa-shield-halved" style="font-size: 22px; color: #002040;"></i>
-                <div>
-                  <h4 style="font-size: 14px; font-weight: 700; color: #002040; margin: 0;">MarketMyn Buyer Protection</h4>
-                  <span style="font-size: 11px; color: #64748b;">Guaranteed Safe & Secure Shopping</span>
-                </div>
+              <div class="ship-sold-grid">
+                <span>Ships from</span><span>MarketMyn</span>
+                <span>Sold by</span><span id="soldByVal">MarketMyn Direct</span>
+                <span>Returns</span><span>30-Day Eligible</span>
+                <span>Payment</span><span>Secure transaction</span>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
-                  <i class="fas fa-check-circle" style="color: #10b981; margin-top: 2px;"></i>
-                  <span><b>100% Authentic</b><br><small style="color:#64748b;">Verified genuine item</small></span>
-                </div>
-                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
-                  <i class="fas fa-truck-fast" style="color: #10b981; margin-top: 2px;"></i>
-                  <span><b>Express Courier</b><br><small style="color:#64748b;">Door-to-door tracked delivery</small></span>
-                </div>
-                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
-                  <i class="fas fa-rotate-left" style="color: #10b981; margin-top: 2px;"></i>
-                  <span><b>30-Day Returns</b><br><small style="color:#64748b;">Hassle-free money-back</small></span>
-                </div>
-                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
-                  <i class="fas fa-lock" style="color: #10b981; margin-top: 2px;"></i>
-                  <span><b>100% Secure</b><br><small style="color:#64748b;">Encrypted payment</small></span>
+
+              <button class="btn-amz-list" onclick="alert('Added to your Wishlist!')">
+                <i class="far fa-heart" style="margin-right: 4px;"></i> Add to Wishlist
+              </button>
+
+              <!-- Payment Logos inside Buy Box -->
+              <div class="payment-logos" style="margin-top: 15px; border-top: 1px solid #e7e7e7; padding-top: 12px; text-align:center;">
+                <span class="payment-badge" style="font-size:11px; color:#555; display:block; margin-bottom:6px;"><i class="fas fa-lock" style="color:#007600;"></i> 100% Encrypted Checkout:</span>
+                <img src="assets/visa-logo.png" alt="Visa" style="height:20px; vertical-align:middle; margin-right:4px;">
+                <img src="assets/mastercard-logo.png" alt="Mastercard" style="height:20px; vertical-align:middle; margin-right:4px;">
+                <img src="assets/ozow-logo.png" alt="Ozow" style="height:20px; vertical-align:middle; margin-right:4px;">
+                <img src="assets/payfast-logo.png" alt="PayFast" style="height:20px; vertical-align:middle;">
+              </div>
+
+              <!-- Vendor Box (if 3rd party) -->
+              <div class="vendor-box" style="margin-top: 12px; padding: 10px; border-radius: 6px;">
+                <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor" style="width:32px; height:32px;">
+                <div class="vendor-details" style="font-size: 11px;">
+                  <div>Sold by</div>
+                  <a href="#" class="vendor-name" id="vendorNameLink" onclick="return false;" style="font-size: 12px;">Vendor Name</a>
                 </div>
               </div>
             </div>
-
-            <!-- Vendor -->
-            <div class="vendor-box" style="margin-top: 15px;">
-              <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor">
-              <div class="vendor-details">
-                <div>Sold by</div>
-                <a href="#" class="vendor-name" id="vendorNameLink" onclick="return false;">Vendor Name</a>
-                <div style="font-size:12px; color:#f39c12; margin-top:2px;">
-                  <i class="fas fa-star"></i> 4.8 (Verified Seller)
-                </div>
-              </div>
-            </div>
-
           </div>
+
         </div>
 
         <!-- BOTTOM CARD: TABS -->
@@ -1288,12 +1561,12 @@
         });
       }
 
-      // Thumbs
+      // Thumbs (Vertical Amazon/Walmart style)
       if (thumbs) {
         if (p.images.length > 1) {
           thumbs.style.display = 'flex';
           thumbs.innerHTML = p.images.map((img, i) => `
-            <div class="thumb ${i === 0 ? 'active' : ''}" onclick="scrollToImage(${i})">
+            <div class="thumb-v ${i === 0 ? 'active' : ''}" onclick="scrollToImage(${i})">
               <img src="${img}">
             </div>
           `).join('');
@@ -1302,39 +1575,86 @@
         }
       }
 
-      // Info
-      document.getElementById("productName").textContent = p.title;
-      document.getElementById("reviewCountLink").textContent = `(${p.reviews} Reviews)`;
-      document.getElementById("reviewsTabBtn").textContent = `Reviews (${p.reviews})`;
+      // Brand & Name
+      const brandName = p.vendorName || p.vendor || "MarketMyn Official";
+      if (document.getElementById("brandName")) document.getElementById("brandName").textContent = brandName;
+      if (document.getElementById("brandLink")) document.getElementById("brandLink").href = `category.html?vendor=${encodeURIComponent(p.vendor || brandName)}`;
+      if (document.getElementById("productName")) document.getElementById("productName").textContent = p.title;
+
+      // Ratings & Reviews
+      if (document.getElementById("starRatingNumber")) document.getElementById("starRatingNumber").textContent = (p.rating || 4.8).toFixed(1);
+      if (document.getElementById("reviewCountLink")) document.getElementById("reviewCountLink").textContent = `(${p.reviews || 12} ratings)`;
+      if (document.getElementById("reviewsTabBtn")) document.getElementById("reviewsTabBtn").textContent = `Reviews (${p.reviews || 12})`;
 
       // Stars
       let starHTML = "";
       for (let i = 1; i <= 5; i++) {
-        if (i <= p.rating) starHTML += '<i class="fas fa-star"></i>';
-        else if (i - 0.5 <= p.rating) starHTML += '<i class="fas fa-star-half-alt"></i>';
+        if (i <= (p.rating || 4.8)) starHTML += '<i class="fas fa-star"></i>';
+        else if (i - 0.5 <= (p.rating || 4.8)) starHTML += '<i class="fas fa-star-half-alt"></i>';
         else starHTML += '<i class="far fa-star"></i>';
       }
-      document.getElementById("starContainer").innerHTML = starHTML;
+      if (document.getElementById("starContainer")) document.getElementById("starContainer").innerHTML = starHTML;
 
-      // Price
-      document.getElementById("currPrice").textContent = money(p.price);
+      // Price & Buybox
+      const formattedPrice = money(p.price);
+      if (document.getElementById("currPrice")) document.getElementById("currPrice").textContent = formattedPrice;
+      if (document.getElementById("buyboxPrice")) document.getElementById("buyboxPrice").textContent = formattedPrice;
       if (document.getElementById("stickyTitle")) document.getElementById("stickyTitle").textContent = p.title;
-      if (document.getElementById("stickyPrice")) document.getElementById("stickyPrice").textContent = money(p.price);
+      if (document.getElementById("stickyPrice")) document.getElementById("stickyPrice").textContent = formattedPrice;
+
       if (p.oldPrice && p.oldPrice > p.price) {
-        document.getElementById("oldPrice").style.display = "inline";
-        document.getElementById("oldPrice").textContent = money(p.oldPrice);
-        document.getElementById("discountTag").style.display = "inline";
-        const off = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
-        document.getElementById("discountTag").textContent = `-${off}% OFF`;
+        if (document.getElementById("oldPriceLine")) document.getElementById("oldPriceLine").style.display = "block";
+        if (document.getElementById("oldPrice")) document.getElementById("oldPrice").textContent = money(p.oldPrice);
+        if (document.getElementById("discountTag")) {
+          document.getElementById("discountTag").style.display = "inline";
+          const off = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
+          document.getElementById("discountTag").textContent = `-${off}%`;
+        }
+        if (document.getElementById("dealBadgeContainer")) document.getElementById("dealBadgeContainer").style.display = "block";
+      } else {
+        if (document.getElementById("oldPriceLine")) document.getElementById("oldPriceLine").style.display = "none";
+        if (document.getElementById("discountTag")) document.getElementById("discountTag").style.display = "none";
+        if (document.getElementById("dealBadgeContainer")) document.getElementById("dealBadgeContainer").style.display = "none";
       }
 
-      // Description
+      // Quick Specs Grid
+      if (document.getElementById("specBrand")) document.getElementById("specBrand").textContent = brandName;
+      if (document.getElementById("specCategory")) document.getElementById("specCategory").textContent = mainCat;
+      if (document.getElementById("soldByVal")) document.getElementById("soldByVal").textContent = brandName;
+
+      // Description & Rich Bullet Points (Amazon / Walmart style)
       const descText = p.desc || p.description || "No description available for this item.";
-      if (document.getElementById("shortDesc")) {
-        document.getElementById("shortDesc").textContent = descText.length > 150 ? descText.substring(0, 150) + "..." : descText;
+      
+      const bullets = [
+        `<b>PREMIUM QUALITY & DURABILITY:</b> ${descText}`,
+        `<b>ENGINEERED FOR DAILY CONVENIENCE:</b> Built with top-grade materials to ensure high efficiency, sleek modern aesthetics, and smooth operation straight out of the box.`,
+        `<b>PLUG & PLAY EASY SETUP:</b> Comes complete with clear instructions and standard accessories for effortless installation and operation.`,
+        `<b>100% MARKETMYN GUARANTEE:</b> Protected by MarketMyn's 30-Day Easy Return policy and nationwide door-to-door express courier delivery.`
+      ];
+
+      if (document.getElementById("aboutBulletsList")) {
+        document.getElementById("aboutBulletsList").innerHTML = bullets.map(b => `<li>${b}</li>`).join('');
       }
+
+      const longDescHTML = `
+        <div style="font-size:14px; line-height:1.7; color:#333;">
+          <h3 style="font-size:16px; font-weight:700; color:#0f1111; margin-bottom:12px;">Detailed Product Overview</h3>
+          <p style="margin-bottom:16px;">${descText}</p>
+          
+          <h4 style="font-size:15px; font-weight:700; color:#0f1111; margin:16px 0 8px;">Key Highlights & Specifications</h4>
+          <ul style="padding-left:20px; margin-bottom:16px;">
+            <li style="margin-bottom:6px;"><b>Superior Performance:</b> Thoroughly quality-tested for maximum dependability.</li>
+            <li style="margin-bottom:6px;"><b>Modern Ergonomics:</b> Compact, stylish design that fits seamlessly into any space.</li>
+            <li style="margin-bottom:6px;"><b>Complete Package:</b> Ships with full manufacturer documentation and support details.</li>
+          </ul>
+          
+          <h4 style="font-size:15px; font-weight:700; color:#0f1111; margin:16px 0 8px;">Why Shop On MarketMyn</h4>
+          <p style="margin-bottom:0;">Every purchase is protected by MarketMyn's nationwide buyer guarantee. Benefit from fast door-to-door shipping across South Africa, transparent pricing with all VAT included, and dedicated customer support available 7 days a week.</p>
+        </div>
+      `;
+
       if (document.getElementById("fullDesc")) {
-        document.getElementById("fullDesc").textContent = descText;
+        document.getElementById("fullDesc").innerHTML = longDescHTML;
       }
 
       // Variations
