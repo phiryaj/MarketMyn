@@ -767,6 +767,161 @@
               </div>
               <button class="btn-action btn-add" onclick="productAction('add')">
                 <i class="fas fa-shopping-cart"></i> Add to Cart
+              </button>
+              <button class="btn-action btn-buy" onclick="productAction('buy')">
+                Buy Now
+              </button>
+              <button class="btn-wish" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+            </div>
+
+            <!-- Payment Logos -->
+            <div class="payment-logos" style="margin-top: 20px;">
+              <span class="payment-badge"><i class="fas fa-credit-card" style="color:#555;"></i> Pay With:</span>
+              <img src="assets/visa-logo.png" alt="Visa" style="height:24px; vertical-align:middle; margin-right:5px;">
+              <img src="assets/mastercard-logo.png" alt="Mastercard" style="height:24px; vertical-align:middle; margin-right:5px;">
+              <img src="assets/ozow-logo.png" alt="Ozow" style="height:24px; vertical-align:middle; margin-right:5px;">
+              <img src="assets/payfast-logo.png" alt="PayFast" style="height:24px; vertical-align:middle;">
+            </div>
+
+            <!-- MarketMyn Buyer Protection Banner -->
+            <div class="buyer-protection-box" style="margin-top: 20px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+              <div style="display:flex; align-items:center; gap: 10px; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                <i class="fas fa-shield-halved" style="font-size: 22px; color: #002040;"></i>
+                <div>
+                  <h4 style="font-size: 14px; font-weight: 700; color: #002040; margin: 0;">MarketMyn Buyer Protection</h4>
+                  <span style="font-size: 11px; color: #64748b;">Guaranteed Safe & Secure Shopping</span>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
+                  <i class="fas fa-check-circle" style="color: #10b981; margin-top: 2px;"></i>
+                  <span><b>100% Authentic</b><br><small style="color:#64748b;">Verified genuine item</small></span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
+                  <i class="fas fa-truck-fast" style="color: #10b981; margin-top: 2px;"></i>
+                  <span><b>Express Courier</b><br><small style="color:#64748b;">Door-to-door tracked delivery</small></span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
+                  <i class="fas fa-rotate-left" style="color: #10b981; margin-top: 2px;"></i>
+                  <span><b>30-Day Returns</b><br><small style="color:#64748b;">Hassle-free money-back</small></span>
+                </div>
+                <div style="display:flex; align-items:flex-start; gap: 8px; font-size: 12px; color: #334155;">
+                  <i class="fas fa-lock" style="color: #10b981; margin-top: 2px;"></i>
+                  <span><b>100% Secure</b><br><small style="color:#64748b;">Encrypted payment</small></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vendor -->
+            <div class="vendor-box" style="margin-top: 15px;">
+              <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor">
+              <div class="vendor-details">
+                <div>Sold by</div>
+                <a href="#" class="vendor-name" id="vendorNameLink" onclick="return false;">Vendor Name</a>
+                <div style="font-size:12px; color:#f39c12; margin-top:2px;">
+                  <i class="fas fa-star"></i> 4.8 (Verified Seller)
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BOTTOM CARD: TABS -->
+        <div class="product-tabs-container" id="detailsSection" style="margin-top: 30px;">
+          <div class="tab-headers">
+            <button class="tab-btn active" onclick="switchTab('desc')">Description</button>
+            <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
+            <button class="tab-btn" onclick="switchTab('reviews')" id="reviewsTabBtn">Reviews (0)</button>
+            <button class="tab-btn" onclick="switchTab('faq')">FAQ & Shipping</button>
+          </div>
+
+          <div id="tab-desc" class="tab-content active">
+            <p id="fullDesc">Full description goes here.</p>
+          </div>
+
+          <div id="tab-specs" class="tab-content">
+            <div id="specsContainer">No specifications available.</div>
+          </div>
+
+          <div id="tab-reviews" class="tab-content">
+            <div id="reviewsContainer">
+              <!-- Rating Summary -->
+              <div style="display: grid; grid-template-columns: 200px 1fr; gap: 25px; background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #e2e8f0;">
+                <div style="text-align: center; border-right: 1px solid #e2e8f0; padding-right: 15px;">
+                  <div style="font-size: 42px; font-weight: 800; color: #002040; line-height: 1;">4.8</div>
+                  <div style="color: #f39c12; margin: 6px 0; font-size: 14px;">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <div style="font-size: 12px; color: #64748b; font-weight: 600;">Based on Verified Buyer Reviews</div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center; gap: 6px;">
+                  <div style="display: flex; align-items: center; gap: 10px; font-size: 12px;">
+                    <span style="width: 40px; font-weight: 600;">5 Star</span>
+                    <div style="flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;"><div style="width: 85%; height: 100%; background: #10b981;"></div></div>
+                    <span style="width: 30px; text-align: right; color: #64748b;">85%</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; font-size: 12px;">
+                    <span style="width: 40px; font-weight: 600;">4 Star</span>
+                    <div style="flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;"><div style="width: 12%; height: 100%; background: #10b981;"></div></div>
+                    <span style="width: 30px; text-align: right; color: #64748b;">12%</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; font-size: 12px;">
+                    <span style="width: 40px; font-weight: 600;">3 Star</span>
+                    <div style="flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;"><div style="width: 3%; height: 100%; background: #f59e0b;"></div></div>
+                    <span style="width: 30px; text-align: right; color: #64748b;">3%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reviews List -->
+              <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <div style="padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 700; font-size: 14px; color: #002040;">Sipho M. <span style="background: #e6f4ea; color: #137333; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin-left: 6px; font-weight: 600;"><i class="fas fa-check-circle"></i> Verified Buyer</span></span>
+                    <span style="font-size: 12px; color: #64748b;">2 days ago</span>
+                  </div>
+                  <div style="color: #f39c12; font-size: 12px; margin-bottom: 8px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p style="font-size: 14px; color: #334155; margin: 0; line-height: 1.5;">Super fast delivery to Johannesburg! Product arrived in perfect original condition. Exactly as described.</p>
+                </div>
+
+                <div style="padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 700; font-size: 14px; color: #002040;">Thandi K. <span style="background: #e6f4ea; color: #137333; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin-left: 6px; font-weight: 600;"><i class="fas fa-check-circle"></i> Verified Buyer</span></span>
+                    <span style="font-size: 12px; color: #64748b;">1 week ago</span>
+                  </div>
+                  <div style="color: #f39c12; font-size: 12px; margin-bottom: 8px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                  <p style="font-size: 14px; color: #334155; margin: 0; line-height: 1.5;">Great quality item and awesome service from MarketMyn. Will definitely buy again!</p>
+                </div>
+              </div>
+
+              <button class="btn-action btn-add" onclick="alert('Thank you! Review submitted.')" style="width:auto; height:40px; font-size:14px; padding: 0 20px; border-radius: 8px;">Write a Review</button>
+            </div>
+          </div>
+
+          <!-- FAQ & SHIPPING TAB -->
+          <div id="tab-faq" class="tab-content">
+            <div style="display:flex; flex-direction:column; gap: 12px;">
+              <details style="padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; cursor: pointer;" open>
+                <summary style="font-weight: 700; font-size: 15px; color: #002040;">How long does delivery take?</summary>
+                <p style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 0;">Orders are dispatched within 24 hours. Standard delivery takes 2 to 4 business days nationwide across South Africa via door-to-door courier with live tracking.</p>
+              </details>
+              <details style="padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; cursor: pointer;">
+                <summary style="font-weight: 700; font-size: 15px; color: #002040;">What payment options are available?</summary>
+                <p style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 0;">We accept one-time payments via Visa & Mastercard debit/credit cards, plus Instant EFT via Ozow and PayFast. All transactions are 100% encrypted and secure.</p>
+              </details>
+              <details style="padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; cursor: pointer;">
+                <summary style="font-weight: 700; font-size: 15px; color: #002040;">What is the return policy?</summary>
+                <p style="margin-top: 10px; font-size: 14px; color: #475569; line-height: 1.5; margin-bottom: 0;">You can return unused products in their original packaging within 30 days of delivery for a full refund or replacement under our 30-Day Guarantee.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- YOU MIGHT ALSO LIKE / RELATED PRODUCTS -->
+        <div class="related-section" style="margin-top: 40px;">
+          <h3 style="margin-bottom:20px; font-size:24px; font-weight:700; color: #002040;">You Might Also Like</h3>
+          <div class="related-grid" id="relatedGrid">
             <!-- JS Populated -->
           </div>
         </div>
@@ -776,78 +931,128 @@
     </div>
   </section>
 
-  <!-- ================= MASTER FOOTER ================= -->
-  <footer class="footer">
-    <div class="container">
+  <script>
+    const CART_KEY = "makertmyn_cart_v1";
+    const APPROVED_KEY = "makertmyn_products_approved_v1";
+    const RECENT_KEY = "makertmyn_recently_viewed";
 
-      <div class="footer-content">
+    function read(key) { try { return JSON.parse(localStorage.getItem(key)) || [] } catch { return [] } }
+    function write(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+    function cartCount() { return read(CART_KEY).reduce((s, i) => s + (i.qty || 0), 0); }
+    function updateBadge() { document.getElementById("cartBadge").textContent = cartCount(); }
+    function money(n) { return "R" + (parseFloat(n) || 0).toLocaleString("en-ZA"); }
 
-        <!-- Brand -->
-        <div class="footer-column">
-          <h3>Makert<span>Myn</span></h3>
-          <p>
-            MakertMyn is a South African online marketplace where you can shop
-            from trusted sellers nationwide — fast, secure, and convenient.
-          </p>
+    let currentProduct = null;
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
 
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
+    function loadProduct() {
+      let p = null;
+      let allProducts = [];
 
-        <!-- Customer Service -->
-        <div class="footer-column">
-          <h4>Customer Service</h4>
-          <ul>
-            <li><a href="help.html">Help Center</a></li>
-            <li><a href="help.html">Track Order</a></li>
-            <li><a href="legal.html#returns">Returns & Refunds</a></li>
-            <li><a href="help.html">Shipping Info</a></li>
-            <li><a href="help.html">Contact Us</a></li>
-          </ul>
-        </div>
+      // 1. Instantly load static catalog for 0ms speed
+      if (typeof getAllProducts === 'function') {
+        allProducts = getAllProducts();
+        p = getProductById(id);
+      } else if (typeof products !== 'undefined') {
+        allProducts = products;
+        p = products.find(x => (x.id === id || x._id === id || String(x.id) === String(id) || String(x._id) === String(id)));
+      }
 
-        <!-- Shop -->
-        <div class="footer-column">
-          <h4>Shop</h4>
-          <ul>
-            <li><a href="category.html?category=Electronics">Electronics</a></li>
-            <li><a href="category.html?category=Fashion">Fashion</a></li>
-            <li><a href="category.html?category=Home%20%26%20Garden">Home & Garden</a></li>
-            <li><a href="category.html?category=Health%20%26%20Beauty">Health & Beauty</a></li>
-            <li><a href="category.html?category=Sports%20%26%20Outdoors">Sports & Outdoors</a></li>
-            <li><a href="category.html?category=Baby%20%26%20Toys">Baby & Toys</a></li>
-          </ul>
-        </div>
+      // 2. Check localStorage approved items
+      const approved = read(APPROVED_KEY).find(x => (x.id === id || x._id === id || String(x.id) === String(id) || String(x._id) === String(id)));
+      if (approved) {
+        p = {
+          ...approved,
+          id: approved.id || approved._id,
+          price: parseFloat(approved.price),
+          images: Array.isArray(approved.images) ? approved.images : [approved.image],
+          desc: approved.desc || approved.description || "No description provided.",
+          specs: approved.specs || {},
+          vendor: approved.vendor,
+          vendorName: approved.vendorName,
+          reviews: 0,
+          rating: 4.5
+        };
+      }
 
-        <!-- Sell on MakertMyn -->
-        <div class="footer-column">
-          <h4>Sell on MakertMyn</h4>
-          <ul>
-            <li><a href="sell-on-makertmyn.html">Start Selling</a></li>
-            <li><a href="sell-on-makertmyn.html">Seller Requirements</a></li>
-            <li><a href="sell-on-makertmyn.html">Product Approval Process</a></li>
-            <li><a href="sell-on-makertmyn.html">Seller Fees</a></li>
-          </ul>
-        </div>
+      if (p) {
+        currentProduct = {
+          id: p.id || p._id,
+          _id: p._id || p.id,
+          title: p.title,
+          price: parseFloat(p.price) || 0,
+          oldPrice: p.originalPrice || p.oldPrice || (p.price ? p.price * 1.25 : 0),
+          images: p.images || [p.image],
+          category: p.category || 'General',
+          vendor: p.vendor,
+          vendorName: p.vendorName,
+          desc: p.description || p.desc || "No description available.",
+          specs: p.specs || {},
+          rating: p.rating || 4.8,
+          reviews: p.reviews || 12,
+          fastDelivery: true,
+          variations: p.variations || {}
+        };
+      }
 
-        <!-- Legal -->
-        <div class="footer-column">
-          <h4>Legal & Policies</h4>
-          <ul>
-            <li><a href="legal.html#privacy">Privacy Policy</a></li>
-            <li><a href="legal.html#terms">Terms & Conditions</a></li>
-            <li><a href="legal.html#cookies">Cookie Policy</a></li>
-            <li><a href="legal.html#returns">Returns Policy</a></li>
-          </ul>
-        </div>
+      // Render INSTANTLY from local/cached data
+      if (currentProduct) {
+        document.getElementById("loadingState").style.display = "none";
+        document.getElementById("notFound").style.display = "none";
+        document.getElementById("productGrid").style.display = "block";
+        try { renderProduct(currentProduct); } catch (err) { console.error(err); }
+        saveRecentlyViewed(currentProduct);
+        loadRelated(allProducts, currentProduct);
+      }
 
-      </div>
+      // 3. Fast non-blocking background fetch for online API products
+      if (window.location.protocol !== 'file:') {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s max
 
-      <!-- Bottom -->
+        fetch('/api/products', { signal: controller.signal })
+          .then(res => res.ok ? res.json() : [])
+          .then(apiProds => {
+            clearTimeout(timeoutId);
+            if (Array.isArray(apiProds) && apiProds.length > 0) {
+              const apiMatch = apiProds.find(x => (x._id === id || x.id === id || String(x._id) === String(id)));
+              if (apiMatch) {
+                currentProduct = {
+                  id: apiMatch._id || apiMatch.id,
+                  _id: apiMatch._id || apiMatch.id,
+                  title: apiMatch.title,
+                  price: parseFloat(apiMatch.price) || 0,
+                  oldPrice: apiMatch.originalPrice || (apiMatch.price * 1.25),
+                  images: apiMatch.images && apiMatch.images.length ? apiMatch.images : [apiMatch.image],
+                  category: apiMatch.category || 'General',
+                  vendor: apiMatch.vendor,
+                  vendorName: apiMatch.vendorName,
+                  desc: apiMatch.description || apiMatch.desc || "No description provided.",
+                  specs: apiMatch.specs || {},
+                  rating: apiMatch.rating || 4.8,
+                  reviews: apiMatch.reviews || 12,
+                  fastDelivery: true,
+                  variations: apiMatch.variations || {}
+                };
+                document.getElementById("loadingState").style.display = "none";
+                document.getElementById("notFound").style.display = "none";
+                document.getElementById("productGrid").style.display = "block";
+                try { renderProduct(currentProduct); } catch (err) { console.error(err); }
+              }
+            }
+          })
+          .catch(() => {
+            if (!currentProduct) {
+              document.getElementById("loadingState").style.display = "none";
+              document.getElementById("notFound").style.display = "block";
+            }
+          });
+      } else if (!currentProduct) {
+        document.getElementById("loadingState").style.display = "none";
+        document.getElementById("notFound").style.display = "block";
+      }
+    }
       <div class="footer-bottom">
         <p>&copy; 2026 MakertMyn. All rights reserved.</p>
 
