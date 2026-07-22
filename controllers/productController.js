@@ -57,8 +57,8 @@ const createProduct = async (req, res) => {
             category: category || 'General',
             stock: stock || 100,
             sku: sku || '',
-            vendor: req.user.id,
-            vendorName: req.user.storeName || req.user.name || 'MarketMyn',
+            vendor: req.user.role === 'admin' ? 'Admin' : req.user.id,
+            vendorName: req.user.role === 'admin' ? '' : (req.user.storeName || req.user.name || ''),
             images: image ? [image] : ['https://placehold.co/500x500/ff6b00/ffffff?text=No+Image'],
             // Admin-created products are auto-approved; seller products go through review
             status: req.user.role === 'admin' ? 'approved' : 'pending'

@@ -824,9 +824,9 @@
           </div>
         </div>
 
-        <!-- RELATED PRODUCTS -->
+        <!-- YOU MIGHT ALSO LIKE / RELATED PRODUCTS -->
         <div class="related-section">
-          <h3 style="margin-bottom:20px; font-size:24px;">Related Products</h3>
+          <h3 style="margin-bottom:20px; font-size:24px; font-weight:700;">You Might Also Like</h3>
           <div class="related-grid" id="relatedGrid">
             <!-- JS Populated -->
           </div>
@@ -945,30 +945,86 @@
     const params = new URLSearchParams(location.search);
     const id = params.get("id");
 
-    function loadProduct() {
-      // 1. Try DB (products-data.js)
+    async function loadProduct() {
       let p = null;
       let allProducts = [];
 
+      // 1. Load local static products
       if (typeof getAllProducts === 'function') {
         allProducts = getAllProducts();
         p = getProductById(id);
       } else if (typeof products !== 'undefined') {
         allProducts = products;
-        p = products.find(x => x.id === id);
+        p = products.find(x => (x.id === id || x._id === id));
       }
 
-      // 2. Try Approved Sellers (Overrides if same ID, or new)
-      const approved = read(APPROVED_KEY).find(x => x.id === id);
+      // 2. Fetch from API if online/connected
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          const apiProds = await res.json();
+          if (Array.isArray(apiProds) && apiProds.length > 0) {
+            // Merge API products into allProducts
+            apiProds.forEach(ap => {
+              const pid = ap._id || ap.id;
+              if (!allProducts.some(existing => (existing.id === pid || existing._id === pid))) {
+                allProducts.push({
+                  id: pid,
+                  _id: pid,
+                  title: ap.title,
+                  price: ap.price,
+                  image: ap.image,
+                  images: ap.images && ap.images.length ? ap.images : [ap.image],
+                  category: ap.category,
+                  vendor: ap.vendor,
+                  vendorName: ap.vendorName,
+                  desc: ap.description || ap.desc,
+                  specs: ap.specs || {},
+                  rating: ap.rating || 4.8,
+                  reviews: ap.reviews || 12
+                });
+              }
+            });
+
+            // Find current product if not found yet
+            if (!p) {
+              const apiMatch = apiProds.find(x => (x._id === id || x.id === id));
+              if (apiMatch) {
+                p = {
+                  id: apiMatch._id || apiMatch.id,
+                  _id: apiMatch._id || apiMatch.id,
+                  title: apiMatch.title,
+                  price: apiMatch.price,
+                  image: apiMatch.image,
+                  images: apiMatch.images && apiMatch.images.length ? apiMatch.images : [apiMatch.image],
+                  category: apiMatch.category,
+                  vendor: apiMatch.vendor,
+                  vendorName: apiMatch.vendorName,
+                  desc: apiMatch.description || apiMatch.desc || "No description provided.",
+                  specs: apiMatch.specs || {},
+                  rating: apiMatch.rating || 4.8,
+                  reviews: apiMatch.reviews || 12
+                };
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.log("Using local product catalog");
+      }
+
+      // 3. Try Approved Sellers (Overrides if saved in localStorage)
+      const approved = read(APPROVED_KEY).find(x => (x.id === id || x._id === id));
       if (approved) {
-        // Adapt saved structure
         p = {
           ...approved,
+          id: approved.id || approved._id,
           price: parseFloat(approved.price),
           images: Array.isArray(approved.images) ? approved.images : [approved.image],
-          desc: approved.desc || approved.description || "Vendor provided no description.",
+          desc: approved.desc || approved.description || "No description provided.",
           specs: approved.specs || {},
-          vendor: approved.vendor || "MakertMyn Official Store", // Fallback
+          vendor: approved.vendor,
+          vendorName: approved.vendorName,
           reviews: 0,
           rating: 4.5
         };
@@ -977,30 +1033,29 @@
       if (p) {
         // Normalizing
         currentProduct = {
-          id: p.id,
+          id: p.id || p._id,
+          _id: p._id || p.id,
           title: p.title,
           price: p.price,
-          oldPrice: p.originalPrice || (p.price * 1.25),
+          oldPrice: p.originalPrice || p.oldPrice || (p.price * 1.25),
           images: p.images || [p.image],
-          category: p.category,
-          vendor: (p.vendor === 'Admin') ? "MakertMyn Official Store" : (p.vendor || "MakertMyn"),
+          category: p.category || 'General',
+          vendor: p.vendor,
+          vendorName: p.vendorName,
           desc: p.description || p.desc || "No description available.",
           specs: p.specs || {},
           rating: p.rating || 4.8,
           reviews: p.reviews || 12,
-          fastDelivery: true, // simplified
-          variations: p.variations || {} // e.g. { Color: ['Red','Blue'] }
+          fastDelivery: true,
+          variations: p.variations || {}
         };
       }
 
       // Render
       if (!currentProduct) {
-        // Only show Not Found if we really have products to check against
-        if (allProducts.length > 0) {
-          document.getElementById("loadingState").style.display = "none";
-          document.getElementById("notFound").style.display = "block";
-          document.getElementById("productGrid").style.display = "none";
-        }
+        document.getElementById("loadingState").style.display = "none";
+        document.getElementById("notFound").style.display = "block";
+        document.getElementById("productGrid").style.display = "none";
       } else {
         document.getElementById("loadingState").style.display = "none";
         document.getElementById("notFound").style.display = "none";
@@ -1013,11 +1068,8 @@
 
     function saveRecentlyViewed(p) {
       let recent = read(RECENT_KEY);
-      // Remove if exists
-      recent = recent.filter(r => r.id !== p.id);
-      // Add to front
-      recent.unshift({ id: p.id, title: p.title, price: p.price, image: p.images[0] });
-      // Limit to 10
+      recent = recent.filter(r => (r.id !== p.id && r.id !== p._id));
+      recent.unshift({ id: p.id || p._id, title: p.title, price: p.price, image: p.images[0] });
       if (recent.length > 10) recent.pop();
       write(RECENT_KEY, recent);
     }
@@ -1032,34 +1084,32 @@
 
       // Gallery
       const main = document.getElementById("mainImage");
-      main.src = p.images[0];
+      if (main) main.src = p.images[0];
       const thumbs = document.getElementById("thumbContainer");
 
-      // Mobile Swipe Logic: Inject all images into main area for mobile?
-      // Actually CSS Scroll Snap logic is in .main-image-frame using overflow-x.
-      // We need to inject <img> tags there for mobile swiping support.
-      // But for desktop we want one main image.
-      // Solution: Inject all images. Valid for scroll snap. JS "setMainImage" scrollIntoView?
-
       const mainArea = document.getElementById("mainImageArea");
-      mainArea.innerHTML = ""; // clear
-
-      p.images.forEach((img, i) => {
-        const imgEl = document.createElement("img");
-        imgEl.src = img;
-        imgEl.id = `img-${i}`;
-        mainArea.appendChild(imgEl);
-      });
+      if (mainArea) {
+        mainArea.innerHTML = "";
+        p.images.forEach((img, i) => {
+          const imgEl = document.createElement("img");
+          imgEl.src = img;
+          imgEl.id = `img-${i}`;
+          mainArea.appendChild(imgEl);
+        });
+      }
 
       // Thumbs
-      if (p.images.length > 1) {
-        thumbs.innerHTML = p.images.map((img, i) => `
-          <div class="thumb ${i === 0 ? 'active' : ''}" onclick="scrollToImage(${i})">
-            <img src="${img}">
-          </div>
-        `).join('');
-      } else {
-        thumbs.style.display = 'none';
+      if (thumbs) {
+        if (p.images.length > 1) {
+          thumbs.style.display = 'flex';
+          thumbs.innerHTML = p.images.map((img, i) => `
+            <div class="thumb ${i === 0 ? 'active' : ''}" onclick="scrollToImage(${i})">
+              <img src="${img}">
+            </div>
+          `).join('');
+        } else {
+          thumbs.style.display = 'none';
+        }
       }
 
       // Info
@@ -1092,7 +1142,7 @@
 
       // Variations
       const varCont = document.getElementById("variationsContainer");
-      if (Object.keys(p.variations).length > 0) {
+      if (varCont && Object.keys(p.variations).length > 0) {
         varCont.innerHTML = "";
         for (const [key, vals] of Object.entries(p.variations)) {
           let html = `<div class="variation-group"><span class="variation-label">${key}:</span><div class="swatches">`;
@@ -1105,64 +1155,94 @@
       }
 
       // Specs
-      if (Object.keys(p.specs).length > 0) {
-        let rows = "";
-        for (const [k, v] of Object.entries(p.specs)) {
-          rows += `<tr><td>${k}</td><td>${v}</td></tr>`;
+      const specCont = document.getElementById("specsContainer");
+      if (specCont) {
+        if (Object.keys(p.specs).length > 0) {
+          let rows = "";
+          for (const [k, v] of Object.entries(p.specs)) {
+            rows += `<tr><td>${k}</td><td>${v}</td></tr>`;
+          }
+          specCont.innerHTML = `<table class="specs-table">${rows}</table>`;
+        } else {
+          specCont.textContent = "No specifications available.";
         }
-        document.getElementById("specsContainer").innerHTML = `<table class="specs-table">${rows}</table>`;
-      } else {
-        document.getElementById("specsContainer").textContent = "No specifications available.";
       }
 
-      // Vendor
-      // Use vendorName if available, else fallback to "MakertMyn" or ID
-      const vName = p.vendorName || (p.vendor === 'Admin' ? "MakertMyn Official" : "MakertMyn Seller");
-      document.getElementById("vendorNameLink").textContent = vName;
+      // Vendor / Seller Box
+      // If uploaded by Admin or has no 3rd party vendor name -> DO NOT SHOW VENDOR BOX
+      const vendorBox = document.querySelector(".vendor-box");
+      const vName = p.vendorName || p.vendor;
+      const is3rdPartySeller = vName &&
+                               vName !== 'Admin' &&
+                               vName !== 'MarketMyn' &&
+                               vName !== 'MakertMyn' &&
+                               vName !== 'MakertMyn Official Store' &&
+                               vName !== 'MakertMyn Seller' &&
+                               p.vendor !== 'Admin';
 
-      // Link to Store (category.html?vendor=VENDOR_ID)
-      // If p.vendor is the ID, use it.
-      if (p.vendor && p.vendor !== 'Admin') {
-        document.getElementById("vendorNameLink").onclick = null; // Remove return false
-        document.getElementById("vendorNameLink").href = `category.html?vendor=${encodeURIComponent(p.vendor)}`;
-      } else {
-        document.getElementById("vendorNameLink").onclick = () => false;
+      if (vendorBox) {
+        if (is3rdPartySeller) {
+          vendorBox.style.display = "flex";
+          document.getElementById("vendorNameLink").textContent = vName;
+          document.getElementById("vendorNameLink").href = `category.html?vendor=${encodeURIComponent(p.vendor || vName)}`;
+          document.getElementById("vendorNameLink").onclick = null;
+          document.getElementById("vendorLogo").src = `https://ui-avatars.com/api/?name=${encodeURIComponent(vName)}&background=002040&color=fff`;
+        } else {
+          // Hide vendor box completely for Admin or Direct site products
+          vendorBox.style.display = "none";
+        }
       }
 
-      document.getElementById("vendorLogo").src = `https://ui-avatars.com/api/?name=${encodeURIComponent(vName)}&background=ff6b00&color=fff`;
-
-      // Delivery & Stock (Random logic preserved)
+      // Delivery & Stock
       const date = new Date();
       date.setDate(date.getDate() + (p.fastDelivery ? 2 : 5));
       const opts = { weekday: 'long', day: 'numeric', month: 'short' };
-      document.getElementById("deliveryDate").textContent = date.toLocaleDateString('en-US', opts);
+      if (document.getElementById("deliveryDate")) {
+        document.getElementById("deliveryDate").textContent = date.toLocaleDateString('en-ZA', opts);
+      }
 
       if (Math.random() > 0.5) {
-        document.getElementById("stockUrgency").style.display = "flex";
-        document.getElementById("stockNum").textContent = Math.floor(Math.random() * 5) + 2;
+        if (document.getElementById("stockUrgency")) document.getElementById("stockUrgency").style.display = "flex";
+        if (document.getElementById("stockNum")) document.getElementById("stockNum").textContent = Math.floor(Math.random() * 5) + 2;
       }
     }
 
     function loadRelated(all, current) {
-      if (!all.length) return;
-      // Filter by category, exclude self
-      const rel = all.filter(p => p.category === current.category && p.id !== current.id).slice(0, 4);
+      if (!all || !all.length) return;
+      const currentId = current.id || current._id;
+
+      // 1. Primary match: same category, exclude current
+      let rel = all.filter(p => p.category === current.category && (p.id || p._id) !== currentId);
+
+      // 2. Fallback: if fewer than 4 related products, add random other products
+      if (rel.length < 4) {
+        const others = all.filter(p => (p.id || p._id) !== currentId && !rel.some(r => (r.id || r._id) === (p.id || p._id)));
+        // Shuffle random others
+        const shuffled = [...others].sort(() => 0.5 - Math.random());
+        rel = rel.concat(shuffled);
+      }
+
+      rel = rel.slice(0, 4);
       if (rel.length === 0) return;
 
       const grid = document.getElementById("relatedGrid");
+      if (!grid) return;
       grid.innerHTML = "";
       rel.forEach(p => {
+        const pid = p.id || p._id;
+        const img = (p.images && p.images.length) ? p.images[0] : (p.image || 'https://placehold.co/400x400');
+        const pPrice = p.price || 0;
         grid.innerHTML += `
-           <div class="product-card" style="box-shadow:none; border:1px solid #eee;">
-             <div class="product-image">
-               <a href="product-detail.html?id=${p.id}"><img src="${p.images ? p.images[0] : p.image}" alt="${p.title}"></a>
+           <div class="product-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.06); border:1px solid #eee; border-radius:10px; overflow:hidden; background:#fff; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+             <div class="product-image" style="height: 180px; width: 100%; overflow: hidden; background: #fafafa;">
+               <a href="product-detail.html?id=${pid}"><img src="${img}" alt="${p.title}" style="width:100%; height:100%; object-fit:contain;"></a>
              </div>
-             <div class="product-info">
-               <a href="product-detail.html?id=${p.id}" style="text-decoration:none; color:inherit;"><h3>${p.title}</h3></a>
-               <div class="product-price">
-                 <span class="current-price" style="font-size:18px;">${money(p.price)}</span>
+             <div class="product-info" style="padding:15px;">
+               <a href="product-detail.html?id=${pid}" style="text-decoration:none; color:#222;"><h3 style="font-size:14px; font-weight:600; line-height:1.4; height:40px; overflow:hidden; margin-bottom:8px;">${p.title}</h3></a>
+               <div class="product-price" style="margin-bottom:12px;">
+                 <span class="current-price" style="font-size:16px; font-weight:700; color:var(--primary-color);">${money(pPrice)}</span>
                </div>
-               <button class="btn btn-cart" onclick="addToCartSimple('${p.id}')">View</button>
+               <button class="btn btn-cart" style="width:100%; font-size:13px; padding:8px 0; border-radius:6px; background:var(--primary-color); color:#fff; border:none; cursor:pointer;" onclick="addToCartSimple('${pid}')">View Product</button>
              </div>
            </div>
          `;
