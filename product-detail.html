@@ -998,8 +998,14 @@
       } else {
         document.getElementById("loadingState").style.display = "none";
         document.getElementById("notFound").style.display = "none";
-        renderProduct(currentProduct);
-        document.getElementById("productGrid").style.display = "block";
+        document.getElementById("productGrid").style.display = "block"; // Make visible immediately!
+        
+        try {
+          renderProduct(currentProduct);
+        } catch (renderErr) {
+          console.error("renderProduct error:", renderErr);
+        }
+        
         saveRecentlyViewed(currentProduct);
         loadRelated(allProducts, currentProduct);
       }
@@ -1016,9 +1022,20 @@
     function renderProduct(p) {
       document.title = p.title + " - MakertMyn";
 
+      // Smart subcategory fallback mapping if not explicitly set
+      const defaultSubCats = {
+        'Toys & Games': 'Board Games & Toys',
+        'Toys': 'Board Games & Toys',
+        'Electronics': 'Gadgets & Accessories',
+        'Sports': 'Fitness & Outdoor',
+        'Fashion': 'Apparel & Accessories',
+        'Home': 'Home & Kitchen',
+        'Home & Garden': 'Home Decor'
+      };
+
       // Breadcrumb (Main Category -> Subcategory -> Product Title)
       let mainCat = p.category || 'General';
-      let subCat = p.subCategory || p.subcategory || '';
+      let subCat = p.subCategory || p.subcategory || defaultSubCats[mainCat] || 'Featured Items';
 
       if (mainCat.includes('>')) {
         const parts = mainCat.split('>').map(s => s.trim());
@@ -1107,8 +1124,13 @@
       }
 
       // Description
-      document.getElementById("shortDesc").textContent = p.desc.substring(0, 150) + "...";
-      document.getElementById("fullDesc").textContent = p.desc;
+      const descText = p.desc || p.description || "No description available for this item.";
+      if (document.getElementById("shortDesc")) {
+        document.getElementById("shortDesc").textContent = descText.length > 150 ? descText.substring(0, 150) + "..." : descText;
+      }
+      if (document.getElementById("fullDesc")) {
+        document.getElementById("fullDesc").textContent = descText;
+      }
 
       // Variations
       const varCont = document.getElementById("variationsContainer");
