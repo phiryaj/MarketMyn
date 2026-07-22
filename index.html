@@ -853,6 +853,65 @@
     }
     fetchActivePromotions();
   </script>
+  <!-- APP LIKE BOTTOM NAV (MOBILE) -->
+  <div class="app-bottom-nav">
+    <a href="index.html" class="app-nav-item active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="category.html" class="app-nav-item">
+      <i class="fas fa-th-large"></i>
+      <span>Explore</span>
+    </a>
+    <a href="#" class="app-nav-item" onclick="openCartPanel(); return false;">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Cart</span>
+    </a>
+    <a href="account.html" class="app-nav-item">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <style>
+    .app-bottom-nav {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .app-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+        z-index: 1000;
+        justify-content: space-around;
+        padding: 12px 0 15px 0;
+        border-top: 1px solid #e2e8f0;
+      }
+      .app-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #64748b;
+        font-size: 11px;
+        text-decoration: none;
+        font-weight: 600;
+        gap: 5px;
+      }
+      .app-nav-item i {
+        font-size: 22px;
+      }
+      .app-nav-item.active {
+        color: var(--primary-color, #002040);
+      }
+      body {
+        padding-bottom: 70px;
+      }
+    }
+  </style>
 </body>
 
 </html>

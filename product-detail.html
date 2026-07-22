@@ -569,7 +569,7 @@
       background: #f7fafa;
     }
 
-    /* Responsive Grid */
+    /* Responsive Grid & App-Like View */
     @media (max-width: 1100px) {
       .product-main-grid {
         grid-template-columns: 320px 1fr;
@@ -577,6 +577,11 @@
       .buy-box-card {
         grid-column: 1 / -1;
         position: static;
+        margin-top: 20px;
+      }
+      /* Trust strip tablet */
+      .trust-strip-amz {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -592,12 +597,67 @@
         width: 100%;
         overflow-x: auto;
       }
+      /* App-like bottom nav padding */
+      body {
+        padding-bottom: 70px;
+      }
     }
+
+    /* Fixed broken variant label CSS */
+    .variant-label {
       font-weight: 800;
       font-size: 13px;
       margin-bottom: 8px;
       display: block;
       color: #333;
+    }
+
+    /* Mobile App-Like Bottom Nav */
+    .app-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .app-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+        z-index: 1000;
+        justify-content: space-around;
+        padding: 12px 0 15px 0;
+        border-top: 1px solid #e2e8f0;
+      }
+      .app-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #64748b;
+        font-size: 11px;
+        text-decoration: none;
+        font-weight: 600;
+        gap: 5px;
+      }
+      .app-nav-item i {
+        font-size: 22px;
+      }
+      .app-nav-item.active {
+        color: var(--primary-color, #002040);
+      }
+      /* Adjust buy box for mobile */
+      .buy-box-card {
+        padding: 15px;
+        margin-top: 15px;
+      }
+      .trust-strip-amz {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .quick-specs-grid {
+        grid-template-columns: 100px 1fr;
+      }
     }
 
     .swatches {
@@ -1210,7 +1270,7 @@
                 <span class="payment-badge" style="font-size:12px; font-weight:600; color:#334155; display:block; margin-bottom:12px;">
                   <i class="fas fa-lock" style="color:#10b981;"></i> Secure Encrypted Checkout
                 </span>
-                <div style="display:flex; justify-content:center; gap:12px; font-size: 28px; align-items: center;">
+                <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px; font-size: 28px; align-items: center;">
                   <img src="assets/ozow-logo.png" alt="Ozow" style="height:18px;">
                   <img src="assets/payfast-logo.png" alt="PayFast" style="height:22px;">
                   <i class="fab fa-cc-visa" style="color: #1a1f71;"></i>
@@ -2087,7 +2147,7 @@
 
 
   <!-- STICKY MOBILE BUY BAR -->
-  <div class="mobile-sticky-bar" style="position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e2e8f0; padding: 10px 16px; display: none; align-items: center; justify-content: space-between; z-index: 999; box-shadow: 0 -4px 20px rgba(0,0,0,0.12);">
+  <div class="mobile-sticky-bar" style="position: fixed; bottom: 65px; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e2e8f0; padding: 10px 16px; display: none; align-items: center; justify-content: space-between; z-index: 999; box-shadow: 0 -4px 20px rgba(0,0,0,0.12);">
     <div style="flex: 1; overflow: hidden; padding-right: 12px;">
       <div style="font-size: 12px; color: #475569; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickyTitle">Product Title</div>
       <div style="font-size: 16px; font-weight: 800; color: var(--primary-color, #002040);" id="stickyPrice">R0</div>
@@ -2098,13 +2158,33 @@
     </div>
   </div>
 
+  <!-- APP LIKE BOTTOM NAV (MOBILE) -->
+  <div class="app-bottom-nav">
+    <a href="index.html" class="app-nav-item">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="category.html" class="app-nav-item">
+      <i class="fas fa-th-large"></i>
+      <span>Explore</span>
+    </a>
+    <a href="#" class="app-nav-item" onclick="openCartPanel(); return false;">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Cart</span>
+    </a>
+    <a href="account.html" class="app-nav-item">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </div>
+
   <style>
     @media (max-width: 768px) {
       .mobile-sticky-bar {
         display: flex !important;
       }
       body {
-        padding-bottom: 70px;
+        padding-bottom: 140px; /* Space for both bars */
       }
     }
   </style>
