@@ -9,21 +9,24 @@ html {
 }
 
 :root {
-  --primary-color: #ff6b00;
-  --secondary-color: #0071ce;
-  --accent-color: #ffc220;
+  /* Logo Colors extracted from logo.png */
+  --primary-color: #002040; /* Dark Navy Blue */
+  --secondary-color: #FF0040; /* Vibrant Red/Pink */
+  --accent-color: #FFE000; /* Yellow */
   --game-pink: #e00073;
   --makro-teal: #009a96;
   --takealot-blue: #0b79bf;
   --takealot-green: #1b991b;
+  
+  /* Backgrounds & Text */
   --dark: #1a1a1a;
   --light: #ffffff;
   --gray: #f8fafc;
   --text-dark: #1e293b;
   --text-light: #64748b;
   --border: #e2e8f0;
-  --success: #1b991b;
-  --danger: #e00073;
+  --success: #20A040; /* Green from logo */
+  --danger: #C00020; /* Dark Red from logo */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
