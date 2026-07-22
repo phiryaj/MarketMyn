@@ -376,9 +376,86 @@
 
     .stock-green {
       color: #007600;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
       margin-bottom: 12px;
+    }
+
+    /* Walmart-style Fulfillment Grid */
+    .fulfillment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .fulfill-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 5px;
+      text-align: center;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 85px;
+    }
+
+    .fulfill-card.active {
+      border: 2px solid var(--primary-color, #002040);
+      background: #f8fbff;
+    }
+
+    /* Quantity Stepper */
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 25px;
+      overflow: hidden;
+      width: 140px;
+      height: 40px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+
+    .qty-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 40px;
+      height: 100%;
+      font-size: 18px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .qty-input {
+      flex: 1;
+      border: none;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1111;
+      height: 100%;
+      width: 100%;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .qty-dropdown-amz {
@@ -1055,25 +1132,36 @@
             <div class="buy-box-card">
               <div class="buybox-price" id="buyboxPrice">R0</div>
 
-              <div class="delivery-line-amz">
-                <i class="fas fa-truck" style="color:#007185;"></i> <b>FREE delivery</b> <b id="deliveryDateB">Tomorrow</b>.
-                Order within <span style="color:#007600; font-weight:600;">3 hrs 24 mins</span>.
+              <div style="font-weight:700; margin-bottom: 10px; font-size:14px; color:#111;">How you'll get this item:</div>
+              <div class="fulfillment-grid">
+                <div class="fulfill-card active">
+                  <i class="fas fa-shipping-fast" style="font-size:24px; color:var(--primary-color, #002040); margin-bottom:8px;"></i>
+                  <div style="font-weight:700; font-size:13px; color:#111;">Shipping</div>
+                  <div style="font-size:11px; color:#007600; font-weight:600; margin-top:4px;" id="dynamicDeliveryDate">Arrives soon</div>
+                </div>
+                <div class="fulfill-card">
+                  <i class="fas fa-store" style="font-size:24px; color:#64748b; margin-bottom:8px;"></i>
+                  <div style="font-weight:700; font-size:13px; color:#64748b;">Pickup</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:4px;">Check nearby</div>
+                </div>
+                <div class="fulfill-card">
+                  <i class="fas fa-motorcycle" style="font-size:24px; color:#64748b; margin-bottom:8px;"></i>
+                  <div style="font-weight:700; font-size:13px; color:#64748b;">Delivery</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:4px;">Not available</div>
+                </div>
               </div>
 
-              <div class="location-selector" onclick="alert('Delivering nationwide across South Africa.')">
-                <i class="fas fa-location-dot" style="color:#565959;"></i> Delivering to South Africa - <span style="text-decoration:underline;">Update location</span>
+              <div class="location-selector" onclick="alert('Delivering nationwide across South Africa.')" style="margin-top: 15px; margin-bottom: 20px;">
+                Ships to <span style="text-decoration:underline; font-weight:700; color:#111;">South Africa</span>
               </div>
 
               <div class="stock-green" id="stockStatusGreen">In stock</div>
 
-              <select class="qty-dropdown-amz" id="qtyDropdownSelect" onchange="document.getElementById('qtyInput').value = this.value;">
-                <option value="1">Quantity: 1</option>
-                <option value="2">Quantity: 2</option>
-                <option value="3">Quantity: 3</option>
-                <option value="4">Quantity: 4</option>
-                <option value="5">Quantity: 5</option>
-              </select>
-              <input type="hidden" id="qtyInput" value="1">
+              <div class="qty-stepper">
+                <button class="qty-btn" onclick="document.getElementById('qtyInput').stepDown()">-</button>
+                <input type="number" id="qtyInput" class="qty-input" value="1" min="1" max="10">
+                <button class="qty-btn" onclick="document.getElementById('qtyInput').stepUp()">+</button>
+              </div>
 
               <button class="btn-amz-cart" onclick="productAction('add')">
                 <i class="fas fa-shopping-cart" style="margin-right: 5px;"></i> Add to Cart
@@ -1095,12 +1183,16 @@
               </button>
 
               <!-- Payment Logos inside Buy Box -->
-              <div class="payment-logos" style="margin-top: 15px; border-top: 1px solid #e7e7e7; padding-top: 12px; text-align:center;">
-                <span class="payment-badge" style="font-size:11px; color:#555; display:block; margin-bottom:6px;"><i class="fas fa-lock" style="color:#007600;"></i> 100% Encrypted Checkout:</span>
-                <img src="assets/visa-logo.png" alt="Visa" style="height:20px; vertical-align:middle; margin-right:4px;">
-                <img src="assets/mastercard-logo.png" alt="Mastercard" style="height:20px; vertical-align:middle; margin-right:4px;">
-                <img src="assets/ozow-logo.png" alt="Ozow" style="height:20px; vertical-align:middle; margin-right:4px;">
-                <img src="assets/payfast-logo.png" alt="PayFast" style="height:20px; vertical-align:middle;">
+              <div class="payment-logos" style="margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 16px; text-align:center;">
+                <span class="payment-badge" style="font-size:12px; font-weight:600; color:#334155; display:block; margin-bottom:10px;">
+                  <i class="fas fa-lock" style="color:#10b981;"></i> Secure Encrypted Checkout
+                </span>
+                <div style="display:flex; justify-content:center; gap:12px; font-size: 26px; color: #64748b;">
+                  <i class="fab fa-cc-visa"></i>
+                  <i class="fab fa-cc-mastercard"></i>
+                  <i class="fab fa-cc-paypal"></i>
+                  <i class="fab fa-cc-stripe"></i>
+                </div>
               </div>
 
               <!-- Vendor Box (if 3rd party) -->
@@ -1112,6 +1204,14 @@
                 </div>
               </div>
             </div>
+            <script>
+              // Dynamic delivery date (Today + 4 days)
+              const today = new Date();
+              today.setDate(today.getDate() + 4);
+              const options = { weekday: 'short', month: 'short', day: 'numeric' };
+              const dateString = today.toLocaleDateString('en-US', options);
+              document.getElementById('dynamicDeliveryDate').textContent = "Arrives by " + dateString;
+            </script>
           </div>
 
         </div>
