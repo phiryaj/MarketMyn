@@ -765,69 +765,6 @@
               </div>
               <button class="btn-action btn-add" onclick="productAction('add')">
                 <i class="fas fa-shopping-cart"></i> Add to Cart
-              </button>
-              <button class="btn-action btn-buy" onclick="productAction('buy')">
-                Buy Now
-              </button>
-              <button class="btn-wish" title="Add to Wishlist"><i class="far fa-heart"></i></button>
-            </div>
-
-            <!-- Payment Logos -->
-            <div class="payment-logos">
-              <span class="payment-badge"><i class="fas fa-credit-card" style="color:#555;"></i> Pay With:</span>
-              <img src="assets/visa-logo.png" alt="Visa" style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/mastercard-logo.png" alt="Mastercard"
-                style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/ozow-logo.png" alt="Ozow" style="height:24px; vertical-align:middle; margin-right:5px;">
-              <img src="assets/payfast-logo.png" alt="PayFast" style="height:24px; vertical-align:middle;">
-            </div>
-
-            <!-- Vendor -->
-            <!-- Vendor Visible (No Direct Contact) -->
-            <div class="vendor-box">
-              <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor">
-              <div class="vendor-details">
-                <div>Sold by</div>
-                <a href="#" class="vendor-name" id="vendorNameLink" onclick="return false;">Vendor Name</a>
-                <div style="font-size:12px; color:#f39c12; margin-top:2px;">
-                  <i class="fas fa-star"></i> 4.8 (Verified Seller)
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- BOTTOM CARD: TABS -->
-        <div class="product-tabs-container" id="detailsSection">
-          <div class="tab-headers">
-            <button class="tab-btn active" onclick="switchTab('desc')">Description</button>
-            <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
-            <button class="tab-btn" onclick="switchTab('reviews')" id="reviewsTabBtn">Reviews (0)</button>
-          </div>
-
-          <div id="tab-desc" class="tab-content active">
-            <p id="fullDesc">Full description goes here.</p>
-          </div>
-
-          <div id="tab-specs" class="tab-content">
-            <div id="specsContainer">No specifications available.</div>
-          </div>
-
-          <div id="tab-reviews" class="tab-content">
-            <div id="reviewsContainer">
-              <p>No reviews yet.</p>
-              <br>
-              <button class="btn-action btn-add" style="width:auto; height:40px; font-size:14px;">Write a
-                Review</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- YOU MIGHT ALSO LIKE / RELATED PRODUCTS -->
-        <div class="related-section">
-          <h3 style="margin-bottom:20px; font-size:24px; font-weight:700;">You Might Also Like</h3>
-          <div class="related-grid" id="relatedGrid">
             <!-- JS Populated -->
           </div>
         </div>
@@ -1128,6 +1065,8 @@
 
       // Price
       document.getElementById("currPrice").textContent = money(p.price);
+      if (document.getElementById("stickyTitle")) document.getElementById("stickyTitle").textContent = p.title;
+      if (document.getElementById("stickyPrice")) document.getElementById("stickyPrice").textContent = money(p.price);
       if (p.oldPrice && p.oldPrice > p.price) {
         document.getElementById("oldPrice").style.display = "inline";
         document.getElementById("oldPrice").textContent = money(p.oldPrice);
@@ -1511,6 +1450,29 @@
   </div>
 
 
+
+  <!-- STICKY MOBILE BUY BAR -->
+  <div class="mobile-sticky-bar" style="position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e2e8f0; padding: 10px 16px; display: none; align-items: center; justify-content: space-between; z-index: 999; box-shadow: 0 -4px 20px rgba(0,0,0,0.12);">
+    <div style="flex: 1; overflow: hidden; padding-right: 12px;">
+      <div style="font-size: 12px; color: #475569; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickyTitle">Product Title</div>
+      <div style="font-size: 16px; font-weight: 800; color: var(--primary-color, #002040);" id="stickyPrice">R0</div>
+    </div>
+    <div style="display: flex; gap: 8px; flex-shrink: 0;">
+      <button onclick="productAction('add')" style="background: #002040; color: white; border: none; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;">Add to Cart</button>
+      <button onclick="productAction('buy')" style="background: var(--secondary-color, #FF0040); color: white; border: none; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;">Buy Now</button>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 768px) {
+      .mobile-sticky-bar {
+        display: flex !important;
+      }
+      body {
+        padding-bottom: 70px;
+      }
+    }
+  </style>
 
   <script src="menu.js"></script>
 </body>
