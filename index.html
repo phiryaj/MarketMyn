@@ -443,36 +443,37 @@
       const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
       const savings = p.originalPrice ? (p.originalPrice - p.price) : 0;
       
-      card.innerHTML = `
-        ${discount > 0 ? `<span class="product-badge">Save R${savings.toLocaleString()}</span>` : ''}
-        <div class="product-image">
-          <a href="product-detail.html?id=${encodeURIComponent(p.id)}">
-            <img src="${p.image || p.images[0]}" alt="${p.title}" loading="lazy">
-          </a>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-        </div>
-        <div class="product-info">
-          ${(p.vendor && p.vendor !== 'MakertMyn Official' && p.vendor !== 'MakertMyn Admin') ? `<a href="category.html?vendor=${encodeURIComponent(p.vendor)}" class="product-vendor">${p.vendor}</a>` : ''}
-          <a href="product-detail.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit;">
-            <h3>${p.title}</h3>
-          </a>
-          <div class="product-rating">
-            ${renderStars(p.rating)} <span>(${p.reviews || 0})</span>
+        const pid = p._id || p.id;
+        card.innerHTML = `
+          ${discount > 0 ? `<span class="product-badge">Save R${savings.toLocaleString()}</span>` : ''}
+          <div class="product-image">
+            <a href="product-detail.html?id=${encodeURIComponent(pid)}">
+              <img src="${p.image || (p.images && p.images[0])}" alt="${p.title}" loading="lazy">
+            </a>
+            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
           </div>
-          <div class="product-stock-label stock-in">
-             <i class="fas fa-check-circle"></i> In stock
+          <div class="product-info">
+            ${(p.vendor && p.vendor !== 'MakertMyn Official' && p.vendor !== 'MakertMyn Admin') ? `<a href="category.html?vendor=${encodeURIComponent(p.vendor)}" class="product-vendor">${p.vendor}</a>` : ''}
+            <a href="product-detail.html?id=${encodeURIComponent(pid)}" style="text-decoration:none;color:inherit;">
+              <h3>${p.title}</h3>
+            </a>
+            <div class="product-rating">
+              ${renderStars(p.rating)} <span>(${p.reviews || 0})</span>
+            </div>
+            <div class="product-stock-label stock-in">
+               <i class="fas fa-check-circle"></i> In stock
+            </div>
+            <div class="delivery-note">
+               <i class="fas fa-truck"></i> Get it by Wed, 14 May
+            </div>
+            <div class="product-price">
+              <span class="current-price">R${p.price.toLocaleString("en-ZA")}</span>
+              ${p.originalPrice ? `<span class="original-price">R${p.originalPrice.toLocaleString("en-ZA")}</span>` : ''}
+            </div>
+            <button class="btn btn-cart" onclick="location.href='product-detail.html?id=${encodeURIComponent(pid)}'">
+              <i class="fas fa-plus"></i> View Product
+            </button>
           </div>
-          <div class="delivery-note">
-             <i class="fas fa-truck"></i> Get it by Wed, 14 May
-          </div>
-          <div class="product-price">
-            <span class="current-price">R${p.price.toLocaleString("en-ZA")}</span>
-            ${p.originalPrice ? `<span class="original-price">R${p.originalPrice.toLocaleString("en-ZA")}</span>` : ''}
-          </div>
-          <button class="btn btn-cart" onclick="location.href='product-detail.html?id=${encodeURIComponent(p.id)}'">
-            <i class="fas fa-plus"></i> Add to Cart
-          </button>
-        </div>
       `;
       return card;
     }

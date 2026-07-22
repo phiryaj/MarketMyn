@@ -666,6 +666,8 @@
         <li><a href="index.html">Home</a></li>
         <li><i class="fas fa-chevron-right" style="font-size:10px;"></i></li>
         <li><a href="#" id="breadCategory">Category</a></li>
+        <li id="breadSubCategorySep" style="display:none;"><i class="fas fa-chevron-right" style="font-size:10px;"></i></li>
+        <li id="breadSubCategoryItem" style="display:none;"><a href="#" id="breadSubCategory">Subcategory</a></li>
         <li><i class="fas fa-chevron-right" style="font-size:10px;"></i></li>
         <li style="color:#333; font-weight:600;" id="breadTitle">Product</li>
       </ul>
@@ -1014,10 +1016,39 @@
     function renderProduct(p) {
       document.title = p.title + " - MakertMyn";
 
-      // Breadcrumb
-      document.getElementById("breadCategory").textContent = p.category;
-      document.getElementById("breadCategory").href = `category.html?category=${encodeURIComponent(p.category)}`;
-      document.getElementById("breadTitle").textContent = p.title;
+      // Breadcrumb (Main Category -> Subcategory -> Product Title)
+      let mainCat = p.category || 'General';
+      let subCat = p.subCategory || p.subcategory || '';
+
+      if (mainCat.includes('>')) {
+        const parts = mainCat.split('>').map(s => s.trim());
+        mainCat = parts[0];
+        subCat = parts[1];
+      }
+
+      const breadCat = document.getElementById("breadCategory");
+      if (breadCat) {
+        breadCat.textContent = mainCat;
+        breadCat.href = `category.html?category=${encodeURIComponent(mainCat)}`;
+      }
+
+      const subSep = document.getElementById("breadSubCategorySep");
+      const subItem = document.getElementById("breadSubCategoryItem");
+      const subLink = document.getElementById("breadSubCategory");
+
+      if (subCat && subSep && subItem && subLink) {
+        subSep.style.display = 'inline-block';
+        subItem.style.display = 'inline-block';
+        subLink.textContent = subCat;
+        subLink.href = `category.html?category=${encodeURIComponent(mainCat)}&sub=${encodeURIComponent(subCat)}`;
+      } else if (subSep && subItem) {
+        subSep.style.display = 'none';
+        subItem.style.display = 'none';
+      }
+
+      if (document.getElementById("breadTitle")) {
+        document.getElementById("breadTitle").textContent = p.title;
+      }
 
       // Gallery
       const main = document.getElementById("mainImage");
