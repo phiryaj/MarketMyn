@@ -49,13 +49,14 @@
     }
 
     .breadcrumb a {
-      color: #007185;
+      color: var(--primary-color, #002040);
       text-decoration: none;
+      font-weight: 500;
     }
 
     .breadcrumb a:hover {
-      color: #c7511f;
-      text-decoration: underline;
+      color: var(--accent-color, #FF0040);
+      text-decoration: none;
     }
 
     /* 3-Column Grid Layout */
@@ -87,20 +88,20 @@
     }
 
     .thumb-v {
-      width: 46px;
-      height: 46px;
-      border: 1px solid #a8a8a8;
-      border-radius: 4px;
+      width: 50px;
+      height: 50px;
+      border: 2px solid transparent;
+      border-radius: 8px;
       cursor: pointer;
-      padding: 2px;
-      background: #fff;
-      transition: all 0.1s;
+      padding: 4px;
+      background: #f8f9fa;
+      transition: all 0.2s ease;
     }
 
     .thumb-v.active,
     .thumb-v:hover {
-      border-color: #e77600;
-      box-shadow: 0 0 3px rgba(228, 121, 17, 0.5);
+      border-color: var(--primary-color, #002040);
+      background: #fff;
     }
 
     .thumb-v img {
@@ -111,11 +112,11 @@
 
     .main-image-frame {
       flex: 1;
-      height: 420px;
-      border-radius: 4px;
+      height: 440px;
+      border-radius: 12px;
       overflow-x: auto;
       overflow-y: hidden;
-      border: 1px solid #e7e7e7;
+      border: none;
       display: flex;
       align-items: center;
       background: #fff;
@@ -150,15 +151,18 @@
 
     .brand-link {
       font-size: 13px;
-      color: #007185;
+      color: var(--primary-color, #002040);
       text-decoration: none;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .brand-link:hover {
-      color: #c7511f;
-      text-decoration: underline;
+      color: var(--accent-color, #FF0040);
+      text-decoration: none;
     }
 
     .rating-row {
@@ -172,17 +176,18 @@
     }
 
     .stars {
-      color: #de7921;
-      font-size: 13px;
+      color: #FFB800;
+      font-size: 14px;
     }
 
     .review-link {
-      color: #007185;
+      color: var(--primary-color, #002040);
       text-decoration: none;
+      font-weight: 500;
     }
 
     .review-link:hover {
-      color: #c7511f;
+      color: var(--accent-color, #FF0040);
       text-decoration: underline;
     }
 
@@ -195,13 +200,14 @@
 
     .deal-badge-red {
       display: inline-block;
-      background: #cc0c39;
+      background: var(--accent-color, #FF0040);
       color: #fff;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 2px;
+      padding: 4px 10px;
+      border-radius: 6px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 8px;
     }
 
@@ -212,9 +218,9 @@
     }
 
     .discount-percent {
-      color: #cc0c39;
-      font-size: 24px;
-      font-weight: 400;
+      color: var(--accent-color, #FF0040);
+      font-size: 26px;
+      font-weight: 800;
     }
 
     .current-price-amz {
@@ -267,15 +273,17 @@
     .trust-item-amz {
       text-align: center;
       font-size: 11px;
-      color: #007185;
+      color: var(--primary-color, #002040);
+      font-weight: 600;
       width: 70px;
     }
 
     .trust-item-amz i {
-      font-size: 18px;
+      font-size: 20px;
       display: block;
-      margin-bottom: 4px;
-      color: #565959;
+      margin-bottom: 6px;
+      color: var(--primary-color, #002040);
+      opacity: 0.8;
     }
 
     /* Quick Specs Table */
@@ -328,40 +336,41 @@
 
     /* Right Column: Amazon Buy Box Card */
     .buy-box-card {
-      border: 1px solid #d5d9d9;
-      border-radius: 8px;
-      padding: 16px;
+      border: 1px solid #f0f0f0;
+      border-radius: 16px;
+      padding: 24px;
       background: #fff;
       position: sticky;
       top: 90px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
     }
 
     .buybox-price {
-      font-size: 24px;
-      font-weight: 700;
-      color: #b12704;
-      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary-color, #002040);
+      margin-bottom: 12px;
     }
 
     .delivery-line-amz {
       font-size: 13px;
-      line-height: 1.4;
-      color: #0f1111;
-      margin-bottom: 10px;
+      line-height: 1.5;
+      color: #444;
+      margin-bottom: 15px;
     }
 
     .delivery-line-amz b {
-      color: #0f1111;
+      color: #111;
     }
 
     .location-selector {
-      font-size: 12px;
-      color: #007185;
+      font-size: 13px;
+      color: var(--primary-color, #002040);
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 15px;
       cursor: pointer;
     }
 
@@ -374,54 +383,61 @@
 
     .qty-dropdown-amz {
       width: 100%;
-      padding: 6px 10px;
-      border-radius: 7px;
-      border: 1px solid #d5d9d9;
-      background: #f0f2f2;
-      font-size: 13px;
-      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 16px;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(15, 17, 17, 0.15);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    
+    .qty-dropdown-amz:focus {
+      border-color: var(--primary-color, #002040);
     }
 
     .btn-amz-cart {
       width: 100%;
-      background: #ffd814;
-      border: 1px solid #fcd200;
-      color: #0f1111;
+      background: #fff;
+      border: 2px solid var(--primary-color, #002040);
+      color: var(--primary-color, #002040);
       font-weight: 700;
-      font-size: 13px;
-      padding: 9px 0;
-      border-radius: 20px;
+      font-size: 14px;
+      padding: 12px 0;
+      border-radius: 8px;
       cursor: pointer;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
-      transition: background 0.15s;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
     }
 
     .btn-amz-cart:hover {
-      background: #f7ca00;
-      border-color: #f2c200;
+      background: #f8f9fa;
+      transform: translateY(-1px);
     }
 
     .btn-amz-buy {
       width: 100%;
-      background: #ffa41c;
-      border: 1px solid #ff8f00;
-      color: #0f1111;
+      background: var(--primary-color, #002040);
+      border: none;
+      color: #fff;
       font-weight: 700;
-      font-size: 13px;
-      padding: 9px 0;
-      border-radius: 20px;
+      font-size: 14px;
+      padding: 14px 0;
+      border-radius: 8px;
       cursor: pointer;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
-      transition: background 0.15s;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0, 32, 64, 0.15);
+      transition: all 0.2s ease;
     }
 
     .btn-amz-buy:hover {
-      background: #fa8900;
-      border-color: #e27c00;
+      background: #00152b;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 32, 64, 0.2);
     }
 
     .ship-sold-grid {
