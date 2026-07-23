@@ -1215,27 +1215,22 @@
             <div class="buy-box-card">
               <div class="buybox-price" id="buyboxPrice">R0</div>
 
-              <div style="font-weight:700; margin-bottom: 10px; font-size:14px; color:#111;">How you'll get this item:</div>
-              <div class="fulfillment-grid">
-                <div class="fulfill-card active">
-                  <i class="fas fa-shipping-fast" style="font-size:24px; color:var(--primary-color, #002040); margin-bottom:8px;"></i>
-                  <div style="font-weight:700; font-size:13px; color:#111;">Shipping</div>
-                  <div style="font-size:11px; color:#007600; font-weight:600; margin-top:4px;" id="dynamicDeliveryDate">Arrives soon</div>
-                </div>
-                <div class="fulfill-card">
-                  <i class="fas fa-store" style="font-size:24px; color:#64748b; margin-bottom:8px;"></i>
-                  <div style="font-weight:700; font-size:13px; color:#64748b;">Pickup</div>
-                  <div style="font-size:11px; color:#64748b; margin-top:4px;">Check nearby</div>
-                </div>
-                <div class="fulfill-card">
-                  <i class="fas fa-motorcycle" style="font-size:24px; color:#64748b; margin-bottom:8px;"></i>
-                  <div style="font-weight:700; font-size:13px; color:#64748b;">Delivery</div>
-                  <div style="font-size:11px; color:#64748b; margin-top:4px;">Not available</div>
+              <div style="font-weight:700; margin-bottom: 12px; font-size:14px; color:#111;">How you'll get this item:</div>
+              <div class="fulfillment-grid" style="display: block;">
+                <div class="fulfill-card active" style="display: flex; align-items: center; gap: 15px; padding: 16px; border: 2px solid var(--primary-color, #002040); border-radius: 10px; background: #f8fafc;">
+                  <i class="fas fa-shipping-fast" style="font-size:28px; color:var(--primary-color, #002040);"></i>
+                  <div style="text-align: left; flex: 1;">
+                    <div style="font-weight:800; font-size:14px; color:#111; margin-bottom: 2px;">Shipping</div>
+                    <div style="font-size:12px; color:#007600; font-weight:700;" id="dynamicDeliveryDate">Arrives soon</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="location-selector" onclick="alert('Delivering nationwide across South Africa.')" style="margin-top: 15px; margin-bottom: 20px;">
-                Ships to <span style="text-decoration:underline; font-weight:700; color:#111;">South Africa</span>
+              <div class="mzansi-trust-badge" style="margin-top: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; background: #fff5f5; border: 1px solid #ffe4e6; padding: 12px; border-radius: 8px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg" alt="South Africa" style="width: 24px; height: 16px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <div style="font-size: 13px; font-weight: 700; color: #111;">
+                  Proudly Mzansi <span style="color: #64748b; font-weight: 500; margin-left: 4px;">| Local Support & Warranty</span>
+                </div>
               </div>
 
               <div class="stock-green" id="stockStatusGreen">In stock</div>
@@ -1267,15 +1262,15 @@
 
               <!-- Payment Logos inside Buy Box -->
               <div class="payment-logos" style="margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 18px; text-align:center;">
-                <span class="payment-badge" style="font-size:12px; font-weight:600; color:#334155; display:block; margin-bottom:12px;">
+                <span class="payment-badge" style="font-size:12px; font-weight:600; color:#334155; display:block; margin-bottom:14px;">
                   <i class="fas fa-lock" style="color:#10b981;"></i> Secure Encrypted Checkout
                 </span>
-                <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px; font-size: 28px; align-items: center;">
-                  <img src="assets/ozow-logo.png" alt="Ozow" style="height:18px;">
-                  <img src="assets/payfast-logo.png" alt="PayFast" style="height:22px;">
-                  <i class="fab fa-cc-visa" style="color: #1a1f71;"></i>
-                  <i class="fab fa-cc-mastercard" style="color: #eb001b;"></i>
-                  <i class="fab fa-cc-amex" style="color: #002663;"></i>
+                <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:16px; align-items: center; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <img src="assets/ozow-logo.png" alt="Ozow" style="height:18px; display:block;">
+                  <img src="assets/payfast-logo.png" alt="PayFast" style="height:22px; display:block;">
+                  <i class="fab fa-cc-visa" style="color: #1a1f71; font-size: 32px; display:block;"></i>
+                  <i class="fab fa-cc-mastercard" style="color: #eb001b; font-size: 32px; display:block;"></i>
+                  <i class="fab fa-cc-amex" style="color: #002663; font-size: 32px; display:block;"></i>
                 </div>
               </div>
 
