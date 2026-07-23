@@ -443,13 +443,21 @@
       const discount = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
       const savings = p.originalPrice ? (p.originalPrice - p.price) : 0;
       
-        const pid = p._id || p.id;
-        card.innerHTML = `
-          ${discount > 0 ? `<span class="product-badge">Save R${savings.toLocaleString()}</span>` : ''}
-          <div class="product-image">
-            <a href="product-detail.html?id=${encodeURIComponent(pid)}">
-              <img src="${p.image || (p.images && p.images[0])}" alt="${p.title}" loading="lazy">
-            </a>
+      const pid = p._id || p.id;
+      
+      let badgeHtml = '';
+      if (p.badgeText) {
+          badgeHtml = `<div class="promo-square-badge deal">${p.badgeText.replace(/ /g, '<br>')}</div>`;
+      } else if (discount > 0) {
+          badgeHtml = `<div class="promo-square-badge">UP TO<br><span>${discount}%</span><br>OFF</div>`;
+      }
+
+      card.innerHTML = `
+        ${badgeHtml}
+        <div class="product-image">
+          <a href="product-detail.html?id=${encodeURIComponent(pid)}">
+            <img src="${p.image || (p.images && p.images[0])}" alt="${p.title}" loading="lazy">
+          </a>
             <button class="wishlist-btn"><i class="far fa-heart"></i></button>
           </div>
           <div class="product-info">

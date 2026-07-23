@@ -1099,6 +1099,45 @@ body {
   color: var(--dark);
 }
 
+.promo-square-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+  color: #ffffff;
+  min-width: 54px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.2;
+  z-index: 5;
+  box-shadow: 0 6px 16px rgba(0, 85, 204, 0.35), 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover .promo-square-badge {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+.promo-square-badge span {
+  font-size: 15px;
+  line-height: 1;
+  margin: 1px 0;
+}
+
+.promo-square-badge.deal {
+  background: linear-gradient(135deg, #FF0040 0%, #cc0033 100%);
+  box-shadow: 0 6px 16px rgba(255, 0, 64, 0.35), 0 2px 4px rgba(0,0,0,0.1);
+}
+
 .product-image {
   position: relative;
   padding-top: 100%;
