@@ -1879,6 +1879,38 @@
       location.href = "product-detail.html?id=" + id;
     }
 
+    // Image Hover Zoom (Desktop Only)
+    const mainArea = document.getElementById("mainImageArea");
+    if (mainArea) {
+      mainArea.addEventListener("mouseenter", function () {
+        if (window.innerWidth > 768) mainArea.style.overflowX = 'hidden';
+      });
+      mainArea.addEventListener("mousemove", function (e) {
+        if (window.innerWidth <= 768) return; // PC only
+        if (e.target.tagName === 'IMG') {
+          const rect = e.target.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xPercent = (x / rect.width) * 100;
+          const yPercent = (y / rect.height) * 100;
+
+          e.target.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+          e.target.style.transform = "scale(2.5)";
+          e.target.style.cursor = "zoom-in";
+          e.target.style.transition = "transform 0.1s ease";
+        }
+      });
+      mainArea.addEventListener("mouseleave", function (e) {
+        if (window.innerWidth <= 768) return;
+        mainArea.style.overflowX = 'auto';
+        Array.from(mainArea.querySelectorAll("img")).forEach(img => {
+          img.style.transformOrigin = "center center";
+          img.style.transform = "scale(1)";
+          img.style.transition = "transform 0.3s ease";
+        });
+      });
+    }
+
     // Interactive functions
     window.scrollToImage = function (idx) {
       const el = document.getElementById(`img-${idx}`);
